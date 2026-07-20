@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishi Sakhi Portal </title>
+    <link rel="stylesheet" href="my.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+           <a href="index.html"> <img src="https://media.istockphoto.com/id/1045368942/vector/abstract-green-leaf-logo-icon-vector-design-ecology-icon-set-eco-icon.jpg?s=612x612&w=0&k=20&c=XIfHMI8r1G73blCpCBFmLIxCtOLx8qX0O3mZC9csRLs=" alt="Logo"></a>
+            <div>
+                <h2>Krishi Sakhi</h2>
+                <p>When AI Meets Farmers</p>
+            </div>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#feature">Features</a></li>
+            <li><a href="#mandi">Mandi Rates</a></li>
+            <li><a href="#schemesSection">Schemes</a></li>
+            <li><a href="#disease">Disease Detect</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Pets</a></li>
+        </ul>
+
+        <div class="nav-btns">
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <select id="langSelect">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="ur">Urdu</option>
+                <option value="pa">Punjabi</option>
+                <option value="bn">Bengali</option>
+                <option value="gu">Gujrati</option>
+            </select>
+
+             <a href="index.html"><button class="login-btn">
+               <i class="fa-solid fa-user"></i>
+                Login / Sign Up
+            </button></a>
+
+            <button class="hamburger" id="hamburger" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+
+        <div  class="hero-content">
+
+            <span class="badge">
+                🌱 AI POWERED FOR FARMERS
+            </span>
+
+            <h1>
+                Your Smart Farming <br>
+                <span>Companion 🌿</span>
+            </h1>
+
+            <p>
+                Get expert advice, weather updates, mandi rates,
+                government schemes and more — all in one place.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="javascript:void(0)" class="primary-btn" id="heroChatBtn">
+                    <i class="fa-solid fa-comments"></i>
+                    Chat with Krishi Sakhi
+                </a>
+
+                <a href="#feature" class="secondary-btn">
+                    <i class="fa-solid fa-play"></i>
+                    Explore Features
+                </a>
+            </div>
+
+            <div class="farmers">
+                <img src="https://i.pravatar.cc/40?img=1">
+                <img src="https://i.pravatar.cc/40?img=2">
+                <img src="https://i.pravatar.cc/40?img=3">
+                <img src="https://i.pravatar.cc/40?img=4">
+
+                <div>
+                    <strong>1000+ Farmers</strong>
+                    <p>trust Krishi Sakhi</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+            <img src="" alt="" />
+        </div>
+
+    </section>
+
+    <!--Features Section-->
+
+<div id="feature">
+    <div class="chatbox" id="openChatFeature">
+        <img src="https://www.svgrepo.com/show/474732/assistant.svg" alt="">
+        <a href="javascript:void(0)" class="active"><h3>AI ChatAssistant</h3>
+           <p class="para">Get instant answers in your language</p> 
+        </a>
+    </div>
+    <div class="chatbox">
+        <img src="https://www.svgrepo.com/show/502423/weather.svg" alt="">
+        <a href="#home"><h3>Weather Updates</h3>
+        <p class="para">Live weather and forecast</p></a>
+    </div>
+    <div class="chatbox">
+        <img src="https://www.svgrepo.com/show/923/leaf.svg" alt="">
+        <a href="#disease"><h3>Crop Disease Detection</h3>
+        <p class="para">Upload image & get AI analysis</p></a>
+    </div>
+    <div class="chatbox"><img src="https://www.svgrepo.com/show/31041/rupee.svg" alt="">
+        <a href="#mandi"><h3>Mandi Rates</h3>
+        <p class="para">Daily Mandi prices</p></a></div>
+    <div class="chatbox"><img src="https://www.svgrepo.com/show/421010/police-help-police-station.svg" alt="">
+        <a href="#schemesSection"><h3>Government Schemes</h3>
+        <p class="para">Find suitable schemes & benefits</p></a></div>
+    <div class="chatbox" id="openChatTips">
+        <img src="https://www.svgrepo.com/show/10038/house.svg" alt="">
+        <a href="javascript:void(0)"><h3>Farming Tips</h3>
+        <p class="para">Expert tips for better yeild</p></a></div>
+
+</div>
+
+    <!--Achivements Section-->
+
+    <div class="achiever">
+        <div class="assist">
+          <img src="https://images.vexels.com/media/users/3/157512/isolated/lists/d737a872708b488d89d0341ac9b8bc5a-people-contact-icon-people.png" alt="">  
+        <h3>1000+</h3>
+        <p class="para">Farmers Assisted</p></div>
+
+        <div class="line"></div>
+
+        <div class="assist">
+            <img src="https://www.svgrepo.com/show/454226/agriculture-wheat.svg" alt=""> 
+            <h3>500+</h3>
+        <p class="para">Disease Reports Analyzed </p></div>
+
+        <div class="line"></div>
+
+        <div class="assist">
+            <img src="https://www.svgrepo.com/show/491949/weather-color-sun-cloud.svg" alt="">  
+            <h3>95%</h3>
+        <p class="para">Weather Accuracy</p></div>
+
+        <div class="line"></div>
+
+        <div class="assist">
+            <img src="https://cdn-icons-png.magnific.com/512/3212/3212958.png" alt="">
+            <h3>200+</h3>
+        <p class="para">Goverment Schemes Listed</p></div>
+    </div>
+    
+    <!--Card Section-->
+    <div class="all">
+<div class="weather-card">
+
+    <div class="location">
+        <i class="fa-solid fa-location-dot"></i>
+        <div>
+            <h2>Weather Forecast</h2>
+            <p id="weatherLocation">Detecting location…</p>
+        </div>
+    </div>
+
+    <div class="weather-main">
+        <div class="sun-icon" id="weatherIcon">☀️</div>
+
+        <div class="temp-info">
+            <h1 id="weatherTemp">--°C</h1>
+            <p id="weatherDesc">Loading…</p>
+        </div>
+    </div>
+
+    <div class="weather-details">
+
+        <div class="detail">
+            <span><i class="fa-solid fa-droplet"></i> Humidity</span>
+            <strong id="weatherHumidity">--%</strong>
+        </div>
+
+        <div class="detail">
+            <span><i class="fa-solid fa-cloud-rain"></i> Rain Chance</span>
+            <strong id="weatherRain">--%</strong>
+        </div>
+
+        <div class="detail">
+            <span><i class="fa-solid fa-wind"></i> Wind Speed</span>
+            <strong id="weatherWind">-- km/h</strong>
+        </div>
+
+        <div class="detail">
+            <span><i class="fa-solid fa-sun"></i> Sunrise / Sunset</span>
+            <strong id="weatherSun">--:-- / --:--</strong>
+        </div>
+
+    </div>
+
+    <button class="forecast-btn" id="forecastBtn">
+        View Full Forecast
+    </button>
+    </div>
+
+    <div class="disease" id="disease">
+    <div class="notes"><h3>Crop Disease Detection</h3>
+    <p>Upload image of your crop leaf</p>
+
+        <label for="crop-image" class="upload-box" id="uploadBox">
+            <input type="file" id="crop-image" accept=".jpeg,.jpg,.png">
+            <img id="previewImg" class="preview-img" alt="Crop leaf preview">
+            <div class="upload-content" id="uploadContent">
+                <div class="upload-icon">☁️</div>
+                <h3>Drag & Drop or</h3>
+                <span>Choose Image</span>
+                <small>Supports: JPG, PNG (Max 5MB)</small>
+            </div>
+        </label>
+
+        <button class="analyze-btn" id="analyzeBtn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Analyze Leaf
+        </button>
+
+        <div class="disease-result" id="diseaseResult"></div>
+    </div>
+</div>
+
+<div class="mandi" id="mandi">
+    <div class="rates"><h3> Mandi Rates</h3>
+        <p id="today">(Today)</p>
+<button class="view" id="mandiViewAll">View All</button></div>
+
+<input type="text" id="mandiSearch" class="mini-search" placeholder="Search crop (e.g. Wheat, गेहूँ)...">
+
+<div class="line"></div>
+
+<div id="mandiList">
+<div class="rates" data-crop="Wheat गेहूँ"><span>
+    <i class="fa-solid fa-wheat-awn"></i>
+    Wheat (गेहूँ)
+</span>
+
+<strong>₹2420/क्विंटल</strong>
+</div>
+
+<div class="line"></div>
+
+<div class="rates" data-crop="Rice चावल"><span><i class="fa-solid fa-rice-awn"> </i>
+    Rice (चावल)
+    </span>
+
+<strong>₹2300/क्विंटल</strong>
+</div>
+
+<div class="line"></div>
+
+<div class="rates" data-crop="Maize मक्का"><span><i class="fa-solid fa-maize-awn"> </i>
+    Maize (मक्का)
+</span>
+
+<strong>₹2100/क्विंटल</strong>
+
+</div>
+
+<div class="line"></div>
+
+<div class="rates" data-crop="Pulses दाल"><span><i class="fa-solid fa-pulse-awn"> </i>
+    Pulses (दाल)
+</span>
+
+<strong>₹5650/क्विंटल</strong>
+</div>
+
+<div class="line"></div>
+
+<div class="rates" data-crop="Mustard सरसों"><span><i class="fa-solid fa-mustard-awn"> </i>
+    Mustard (सरसों)
+</span>
+<strong>₹6000/क्विंटल</strong></div>
+</div>
+
+<p class="no-results" id="mandiNoResults">No crops match your search.</p>
+</div>
+ 
+<div class="schemes-container" id="schemesSection">
+
+    <div class="scheme-header">
+        <h2>Government Schemes</h2>
+        <button class="view-btn" id="schemesViewAll">View All</button>
+    </div>
+
+    <input type="text" id="schemeSearch" class="mini-search" placeholder="Search a scheme...">
+
+    <div id="schemesList">
+    <!-- Scheme Card 1 -->
+    <div class="scheme-card" data-name="PM Kisan Samman Nidhi">
+        <div class="scheme-icon">🌱</div>
+
+        <div class="scheme-content">
+            <h3>PM Kisan Samman Nidhi</h3>
+            <p>₹6000 per year assistance</p>
+            <a href="https://pmkisan.gov.in/">View Details</a>
+        </div>
+    </div>
+
+    <!-- Scheme Card 2 -->
+    <div class="scheme-card" data-name="Kisan Credit Card">
+        <div class="scheme-icon">💳</div>
+
+        <div class="scheme-content">
+            <h3>Kisan Credit Card</h3>
+            <p>Easy loans for farmers</p>
+            <a href="https://fasalrin.gov.in/">View Details</a>
+        </div>
+    </div>
+
+    <!-- Scheme Card 3 -->
+    <div class="scheme-card" data-name="PM Fasal Bima Yojana">
+        <div class="scheme-icon">🌾</div>
+
+        <div class="scheme-content">
+            <h3>PM Fasal Bima Yojana</h3>
+            <p>Crop insurance for farmers</p>
+            <a href="https://pmfby.gov.in/">View Details</a>
+        </div>
+    </div>
+    </div>
+
+    <p class="no-results" id="schemesNoResults">No schemes match your search.</p>
+
+</div>
+</div>
+ <section class="krishi-section">
+
+    <!-- Testimonial Box -->
+    <div class="testimonial-box">
+
+        <h2>What Farmers Say</h2>
+
+        <div class="quote-icon">❝</div>
+
+        <p class="testimonial-text" id="testimonialText">
+            Krishi Sakhi ने मेरी फसल में बीमारी को समय पर पहचानने
+            में मदद की और सही सलाह दी। इससे मेरी फसल बच गई।
+        </p>
+
+        <h4 id="testimonialAuthor">— Ram Tirth, Jaunpur</h4>
+
+        <div class="dots" id="testimonialDots">
+            <span class="active" data-index="0"></span>
+            <span data-index="1"></span>
+            <span data-index="2"></span>
+        </div>
+
+        <img id="testimonialImg" src="https://thumbs.dreamstime.com/b/indian-farmer-holding-crop-plant-his-wheat-field-indian-farmer-holding-crop-plant-his-wheat-field-123557695.jpg" alt="Farmer" class="farmer-img">
+
+    </div>
+
+
+    <!-- App Download Box -->
+    <div class="download-box">
+
+        <div class="overlay"></div>
+
+        <div class="content">
+
+            <h2>Take Krishi Sakhi <br> Everywhere You Go</h2>
+
+            <p>Available on Android App</p>
+
+            <a href="#" class="playstore-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                    alt="Google Play">
+            </a>
+
+        </div>
+
+        <img src="https://swarajya.gumlet.io/swarajya/2024-02/c64f96d4-04e8-4801-98f8-ec37bb4009cd/Capture.PNG?w=610&q=75&compress=true&format=auto" alt="Mobile App" class="mobile-img">
+
+    </div>
+
+</section>
+<footer class="footer">
+    <div class="footer-container">
+
+        <!-- Brand Section -->
+        <div class="footer-brand">
+            <div class="logo-box">
+                <img src="https://media.istockphoto.com/id/1045368942/vector/abstract-green-leaf-logo-icon-vector-design-ecology-icon-set-eco-icon.jpg?s=612x612&w=0&k=20&c=XIfHMI8r1G73blCpCBFmLIxCtOLx8qX0O3mZC9csRLs=" alt="Krishi Sakhi Logo">
+                <div>
+                    <h2>Krishi Sakhi</h2>
+                    <span>When AI Meets Farmers</span>
+                </div>
+            </div>
+
+            <p>
+                Empowering farmers with technology
+                and knowledge.
+            </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+
+            <div class="links-grid">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Mandi Rates</a></li>
+                </ul>
+
+                <ul>
+                    <li><a href="#">Schemes</a></li>
+                    <li><a href="#">Disease Detect</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                </ul>
+
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+            <h3>Stay Updated</h3>
+            <p>
+                Subscribe to get farming tips, updates
+                and important information.
+            </p>
+
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" id="newsletterEmail" placeholder="Enter your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+        <p>© 2024 Krishi Sakhi. All rights reserved.</p>
+
+        <p>
+            Made with <span class="heart">💚</span> for Farmers
+        </p>
+
+        <a href="#" class="scroll-top">↑</a>
+    </div>
+</footer>
+
+<!-- ================= AI Chat Assistant Widget ================= -->
+<button class="chat-fab" id="chatFab" aria-label="Open AI Chat Assistant">
+    <i class="fa-solid fa-comments"></i>
+</button>
+
+<div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+        <div class="chat-header-info">
+            <img src="https://www.svgrepo.com/show/474732/assistant.svg" alt="">
+            <div>
+                <h4>Krishi Sakhi Assistant</h4>
+                <span><i class="fa-solid fa-circle"></i> Online</span>
+            </div>
+        </div>
+        <button id="chatClose" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+        <div class="msg bot">
+            नमस्ते 🙏 I'm Krishi Sakhi. Ask me about weather, mandi rates, crop diseases or government schemes.
+        </div>
+    </div>
+
+    <div class="chat-quick" id="chatQuick">
+        <button data-q="weather">Weather</button>
+        <button data-q="mandi">Mandi Rates</button>
+        <button data-q="disease">Disease Help</button>
+        <button data-q="scheme">Schemes</button>
+    </div>
+
+    <form class="chat-input" id="chatForm">
+        <input type="text" id="chatInput" placeholder="Type your question..." autocomplete="off">
+        <button type="submit" aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+</div>
+
+<!-- ================= Generic Modal ================= -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h3 id="modalTitle">Title</h3>
+            <button id="modalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+</div>
+
+<!-- ================= Toast ================= -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
