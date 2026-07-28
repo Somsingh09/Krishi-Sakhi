@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Sign Up — Krishi Sakhi</title>
+<link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="login-wrapper">
+
+    <!-- ===================== BRAND / IMAGE PANEL ===================== -->
+    <aside class="brand-panel">
+
+        <a href="index.html" class="brand-mark">
+            <img src="https://media.istockphoto.com/id/1045368942/vector/abstract-green-leaf-logo-icon-vector-design-ecology-icon-set-eco-icon.jpg?s=612x612&w=0&k=20&c=XIfHMI8r1G73blCpCBFmLIxCtOLx8qX0O3mZC9csRLs=" alt="Krishi Sakhi logo">
+            <span>Krishi Sakhi</span>
+        </a>
+
+        <div class="brand-art">
+            <img src="farmer-login.jpg" alt="Farmer checking Krishi Sakhi on his phone in the field" class="farmer-photo">
+
+            <div class="floating-card trust-card">
+                <div class="avatars">
+                    <img src="https://i.pravatar.cc/40?img=1">
+                    <img src="https://i.pravatar.cc/40?img=2">
+                    <img src="https://i.pravatar.cc/40?img=3">
+                </div>
+                <div>
+                    <strong>1000+ Farmers</strong>
+                    <p>already growing with us</p>
+                </div>
+            </div>
+
+            <div class="floating-card otp-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                <div>
+                    <strong>No Password Needed</strong>
+                    <p>Login safely with mobile OTP</p>
+                </div>
+            </div>
+        </div>
+
+        <blockquote class="brand-quote">
+            “Krishi Sakhi ने मेरी फसल में बीमारी को समय पर पहचानने में मदद की।”
+            <cite>— Ram Tirth, Jaunpur</cite>
+        </blockquote>
+
+    </aside>
+
+    <!-- ===================== FORM PANEL ===================== -->
+    <main class="form-panel">
+
+        <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <div class="form-shell">
+
+            <a href="index.html" class="brand-mark mobile-only">
+                <img src="https://media.istockphoto.com/id/1045368942/vector/abstract-green-leaf-logo-icon-vector-design-ecology-icon-set-eco-icon.jpg?s=612x612&w=0&k=20&c=XIfHMI8r1G73blCpCBFmLIxCtOLx8qX0O3mZC9csRLs=" alt="Krishi Sakhi logo">
+                <span>Krishi Sakhi</span>
+            </a>
+
+            <!-- Growth stepper -->
+            <div class="grow-tracker" id="growTracker" aria-hidden="true">
+                <div class="grow-track">
+                    <div class="grow-fill" id="growFill"></div>
+                </div>
+                <div class="grow-stage active" data-stage="1">
+                    <span class="stage-icon">🌱</span>
+                    <span class="stage-label">Your Details</span>
+                </div>
+                <div class="grow-stage" data-stage="2">
+                    <span class="stage-icon">🌿</span>
+                    <span class="stage-label">Verify OTP</span>
+                </div>
+                <div class="grow-stage" data-stage="3">
+                    <span class="stage-icon">🌾</span>
+                    <span class="stage-label">Welcome</span>
+                </div>
+            </div>
+
+            <!-- ============ STEP 1 : DETAILS ============ -->
+            <form class="auth-step active" id="stepDetails" novalidate>
+
+                <h1>Namaste 🙏</h1>
+                <p class="sub">Login or create your free Krishi Sakhi account in under a minute.</p>
+
+                <div class="field">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="fullName" placeholder="e.g. Ram Tirth" autocomplete="name">
+                    </div>
+                    <span class="error-msg" id="err-fullName"></span>
+                </div>
+
+                <div class="field">
+                    <label for="village">Village / Area</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <input type="text" id="village" placeholder="e.g. Machhlishahr" autocomplete="address-line1">
+                    </div>
+                    <span class="error-msg" id="err-village"></span>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="district">District</label>
+                        <div class="input-group">
+                            <i class="fa-solid fa-map"></i>
+                            <input type="text" id="district" placeholder="e.g. Jaunpur" autocomplete="address-level2">
+                        </div>
+                        <span class="error-msg" id="err-district"></span>
+                    </div>
+
+                    <div class="field">
+                        <label for="state">State</label>
+                        <div class="input-group">
+                            <i class="fa-solid fa-globe"></i>
+                            <select id="state" autocomplete="address-level1">
+                                <option value="" disabled selected>Select state</option>
+                                <option>Uttar Pradesh</option>
+                                <option>Punjab</option>
+                                <option>Haryana</option>
+                                <option>Bihar</option>
+                                <option>Madhya Pradesh</option>
+                                <option>Rajasthan</option>
+                                <option>Maharashtra</option>
+                                <option>Gujarat</option>
+                                <option>West Bengal</option>
+                                <option>Karnataka</option>
+                                <option>Tamil Nadu</option>
+                                <option>Andhra Pradesh</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <span class="error-msg" id="err-state"></span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="pincode">Pincode</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-map-pin"></i>
+                        <input type="text" id="pincode" inputmode="numeric" maxlength="6" placeholder="e.g. 222001" autocomplete="postal-code">
+                    </div>
+                    <span class="error-msg" id="err-pincode"></span>
+                </div>
+
+                <div class="field">
+                    <label for="mobile">Mobile Number</label>
+                    <div class="input-group">
+                        <span class="prefix">+91</span>
+                        <input type="tel" id="mobile" inputmode="numeric" maxlength="10" placeholder="98765 43210" autocomplete="tel">
+                    </div>
+                    <span class="error-msg" id="err-mobile"></span>
+                </div>
+
+                <button type="submit" class="primary-submit">
+                    Send OTP <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <p class="fine-print">
+                    By continuing, you agree to Krishi Sakhi's
+                    <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>.
+                </p>
+            </form>
+
+            <!-- ============ STEP 2 : OTP ============ -->
+            <form class="auth-step" id="stepOtp" novalidate>
+
+                <button type="button" class="back-link" id="backToDetails">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+
+                <h1>Verify Your Number</h1>
+                <p class="sub">
+                    We've sent a 6-digit code to
+                    <strong>+91 <span id="mobileDisplay"></span></strong>
+                    <button type="button" id="editMobile" class="link-btn">Edit</button>
+                </p>
+
+                <div class="otp-group" id="otpGroup">
+                    <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-i="0">
+                    <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-i="1">
+                    <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-i="2">
+                    <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-i="3">
+                    <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-i="4">
+                    <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-i="5">
+                </div>
+                <span class="error-msg center" id="err-otp"></span>
+
+                <p class="resend-row">
+                    Didn't get the code?
+                    <button type="button" id="resendBtn" class="link-btn" disabled>Resend in <span id="resendTimer">30</span>s</button>
+                </p>
+
+                <button type="submit" class="primary-submit">
+                    Verify &amp; Continue <i class="fa-solid fa-check"></i>
+                </button>
+            </form>
+
+            <!-- ============ STEP 3 : SUCCESS ============ -->
+            <div class="auth-step success-step" id="stepSuccess">
+                <div class="success-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h1>Welcome, <span id="welcomeName">Farmer</span>! 🌾</h1>
+                <p class="sub">Your account is ready. Taking you to your dashboard…</p>
+                <div class="spinner"></div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="login.js"></script>
+</body>
+</html>
