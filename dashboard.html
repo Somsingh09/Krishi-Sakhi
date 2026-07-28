@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Krishi Sakhi</title>
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="dash-wrapper">
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="https://media.istockphoto.com/id/1045368942/vector/abstract-green-leaf-logo-icon-vector-design-ecology-icon-set-eco-icon.jpg?s=612x612&w=0&k=20&c=XIfHMI8r1G73blCpCBFmLIxCtOLx8qX0O3mZC9csRLs=" alt="Krishi Sakhi">
+            <span>Krishi Sakhi</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#overview" class="active" data-target="overview"><i class="fa-solid fa-grip"></i> Overview</a>
+            <a href="#weather" data-target="weather"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
+            <a href="#crops" data-target="crops"><i class="fa-solid fa-seedling"></i> My Crops</a>
+            <a href="#disease" data-target="disease"><i class="fa-solid fa-magnifying-glass-chart"></i> Disease Detection</a>
+            <a href="#mandi" data-target="mandi"><i class="fa-solid fa-indian-rupee-sign"></i> Mandi Rates</a>
+            <a href="#schemes" data-target="schemes"><i class="fa-solid fa-file-shield"></i> Schemes</a>
+            <a href="#profile" data-target="profile"><i class="fa-solid fa-user"></i> Profile</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Back to Website</a>
+            <button id="sidebarLogout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ===================== MAIN ===================== -->
+    <div class="dash-main">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="menu-btn" id="menuBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+
+            <div class="topbar-title">
+                <h1 id="pageTitle">Overview</h1>
+                <p id="pageDate"></p>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+                <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notif-dot"></span>
+                </button>
+
+                <div class="user-chip" id="userChip">
+                    <span class="user-avatar" id="topAvatar">F</span>
+                    <div class="user-chip-text">
+                        <strong id="topName">Farmer</strong>
+                        <span id="topVillage">—</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===================== OVERVIEW ===================== -->
+        <section id="overview" class="dash-section">
+
+            <div class="welcome-banner">
+                <div>
+                    <h2 id="welcomeText">Namaste 🙏</h2>
+                    <p>Here's what's happening on your farm today.</p>
+                </div>
+                <img src="farmer-login.jpg" alt="">
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:var(--primary-light);color:var(--primary)"><i class="fa-solid fa-temperature-half"></i></div>
+                    <div>
+                        <h3 id="statTemp">--°C</h3>
+                        <p>Weather Now</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#FFF7E0;color:#B78103"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                    <div>
+                        <h3 id="statMandi">₹2125</h3>
+                        <p>Wheat / Quintal</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#FDECEC;color:#DC2626"><i class="fa-solid fa-leaf"></i></div>
+                    <div>
+                        <h3 id="statReports">0</h3>
+                        <p>Disease Reports</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:#E9F1FF;color:#2563EB"><i class="fa-solid fa-file-shield"></i></div>
+                    <div>
+                        <h3>3</h3>
+                        <p>Schemes Eligible</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <button data-target="disease"><i class="fa-solid fa-camera"></i> Scan a Crop</button>
+                <button data-target="mandi"><i class="fa-solid fa-chart-line"></i> Check Mandi Rates</button>
+                <button data-target="schemes"><i class="fa-solid fa-hand-holding-dollar"></i> Explore Schemes</button>
+                <button id="quickChatBtn"><i class="fa-solid fa-comments"></i> Ask Krishi Sakhi</button>
+            </div>
+        </section>
+
+        <!-- ===================== WEATHER ===================== -->
+        <section id="weather" class="dash-section">
+            <h2 class="section-title">Weather Forecast</h2>
+
+            <div class="weather-card">
+                <div class="location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h3 id="weatherLocation">Detecting location…</h3>
+                        <p id="weatherDesc">Loading…</p>
+                    </div>
+                </div>
+
+                <div class="weather-main">
+                    <div class="sun-icon" id="weatherIcon">☀️</div>
+                    <h1 id="weatherTemp">--°C</h1>
+                </div>
+
+                <div class="weather-details">
+                    <div class="detail"><span><i class="fa-solid fa-droplet"></i> Humidity</span><strong id="weatherHumidity">--%</strong></div>
+                    <div class="detail"><span><i class="fa-solid fa-cloud-rain"></i> Rain Chance</span><strong id="weatherRain">--%</strong></div>
+                    <div class="detail"><span><i class="fa-solid fa-wind"></i> Wind Speed</span><strong id="weatherWind">-- km/h</strong></div>
+                    <div class="detail"><span><i class="fa-solid fa-sun"></i> Sunrise / Sunset</span><strong id="weatherSun">--:-- / --:--</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== MY CROPS ===================== -->
+        <section id="crops" class="dash-section">
+            <h2 class="section-title">My Crops</h2>
+            <p class="section-sub">Track what you're growing this season.</p>
+
+            <div class="crop-add">
+                <input type="text" id="cropInput" placeholder="e.g. Wheat, Mustard, Sugarcane…">
+                <button id="cropAddBtn"><i class="fa-solid fa-plus"></i> Add Crop</button>
+            </div>
+
+            <div class="crop-list" id="cropList"></div>
+            <p class="empty-hint" id="cropEmptyHint">No crops added yet — add your first crop above.</p>
+        </section>
+
+        <!-- ===================== DISEASE DETECTION ===================== -->
+        <section id="disease" class="dash-section">
+            <h2 class="section-title">Crop Disease Detection</h2>
+            <p class="section-sub">Upload a photo of the affected leaf for instant AI analysis.</p>
+
+            <div class="disease-box">
+                <label for="crop-image" class="upload-box" id="uploadBox">
+                    <input type="file" id="crop-image" accept=".jpeg,.jpg,.png">
+                    <img id="previewImg" class="preview-img" alt="">
+                    <div class="upload-content" id="uploadContent">
+                        <div class="upload-icon">☁️</div>
+                        <h3>Drag & Drop or</h3>
+                        <span>Choose Image</span>
+                    </div>
+                </label>
+
+                <div class="disease-result" id="diseaseResult">
+                    <div class="result-placeholder">
+                        <i class="fa-solid fa-leaf"></i>
+                        <p>Your analysis will appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== MANDI RATES ===================== -->
+        <section id="mandi" class="dash-section">
+            <h2 class="section-title">Today's Mandi Rates</h2>
+            <input type="text" id="mandiSearch" class="mini-search" placeholder="Search a crop...">
+
+            <div class="mandi-grid" id="mandiGrid">
+                <div class="mandi-card" data-name="Wheat"><span>🌾 Wheat (गेहूं)</span><strong>₹2125/क्विंटल</strong></div>
+                <div class="mandi-card" data-name="Rice"><span>🌾 Rice (चावल)</span><strong>₹1940/क्विंटल</strong></div>
+                <div class="mandi-card" data-name="Sugarcane"><span>🎋 Sugarcane (गन्ना)</span><strong>₹350/क्विंटल</strong></div>
+                <div class="mandi-card" data-name="Potato"><span>🥔 Potato (आलू)</span><strong>₹1200/क्विंटल</strong></div>
+                <div class="mandi-card" data-name="Onion"><span>🧅 Onion (प्याज)</span><strong>₹1800/क्विंटल</strong></div>
+                <div class="mandi-card" data-name="Mustard"><span>🌻 Mustard (सरसों)</span><strong>₹6000/क्विंटल</strong></div>
+            </div>
+            <p class="empty-hint" id="mandiNoResults" style="display:none;">No crops match your search.</p>
+        </section>
+
+        <!-- ===================== SCHEMES ===================== -->
+        <section id="schemes" class="dash-section">
+            <h2 class="section-title">Government Schemes For You</h2>
+
+            <div class="scheme-grid">
+                <div class="scheme-card">
+                    <div class="scheme-icon">🌱</div>
+                    <div>
+                        <h3>PM Kisan Samman Nidhi</h3>
+                        <p>₹6000 per year income support</p>
+                        <a href="https://pmkisan.gov.in/" target="_blank">View Details →</a>
+                    </div>
+                </div>
+                <div class="scheme-card">
+                    <div class="scheme-icon">💳</div>
+                    <div>
+                        <h3>Kisan Credit Card</h3>
+                        <p>Easy, low-interest loans for farmers</p>
+                        <a href="https://fasalrin.gov.in/" target="_blank">View Details →</a>
+                    </div>
+                </div>
+                <div class="scheme-card">
+                    <div class="scheme-icon">🌾</div>
+                    <div>
+                        <h3>PM Fasal Bima Yojana</h3>
+                        <p>Crop insurance against losses</p>
+                        <a href="https://pmfby.gov.in/" target="_blank">View Details →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== PROFILE ===================== -->
+        <section id="profile" class="dash-section">
+            <h2 class="section-title">My Profile</h2>
+
+            <div class="profile-card">
+                <div class="profile-head">
+                    <span class="user-avatar big" id="profileAvatar">F</span>
+                    <div>
+                        <h3 id="profileName">Farmer Name</h3>
+                        <p id="profileMobile">+91 XXXXXXXXXX</p>
+                    </div>
+                </div>
+
+                <div class="profile-grid">
+                    <div><label>Village / Area</label><p id="profileVillage">—</p></div>
+                    <div><label>District</label><p id="profileDistrict">—</p></div>
+                    <div><label>State</label><p id="profileState">—</p></div>
+                    <div><label>Pincode</label><p id="profilePincode">—</p></div>
+                </div>
+
+                <button class="danger-btn" id="profileLogout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<!-- AI Chat FAB (visual only) -->
+<button class="chat-fab" id="chatFab" aria-label="Open AI Chat Assistant">
+    <i class="fa-solid fa-comments"></i>
+</button>
+
+<div class="toast" id="toast"></div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
