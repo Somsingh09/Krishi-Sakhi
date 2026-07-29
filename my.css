@@ -1264,7 +1264,9 @@ font-size:22px;
 padding:22px;
 
 }
-
+.navbar{
+        position: relative;
+}
 .chatbox{
 
 flex-direction:column;
@@ -1272,6 +1274,8 @@ flex-direction:column;
 text-align:center;
 
 }
+
+
 
 .assist h3{
 
