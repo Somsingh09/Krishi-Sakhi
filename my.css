@@ -1290,6 +1290,130 @@ width:100%;
 }
 
 }
+/* NAVBAR FIX FOR MOBILE - ADD THESE CHANGES */
+
+/* =============================================
+   MODIFY EXISTING NAVBAR RULE (around line 244)
+   ============================================= */
+
+.navbar{
+    position:sticky;
+    top:15px;
+    z-index:999;
+    width:min(1400px,96%);
+    margin:20px auto;
+    padding:18px 35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    transition:var(--transition);
+}
+
+/* =============================================
+   UPDATE MOBILE MEDIA QUERY (around line 2743)
+   Replace the entire @media(max-width:768px) section
+   with this updated version:
+   ============================================= */
+
+@media(max-width:768px){
+
+    .navbar{
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        width:100%;
+        margin:0;
+        padding:15px 20px;
+        border-radius:0;
+        z-index:999;
+    }
+
+    body{
+        padding-top:70px; /* Add padding to prevent content from going under fixed navbar */
+    }
+
+    .hamburger{
+        display:flex;
+    }
+
+    .nav-links{
+        display:none;
+        flex-direction:column;
+        align-items:flex-start;
+        width:100%;
+        gap:14px;
+        position:absolute;
+        top:100%;
+        left:0;
+        right:0;
+        background:rgba(255,255,255,.95);
+        backdrop-filter:blur(18px);
+        -webkit-backdrop-filter:blur(18px);
+        padding:20px 20px;
+        border-bottom:1px solid var(--border);
+    }
+
+    .nav-links.show{
+        display:flex;
+    }
+
+    .nav-btns{
+        flex-wrap:wrap;
+    }
+
+    .nav-btns .hamburger{
+        order:-1;
+        margin-left:auto;
+    }
+
+    /* Close menu when user clicks on a link */
+    .nav-links a{
+        width:100%;
+    }
+
+    /* Responsive button adjustments */
+    .login-btn, .nav-btns select{
+        padding:10px 16px;
+        font-size:13px;
+    }
+
+}
+
+/* =============================================
+   EXTRA SMALL PHONES (optional but recommended)
+   ============================================= */
+
+@media(max-width:480px){
+
+    .navbar{
+        padding:12px 15px;
+    }
+
+    body{
+        padding-top:60px;
+    }
+
+    .nav-links{
+        padding:15px 15px;
+    }
+
+    .logo h2{
+        font-size:18px;
+    }
+
+    .logo img{
+        width:45px;
+        height:45px;
+    }
+
+}
 
 /*==================================================
         PART 3
