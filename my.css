@@ -1218,6 +1218,7 @@ margin-top:10px;
  
     .navbar{
         padding:12px 15px;
+        position:fixed;
     }
  
     body{
