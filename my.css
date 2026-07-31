@@ -2031,6 +2031,14 @@ width:220px;
 font-size:24px;
 
 }
+.navbar{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+
+}
 
 .scheme-icon{
 
@@ -2551,6 +2559,14 @@ text-align:center;
 order:-1;
 
 }
+.navbar{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+
+}
 
 .hero-buttons{
 
@@ -2652,7 +2668,9 @@ width:42px;
 
 height:42px;
 
+
 }
+
 
 }
 
