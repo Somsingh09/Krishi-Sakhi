@@ -1990,10 +1990,17 @@ gap:10px;
 max-width:100%;
 
 }
+.navbar{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+}
 
 .farmer-img{
 
-position:fixed;
+position:static;
 
 display:block;
 
