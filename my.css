@@ -15,7 +15,7 @@
 
 :root{
 
---primary:#1B8A43;
+--primary:#325f43;
 --primary-dark:#136832;
 --primary-light:#ECFDF3;
 
@@ -104,7 +104,7 @@ width:10px;
 
 ::-webkit-scrollbar-track{
 
-background:#eef5ee;
+background:#d8e4d8;
 
 }
 
@@ -185,8 +185,8 @@ padding:16px 30px;
 
 background:linear-gradient(
 135deg,
-#23A455,
-#1B8A43);
+#135c29,
+#13522a);
 
 color:white;
 
@@ -261,7 +261,7 @@ justify-content:space-between;
 
 align-items:center;
 
-background:rgba(255,255,255,.75);
+background:rgba(208, 227, 198, 0.75);
 
 backdrop-filter:blur(18px);
 
@@ -403,7 +403,7 @@ border-radius:15px;
 
 background:linear-gradient(
 135deg,
-#23A455,
+#104d27,
 #1B8A43);
 
 color:white;
@@ -447,7 +447,7 @@ overflow:hidden;
 background:
 
 linear-gradient(
-rgba(255,255,255,.85),
+rgba(240, 235, 235, 0.9),
 rgba(255,255,255,.85)
 ),
 
