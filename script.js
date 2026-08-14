@@ -13,19 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
       1. MOBILE HAMBURGER MENU
   =========================*/
   const hamburger = document.getElementById('hamburger');
-  const navMenu = document.getElementById('navMenu');
+  const navLinks = document.getElementById('navLinks');
 
-  if (hamburger && navMenu) {
+  if (hamburger && navLinks) {
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('open');
-      navMenu.classList.toggle('show');
+      navLinks.classList.toggle('show');
     });
 
     // close menu after clicking a link (mobile)
-    navMenu.querySelectorAll('a').forEach(link => {
+    navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         hamburger.classList.remove('open');
-        navMenu.classList.remove('show');
+        navLinks.classList.remove('show');
       });
     });
   }
