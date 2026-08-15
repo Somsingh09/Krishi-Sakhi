@@ -19,9 +19,9 @@
     --text:#3C4A43;
     --text-light:#78877F;
 
-    --bg:#F6FAF7;
-    --card:rgba(255, 255, 255, 0.85);
-    --border:rgba(255, 255, 255, 0.5);
+    --bg:#F8FAFC;
+    --card:#ffffff;
+    --border:#E2E8F0;
 
     --shadow-sm:0 2px 8px rgba(15,40,25,.06);
     --shadow-md:0 14px 34px rgba(15,40,25,.09);
@@ -41,14 +41,14 @@
 }
 
 [data-theme="dark"]{
-    --bg:#0B120E;
-    --card:rgba(18, 27, 21, 0.85);
-    --ink:#F3F7F4;
-    --text:#D3DED8;
-    --text-light:#8FA097;
-    --primary-light:#0F2A1B;
-    --accent-soft:#241C08;
-    --border:rgba(32, 48, 37, 0.53);
+    --bg:#0F172A;
+    --card:#1E293B;
+    --ink:#F8FAFC;
+    --text:#CBD5E1;
+    --text-light:#94A3B8;
+    --primary-light:rgba(16, 185, 129, 0.1);
+    --accent-soft:#422006;
+    --border:#334155;
     --shadow-sm:0 2px 8px rgba(0,0,0,.35);
     --shadow-md:0 14px 34px rgba(0,0,0,.45);
     --shadow-lg:0 26px 60px rgba(0,0,0,.55);
@@ -58,9 +58,7 @@
 html{ scroll-behavior:smooth; }
 body{
     font-family:var(--font-body);
-    background:
-        linear-gradient(rgba(240, 235, 235, 0.92), rgba(250, 250, 250, 0.92)),
-        url("fcb78aec-7af7-41ae-b5c4-904f6095c921.png") center/cover fixed;
+    background:var(--bg);
     color:var(--text);
     transition:background .5s var(--ease), color .5s var(--ease);
 }
@@ -77,15 +75,13 @@ input{ font-family:inherit; }
 .sidebar{
     width:var(--sidebar-w);
     flex-shrink:0;
-    background:rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-right:1px solid rgba(255, 255, 255, 0.4);
+    background:var(--card);
+    border-right:1px solid var(--border);
     display:flex; flex-direction:column;
     padding:26px 16px;
     position:sticky; top:0; height:100vh;
     z-index:100;
-    transition:transform var(--transition);
+    transition:background .5s var(--ease), border-color .5s var(--ease), transform var(--transition);
 }
 
 .sidebar-brand{
@@ -135,11 +131,10 @@ input{ font-family:inherit; }
 .topbar{
     display:flex; align-items:center; gap:16px;
     padding:18px clamp(18px,3vw,30px);
-    background:rgba(255, 255, 255, 0.7);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-    border-bottom:1px solid rgba(255, 255, 255, 0.4);
+    background:var(--card);
+    border-bottom:1px solid var(--border);
     position:sticky; top:0; z-index:50;
+    transition:background .5s var(--ease), border-color .5s var(--ease);
 }
 
 .menu-btn{ display:none; background:none; border:none; font-size:1.2rem; color:var(--text); }
