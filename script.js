@@ -217,6 +217,30 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => addMessage("Tip 🌱: Rotate crops each season to keep soil healthy and reduce pest build-up. Want more tips like this?", 'bot'), 400);
   });
 
+  const openTools = document.getElementById('openTools');
+  if (openTools) {
+    openTools.addEventListener('click', () => {
+      openChat();
+      setTimeout(() => addMessage("Looking for farming tools or tractors? Tell me what you need, and I'll find nearby sellers and rental options for you.", 'bot'), 400);
+    });
+  }
+
+  const openFertilizers = document.getElementById('openFertilizers');
+  if (openFertilizers) {
+    openFertilizers.addEventListener('click', () => {
+      openChat();
+      setTimeout(() => addMessage("Need seeds or fertilizers? Let me know which crop you're planting and I'll suggest the best local shops and varieties.", 'bot'), 400);
+    });
+  }
+
+  // Intercept empty links to show a coming soon toast
+  document.querySelectorAll('a[href="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('This page is coming soon! Stay tuned. 🌱');
+    });
+  });
+
   /*=========================
       7. CROP DISEASE UPLOAD (simulated AI)
   =========================*/

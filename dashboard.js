@@ -143,6 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('AI chat assistant coming soon on the dashboard 🌱');
     });
 
+    document.getElementById('notifBtn').addEventListener('click', () => {
+        showToast('🔔 You have 2 new notifications: "Weather alert: light rain expected tomorrow" and "New PM Kisan updates".');
+        document.querySelector('.notif-dot').style.display = 'none'; // clear notification dot
+    });
+
     /*=========================
         5. LIVE WEATHER (Open-Meteo — free, no key)
     =========================*/
