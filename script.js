@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Intercept empty links to show a coming soon toast
-  document.querySelectorAll('a[href="#"]').forEach(link => {
+  document.querySelectorAll('a[href="#"]:not(.scroll-top)').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       showToast('This page is coming soon! Stay tuned. 🌱');

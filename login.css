@@ -367,11 +367,11 @@ label{ display:block; font-size:.8rem; font-weight:600; margin-bottom:7px; color
 =========================*/
 
 .toast{
-    position:fixed; bottom:28px; left:50%;
-    transform:translateX(-50%) translateY(20px);
+    position:fixed; top:28px; left:50%;
+    transform:translateX(-50%) translateY(-20px);
     background:var(--ink); color:var(--white);
-    padding:13px 22px; border-radius:var(--r-md);
-    font-size:.85rem; box-shadow:var(--shadow-lg);
+    padding:18px 30px; border-radius:var(--r-md);
+    font-size:1.1rem; box-shadow:var(--shadow-lg);
     opacity:0; pointer-events:none;
     transition:var(--transition);
     z-index:999; max-width:90vw; text-align:center;
