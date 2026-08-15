@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://krishisakhi-ai-website.vercel.app/sitemap.xml
