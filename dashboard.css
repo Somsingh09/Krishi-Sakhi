@@ -5,13 +5,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
 
 :root{
-    --primary:#16A34A;
-    --primary-dark:#0E7C38;
-    --primary-light:#EAFBF1;
-    --primary-glow:rgba(22,163,74,.24);
+    --primary:#325f43;
+    --primary-dark:#135c29;
+    --primary-light:#ECFDF3;
+    --primary-glow:rgba(50,95,67,.24);
 
-    --accent:#F5B300;
-    --accent-soft:#FFF6DE;
+    --accent:#FFD54F;
+    --accent-soft:#FFF8DF;
 
     --ink:#0B1310;
     --white:#ffffff;
@@ -20,8 +20,8 @@
     --text-light:#78877F;
 
     --bg:#F6FAF7;
-    --card:#ffffff;
-    --border:#E4EBE6;
+    --card:rgba(255, 255, 255, 0.85);
+    --border:rgba(255, 255, 255, 0.5);
 
     --shadow-sm:0 2px 8px rgba(15,40,25,.06);
     --shadow-md:0 14px 34px rgba(15,40,25,.09);
@@ -42,13 +42,13 @@
 
 [data-theme="dark"]{
     --bg:#0B120E;
-    --card:#121B15;
+    --card:rgba(18, 27, 21, 0.85);
     --ink:#F3F7F4;
     --text:#D3DED8;
     --text-light:#8FA097;
     --primary-light:#0F2A1B;
     --accent-soft:#241C08;
-    --border:#20302588;
+    --border:rgba(32, 48, 37, 0.53);
     --shadow-sm:0 2px 8px rgba(0,0,0,.35);
     --shadow-md:0 14px 34px rgba(0,0,0,.45);
     --shadow-lg:0 26px 60px rgba(0,0,0,.55);
@@ -59,8 +59,8 @@ html{ scroll-behavior:smooth; }
 body{
     font-family:var(--font-body);
     background:
-        radial-gradient(900px 500px at 100% 0%, var(--primary-light), transparent 55%),
-        var(--bg);
+        linear-gradient(rgba(240, 235, 235, 0.92), rgba(250, 250, 250, 0.92)),
+        url("fcb78aec-7af7-41ae-b5c4-904f6095c921.png") center/cover fixed;
     color:var(--text);
     transition:background .5s var(--ease), color .5s var(--ease);
 }
@@ -77,8 +77,10 @@ input{ font-family:inherit; }
 .sidebar{
     width:var(--sidebar-w);
     flex-shrink:0;
-    background:var(--card);
-    border-right:1px solid var(--border);
+    background:rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right:1px solid rgba(255, 255, 255, 0.4);
     display:flex; flex-direction:column;
     padding:26px 16px;
     position:sticky; top:0; height:100vh;
@@ -133,11 +135,10 @@ input{ font-family:inherit; }
 .topbar{
     display:flex; align-items:center; gap:16px;
     padding:18px clamp(18px,3vw,30px);
-    background:var(--card);
-    background:color-mix(in srgb, var(--card) 88%, transparent);
-    backdrop-filter:blur(14px) saturate(1.3);
-    -webkit-backdrop-filter:blur(14px) saturate(1.3);
-    border-bottom:1px solid var(--border);
+    background:rgba(255, 255, 255, 0.7);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255, 255, 255, 0.4);
     position:sticky; top:0; z-index:50;
 }
 
