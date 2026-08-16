@@ -86,7 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('[data-i18n]').forEach(el => {
           const key = el.getAttribute('data-i18n');
           if (dict[key]) {
-              el.innerHTML = dict[key]; // innerHTML allows formatting like <br> to work
+              if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                  el.placeholder = dict[key];
+              } else {
+                  el.innerHTML = dict[key];
+              }
           }
       });
       
