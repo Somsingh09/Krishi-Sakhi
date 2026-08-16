@@ -86,8 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /*=========================
-      5. CONTACT FORM (FormSubmit)
+      5. CONTACT FORM (EmailJS)
   =========================*/
+  // Initialize EmailJS
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("QdLkGwcfLTY7Zre9i");
+  }
+
   const contactForm = document.getElementById('contactForm');
 
   if (contactForm) {
@@ -99,34 +104,19 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.textContent = "Sending...";
       submitBtn.disabled = true;
 
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData.entries());
-
-      fetch("https://formsubmit.co/ajax/infokrishisakhi@gmail.com", {
-        method: "POST",
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-            showToast('Message sent successfully! We will get back to you soon.', 'success');
-            contactForm.reset();
-        } else {
-            showToast('Failed to send message. Please try again.', 'error');
-        }
-      })
-      .catch((error) => {
-        console.error("FormSubmit Error:", error);
-        showToast('Failed to send message. Please check your connection or try again later.', 'error');
-      })
-      .finally(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-      });
+      emailjs.sendForm('service_zo3h00j', 'template_9cg63yi', this)
+        .then(() => {
+          showToast('Message sent successfully! We will get back to you soon.', 'success');
+          contactForm.reset();
+        })
+        .catch((error) => {
+          console.error("EmailJS Error:", error);
+          showToast('Failed to send message. Please try again later.', 'error');
+        })
+        .finally(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        });
     });
   }
 
