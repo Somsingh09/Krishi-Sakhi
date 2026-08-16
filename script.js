@@ -86,26 +86,38 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /*=========================
-      5. NEWSLETTER FORM
+      5. CONTACT FORM (EmailJS)
   =========================*/
-  const newsletterForm = document.getElementById('newsletterForm');
-  const newsletterEmail = document.getElementById('newsletterEmail');
+  // Initialize EmailJS (Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS Public Key)
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("YOUR_PUBLIC_KEY");
+  }
 
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+  const contactForm = document.getElementById('contactForm');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      const email = newsletterEmail.value.trim();
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Sending...";
+      submitBtn.disabled = true;
 
-      if (!emailRegex.test(email)) {
-        showToast('Please enter a valid email address.', 'error');
-        newsletterEmail.focus();
-        return;
-      }
-
-      // Demo only — replace with a real API call to your backend / mailing list provider.
-      showToast(`Subscribed! We'll send farming tips to ${email}.`, 'success');
-      newsletterForm.reset();
+      // Replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID with actual values from EmailJS
+      emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+        .then(() => {
+          showToast('Message sent successfully! We will get back to you soon.', 'success');
+          contactForm.reset();
+        })
+        .catch((error) => {
+          console.error("EmailJS Error:", error);
+          showToast('Failed to send message. Please check your connection or try again later.', 'error');
+        })
+        .finally(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        });
     });
   }
 

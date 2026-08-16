@@ -234,6 +234,69 @@ input{ font-family:inherit; }
 .weather-card{
     background:var(--card); border:1px solid var(--border); border-radius:var(--r-xl);
     padding:28px; box-shadow:var(--shadow-sm); max-width:520px;
+    transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Dynamic Weather Themes */
+.weather-card.theme-sunny {
+    background: linear-gradient(135deg, #FFB75E, #ED8F03);
+    color: #fff;
+    border: none;
+    box-shadow: 0 8px 24px rgba(237, 143, 3, 0.3);
+}
+.weather-card.theme-cloudy {
+    background: linear-gradient(135deg, #8e9eab, #eef2f3);
+    color: #333;
+    border: none;
+    box-shadow: 0 8px 24px rgba(142, 158, 171, 0.3);
+}
+.weather-card.theme-rainy {
+    background: linear-gradient(135deg, #4A76A8, #182848);
+    color: #fff;
+    border: none;
+    box-shadow: 0 8px 24px rgba(24, 40, 72, 0.3);
+}
+.weather-card.theme-snowy {
+    background: linear-gradient(135deg, #E0EAFC, #CFDEF3);
+    color: #333;
+    border: none;
+    box-shadow: 0 8px 24px rgba(207, 222, 243, 0.4);
+}
+.weather-card.theme-thunderstorm {
+    background: linear-gradient(135deg, #373B44, #4286f4);
+    color: #fff;
+    border: none;
+    box-shadow: 0 8px 24px rgba(55, 59, 68, 0.4);
+}
+
+/* Override text colors for dark themes */
+.weather-card.theme-sunny .location i,
+.weather-card.theme-rainy .location i,
+.weather-card.theme-thunderstorm .location i { color: #fff; }
+
+.weather-card.theme-sunny .location p,
+.weather-card.theme-rainy .location p,
+.weather-card.theme-thunderstorm .location p,
+.weather-card.theme-sunny .detail,
+.weather-card.theme-rainy .detail,
+.weather-card.theme-thunderstorm .detail { color: rgba(255, 255, 255, 0.85); }
+
+.weather-card.theme-sunny .detail strong,
+.weather-card.theme-rainy .detail strong,
+.weather-card.theme-thunderstorm .detail strong { color: #fff; }
+
+.weather-card.theme-sunny .detail,
+.weather-card.theme-cloudy .detail,
+.weather-card.theme-rainy .detail,
+.weather-card.theme-snowy .detail,
+.weather-card.theme-thunderstorm .detail {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+.weather-card.theme-cloudy .detail,
+.weather-card.theme-snowy .detail {
+    background: rgba(255, 255, 255, 0.6);
 }
 .weather-card .location{ display:flex; align-items:center; gap:12px; margin-bottom:18px; }
 .weather-card .location i{ color:var(--primary); font-size:1.2rem; }

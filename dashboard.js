@@ -171,6 +171,20 @@ document.addEventListener('DOMContentLoaded', () => {
         95: ['⛈️', 'Thunderstorm'], 96: ['⛈️', 'Thunderstorm w/ Hail'], 99: ['⛈️', 'Severe Thunderstorm']
     };
     function weatherFromCode(code) { return WMO_MAP[code] || ['🌡️', 'Weather']; }
+
+    function applyWeatherTheme(code) {
+        const card = document.querySelector('.weather-card');
+        if (!card) return;
+        
+        card.classList.remove('theme-sunny', 'theme-cloudy', 'theme-rainy', 'theme-snowy', 'theme-thunderstorm');
+        
+        if (code <= 1) card.classList.add('theme-sunny');
+        else if (code <= 3 || code === 45 || code === 48) card.classList.add('theme-cloudy');
+        else if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) card.classList.add('theme-rainy');
+        else if (code >= 71 && code <= 77) card.classList.add('theme-snowy');
+        else if (code >= 95 && code <= 99) card.classList.add('theme-thunderstorm');
+        else card.classList.add('theme-cloudy');
+    }
     function formatTime(iso) {
         if (!iso) return '--:--';
         const d = new Date(iso);
@@ -200,6 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
             weatherRain.textContent = `${data.daily.precipitation_probability_max[0] ?? 0}%`;
             weatherWind.textContent = `${Math.round(data.current.wind_speed_10m)} km/h`;
             weatherSun.textContent = `${formatTime(data.daily.sunrise[0])} / ${formatTime(data.daily.sunset[0])}`;
+
+            applyWeatherTheme(data.current.weather_code);
 
             try {
                 const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);

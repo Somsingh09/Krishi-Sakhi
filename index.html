@@ -471,17 +471,18 @@
             </div>
         </div>
 
-        <!-- Newsletter -->
-        <div class="footer-newsletter">
-            <h3>Stay Updated</h3>
+        <!-- Contact Form -->
+        <div class="footer-contact">
+            <h3>Send Message</h3>
             <p>
-                Subscribe to get farming tips, updates
-                and important information.
+                Have a query? Drop us a message and we'll get back to you!
             </p>
 
-            <form class="newsletter-form" id="newsletterForm">
-                <input type="email" id="newsletterEmail" placeholder="Enter your email" required>
-                <button type="submit">Subscribe</button>
+            <form class="contact-form" id="contactForm">
+                <input type="text" id="contactName" name="user_name" placeholder="Your Name" required>
+                <input type="email" id="contactEmail" name="user_email" placeholder="Your Email" required>
+                <textarea id="contactMessage" name="message" placeholder="Your Message" rows="3" required></textarea>
+                <button type="submit">Send Message</button>
             </form>
         </div>
 
@@ -548,6 +549,9 @@
 
 <!-- ================= Toast ================= -->
 <div class="toast" id="toast"></div>
+
+<!-- ================= EmailJS ================= -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script src="script.js"></script>
 </body>

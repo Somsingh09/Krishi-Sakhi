@@ -2166,7 +2166,7 @@ border:1px solid #E5E7EB;
 }
 
 .footer-links h3,
-.footer-newsletter h3{
+.footer-contact h3{
 
 font-size:24px;
 
@@ -2212,68 +2212,64 @@ padding-left:8px;
 
 }
 
-.footer-newsletter p{
+.footer-contact p{
 
 margin-bottom:22px;
 
 }
 
-.newsletter-form{
+.contact-form{
 
 display:flex;
-
+flex-direction:column;
 gap:12px;
 
 }
 
-.newsletter-form input{
+.contact-form input,
+.contact-form textarea{
 
-flex:1;
-
-height:52px;
-
-padding:0 18px;
-
+width:100%;
+padding:14px 18px;
 border:1px solid #D1D5DB;
-
 border-radius:15px;
-
 outline:none;
-
 transition:.35s;
+font-family:inherit;
+font-size:15px;
 
 }
 
-.newsletter-form input:focus{
+.contact-form textarea{
+resize:vertical;
+min-height:80px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus{
 
 border-color:#1B8A43;
-
 box-shadow:0 0 0 3px rgba(27,138,67,.15);
 
 }
 
-.newsletter-form button{
+.contact-form button{
 
 padding:0 26px;
-
 height:52px;
-
 border-radius:15px;
-
 background:#1B8A43;
-
 color:white;
-
 font-weight:600;
-
 transition:.35s;
+cursor:pointer;
+border:none;
 
 }
 
-.newsletter-form button:hover{
+.contact-form button:hover{
 
 background:#136832;
-
 transform:translateY(-3px);
 
 }
@@ -2467,15 +2463,15 @@ flex-wrap:wrap;
 
 }
 
-.newsletter-form{
+.contact-form{
 
 flex-direction:column;
 
 }
 
-.newsletter-form input,
-
-.newsletter-form button{
+.contact-form input,
+.contact-form textarea,
+.contact-form button{
 
 width:100%;
 
@@ -2598,7 +2594,7 @@ font-size:22px;
 
 .footer-links h3,
 
-.footer-newsletter h3{
+.footer-contact h3{
 
 font-size:20px;
 
@@ -2718,7 +2714,7 @@ html[data-theme="dark"] .testimonial-box h2,
 html[data-theme="dark"] .rates span,
 html[data-theme="dark"] .logo-box h2,
 html[data-theme="dark"] .footer-links h3,
-html[data-theme="dark"] .footer-newsletter h3,
+html[data-theme="dark"] .footer-contact h3,
 html[data-theme="dark"] .modal-head h3{
 color:var(--black);
 }
