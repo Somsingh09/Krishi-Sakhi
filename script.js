@@ -346,8 +346,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const openFertilizers = document.getElementById('openFertilizers');
   if (openFertilizers) {
     openFertilizers.addEventListener('click', () => {
-      openChat();
-      setTimeout(() => addMessage("Need seeds or fertilizers? Let me know which crop you're planting and I'll suggest the best local shops and varieties.", 'bot'), 400);
+      const adsHtml = `
+        <div style="padding: 10px;">
+          <!-- Search Section -->
+          <div style="text-align: center; margin-bottom: 25px;">
+            <p style="margin-bottom: 15px; color: #444;">Search for the best seeds and fertilizers for your crop:</p>
+            <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin: 0 auto;">
+              <input type="text" placeholder="e.g., Wheat, Rice..." style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem;">
+              <button class="btn" style="padding: 10px 20px; background-color: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s;">Search</button>
+            </div>
+          </div>
+
+          <!-- Featured Ads Section -->
+          <h4 style="margin: 0 0 15px 0; color: #555; border-bottom: 2px solid var(--primary); padding-bottom: 5px; display: inline-block;">Featured Offers & Ads</h4>
+          
+          <!-- Ad 1: Krishi Sakhi Brand -->
+          <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 12px; padding: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08); position: relative; overflow: hidden; border: 1px solid #90caf9;">
+            <div style="position: absolute; top: 0; left: 0; background: #ff9800; color: white; font-size: 0.75rem; padding: 4px 12px; border-bottom-right-radius: 8px; font-weight: bold; letter-spacing: 1px; z-index: 1;">AD</div>
+            <div style="flex: 1; position: relative; z-index: 2;">
+              <h3 style="margin: 0 0 8px 0; color: #1565c0; font-size: 1.3rem;">Krishi Sakhi Premium Seeds</h3>
+              <p style="margin: 0 0 12px 0; font-size: 0.95rem; color: #333; line-height: 1.4;">Experience up to <strong>30% higher yield</strong> with our certified organic seeds. Specially tested for local soil conditions!</p>
+              <button style="background: #1976d2; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: background 0.3s;">Shop Now (20% Off)</button>
+            </div>
+            <div style="font-size: 4rem; color: #1976d2; opacity: 0.2; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); z-index: 0;">
+              <i class="fa-solid fa-seedling"></i>
+            </div>
+          </div>
+
+          <!-- Ad 2: Local Fertilizer Shop -->
+          <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-radius: 12px; padding: 20px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08); position: relative; overflow: hidden; border: 1px solid #a5d6a7;">
+            <div style="position: absolute; top: 0; left: 0; background: #4caf50; color: white; font-size: 0.75rem; padding: 4px 12px; border-bottom-right-radius: 8px; font-weight: bold; letter-spacing: 1px; z-index: 1;">SPONSORED</div>
+            <div style="flex: 1; position: relative; z-index: 2;">
+              <h3 style="margin: 0 0 8px 0; color: #2e7d32; font-size: 1.2rem;">Kisan Agro Fertilizers</h3>
+              <p style="margin: 0 0 12px 0; font-size: 0.95rem; color: #333; line-height: 1.4;">Top-quality Urea and DAP available in bulk. <strong>Free delivery</strong> within 10 km!</p>
+              <p style="margin: 0; font-size: 0.85rem; color: #555; font-weight: 500;"><i class="fa-solid fa-location-dot"></i> Near Main Market</p>
+            </div>
+            <div style="z-index: 2; margin-left: 15px;">
+              <button style="background: #2e7d32; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: background 0.3s;">Contact Seller</button>
+            </div>
+            <div style="font-size: 4rem; color: #2e7d32; opacity: 0.15; position: absolute; right: 20px; bottom: -10px; z-index: 0;">
+              <i class="fa-solid fa-sack-dollar"></i>
+            </div>
+          </div>
+        </div>
+      `;
+      openModal('Seeds & Fertilizers Marketplace', adsHtml);
     });
   }
 
