@@ -75,13 +75,38 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /*=========================
-      4. LANGUAGE SELECT (placeholder)
+      4. LANGUAGE SWITCHER
   =========================*/
   const langSelect = document.getElementById('langSelect');
+
+  function applyTranslations(lang) {
+      if (typeof translations === 'undefined' || !translations[lang]) return;
+      
+      const dict = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[key]) {
+              el.innerHTML = dict[key]; // innerHTML allows formatting like <br> to work
+          }
+      });
+      
+      if (langSelect && langSelect.value !== lang) {
+          langSelect.value = lang;
+      }
+      localStorage.setItem('ks_lang', lang);
+  }
+
+  // Init language
+  const savedLang = localStorage.getItem('ks_lang') || 'en';
+  applyTranslations(savedLang);
+
   if (langSelect) {
-    langSelect.addEventListener('change', () => {
+    langSelect.addEventListener('change', (e) => {
+      const selectedLang = e.target.value;
+      applyTranslations(selectedLang);
+      
       const label = langSelect.options[langSelect.selectedIndex].text;
-      showToast(`Language set to ${label}. (Hook this up to your translation strings to make it live.)`);
+      showToast(`Language changed to ${label}`, 'success');
     });
   }
 

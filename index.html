@@ -32,13 +32,13 @@
 
         <div class="nav-menu" id="navLinks">
             <ul class="nav-links" id="navLinksList">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#feature">Features</a></li>
-                <li><a href="#mandi">Mandi Rates</a></li>
-                <li><a href="#schemesSection">Schemes</a></li>
-                <li><a href="#disease">Disease Detect</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Pets</a></li>
+                <li><a href="#home" class="active" data-i18n="nav_home">Home</a></li>
+                <li><a href="#feature" data-i18n="nav_features">Features</a></li>
+                <li><a href="#mandi" data-i18n="nav_mandi">Mandi Rates</a></li>
+                <li><a href="#schemesSection" data-i18n="nav_schemes">Schemes</a></li>
+                <li><a href="#disease" data-i18n="nav_disease">Disease Detect</a></li>
+                <li><a href="#" data-i18n="nav_about">About Us</a></li>
+                <li><a href="#" data-i18n="nav_pets">Pets</a></li>
             </ul>
 
             <div class="nav-btns">
@@ -49,15 +49,16 @@
                 <select id="langSelect">
                     <option value="en">English</option>
                     <option value="hi">Hindi</option>
-                    <option value="ur">Urdu</option>
+                    <option value="gu">Gujarati</option>
                     <option value="pa">Punjabi</option>
+                    <option value="mr">Marathi</option>
+                    <option value="ta">Tamil</option>
                     <option value="bn">Bengali</option>
-                    <option value="gu">Gujrati</option>
                 </select>
 
                  <a href="login.html"><button class="login-btn">
                    <i class="fa-solid fa-user"></i>
-                    Login / Sign Up
+                    <span data-i18n="login_btn">Login / Sign Up</span>
                 </button></a>
             </div>
         </div>
@@ -78,12 +79,12 @@
                 🌱 AI POWERED FOR FARMERS
             </span>
 
-            <h1>
+            <h1 data-i18n="hero_title">
                 Your Smart Farming <br>
                 <span>Companion 🌿</span>
             </h1>
 
-            <p>
+            <p data-i18n="hero_subtitle">
                 Get expert advice, weather updates, mandi rates,
                 government schemes and more — all in one place.
             </p>
@@ -91,12 +92,12 @@
             <div class="hero-buttons">
                 <a href="javascript:void(0)" class="primary-btn" id="heroChatBtn">
                     <i class="fa-solid fa-comments"></i>
-                    Chat with Krishi Sakhi
+                    <span data-i18n="hero_btn_weather">Chat with Krishi Sakhi</span>
                 </a>
 
                 <a href="#feature" class="secondary-btn">
                     <i class="fa-solid fa-play"></i>
-                    Explore Features
+                    <span data-i18n="hero_btn_schemes">Explore Features</span>
                 </a>
             </div>
 
@@ -434,7 +435,7 @@
                 </div>
             </div>
 
-            <p>
+            <p data-i18n="footer_about">
                 Empowering farmers with technology
                 and knowledge.
             </p>
@@ -448,19 +449,19 @@
 
         <!-- Quick Links -->
         <div class="footer-links">
-            <h3>Quick Links</h3>
+            <h3 data-i18n="footer_quicklinks">Quick Links</h3>
 
             <div class="links-grid">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">Mandi Rates</a></li>
+                    <li><a href="#" data-i18n="nav_home">Home</a></li>
+                    <li><a href="#" data-i18n="nav_features">Features</a></li>
+                    <li><a href="#" data-i18n="nav_mandi">Mandi Rates</a></li>
                 </ul>
 
                 <ul>
-                    <li><a href="#">Schemes</a></li>
-                    <li><a href="#">Disease Detect</a></li>
-                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="#" data-i18n="nav_schemes">Schemes</a></li>
+                    <li><a href="#" data-i18n="nav_disease">Disease Detect</a></li>
+                    <li><a href="aboutus.html" data-i18n="nav_about">About Us</a></li>
                 </ul>
 
                 <ul>
@@ -473,8 +474,8 @@
 
         <!-- Contact Form -->
         <div class="footer-contact">
-            <h3>Send Message</h3>
-            <p>
+            <h3 data-i18n="footer_contact">Send Message</h3>
+            <p data-i18n="contact_desc">
                 Have a query? Drop us a message and we'll get back to you!
             </p>
 
@@ -482,7 +483,9 @@
                 <input type="text" id="contactName" name="user_name" placeholder="Your Name" required>
                 <input type="email" id="contactEmail" name="user_email" placeholder="Your Email" required>
                 <textarea id="contactMessage" name="message" placeholder="Your Message" rows="3" required></textarea>
-                <button type="submit">Send Message</button>
+                <button type="submit">
+                    <span data-i18n="contact_btn">Send Message</span>
+                </button>
             </form>
         </div>
 
@@ -490,7 +493,7 @@
 
     <!-- Bottom Bar -->
     <div class="footer-bottom">
-        <p>© 2026 Krishi Sakhi. All rights reserved.</p>
+        <p data-i18n="rights">© 2026 Krishi Sakhi. All rights reserved.</p>
 
         <p>
             Made By Team Tech Spark for Farmers
@@ -554,6 +557,7 @@
 <!-- ================= EmailJS ================= -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
+<script src="translations.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
