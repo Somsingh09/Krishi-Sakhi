@@ -104,14 +104,31 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.textContent = "Sending...";
       submitBtn.disabled = true;
 
-      emailjs.sendForm('service_zo3h00j', 'template_9cg63yi', this)
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const message = document.getElementById('contactMessage').value;
+
+      // Providing a comprehensive set of template variables to match whatever the user might have configured
+      const templateParams = {
+          name: name,
+          email: email,
+          message: message,
+          user_name: name,
+          user_email: email,
+          reply_to: email,
+          from_name: name,
+          to_name: "Krishi Sakhi Admin"
+      };
+
+      emailjs.send('service_zo3h00j', 'template_9cg63yi', templateParams)
         .then(() => {
           showToast('Message sent successfully! We will get back to you soon.', 'success');
           contactForm.reset();
         })
         .catch((error) => {
           console.error("EmailJS Error:", error);
-          showToast('Failed to send message. Please try again later.', 'error');
+          const errorMsg = (error && error.text) ? error.text : 'Please check your EmailJS account settings (Allowed domains) or template variables.';
+          showToast('Failed: ' + errorMsg, 'error');
         })
         .finally(() => {
           submitBtn.textContent = originalText;
