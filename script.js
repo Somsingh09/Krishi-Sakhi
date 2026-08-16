@@ -277,8 +277,69 @@ document.addEventListener('DOMContentLoaded', () => {
   const openTools = document.getElementById('openTools');
   if (openTools) {
     openTools.addEventListener('click', () => {
-      openChat();
-      setTimeout(() => addMessage("Looking for farming tools or tractors? Tell me what you need, and I'll find nearby sellers and rental options for you.", 'bot'), 400);
+      const toolSearchHtml = `
+        <div class="tool-search-container" style="text-align: center; padding: 10px;">
+          <p style="margin-bottom: 15px; color: #444;">Please enter your area or pincode to find tools nearby:</p>
+          <input type="text" id="toolAreaInput" placeholder="Enter Area or Pincode" style="width: 80%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem;">
+          <br>
+          <button id="findToolsBtn" class="btn" style="padding: 10px 25px; background-color: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background 0.3s;">Search Tools</button>
+          <div id="toolResults" style="margin-top: 25px; text-align: left;"></div>
+        </div>
+      `;
+      openModal('Farming Tools & Equipment', toolSearchHtml);
+
+      // Add event listener after modal content is inserted
+      setTimeout(() => {
+        const findToolsBtn = document.getElementById('findToolsBtn');
+        const toolAreaInput = document.getElementById('toolAreaInput');
+        const toolResults = document.getElementById('toolResults');
+
+        if (findToolsBtn) {
+          findToolsBtn.addEventListener('click', () => {
+            const area = toolAreaInput.value.trim();
+            if (!area) {
+              toolResults.innerHTML = '<p style="color: #d9534f; text-align: center;">Please enter an area to search.</p>';
+              return;
+            }
+
+            toolResults.innerHTML = '<p style="text-align: center; color: #666;"><i class="fa-solid fa-spinner fa-spin"></i> Searching for tools near <strong>' + area + '</strong>...</p>';
+            
+            // Simulate network request delay
+            setTimeout(() => {
+              toolResults.innerHTML = `
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                  <div style="border: 1px solid #eee; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <div>
+                      <h4 style="margin: 0 0 5px 0; color: var(--primary); font-size: 1.1rem;">Tractor (Mahindra 275)</h4>
+                      <p style="margin: 0 0 5px 0; font-size: 0.9em; color: #555;"><i class="fa-solid fa-indian-rupee-sign"></i> 500/hour - Available for Rent</p>
+                      <p style="margin: 0; font-size: 0.85em; color: #777;"><i class="fa-solid fa-location-dot"></i> 2.5 km away in ${area}</p>
+                    </div>
+                    <button style="padding: 8px 15px; background: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Book</button>
+                  </div>
+                  
+                  <div style="border: 1px solid #eee; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <div>
+                      <h4 style="margin: 0 0 5px 0; color: var(--primary); font-size: 1.1rem;">Wheat Thresher</h4>
+                      <p style="margin: 0 0 5px 0; font-size: 0.9em; color: #555;"><i class="fa-solid fa-indian-rupee-sign"></i> 800/hour - Available for Rent</p>
+                      <p style="margin: 0; font-size: 0.85em; color: #777;"><i class="fa-solid fa-location-dot"></i> 4.0 km away in ${area}</p>
+                    </div>
+                    <button style="padding: 8px 15px; background: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Book</button>
+                  </div>
+
+                  <div style="border: 1px solid #eee; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    <div>
+                      <h4 style="margin: 0 0 5px 0; color: var(--primary); font-size: 1.1rem;">Rotavator (7 feet)</h4>
+                      <p style="margin: 0 0 5px 0; font-size: 0.9em; color: #555;"><i class="fa-solid fa-indian-rupee-sign"></i> 400/hour - Available for Rent</p>
+                      <p style="margin: 0; font-size: 0.85em; color: #777;"><i class="fa-solid fa-location-dot"></i> 5.2 km away in ${area}</p>
+                    </div>
+                    <button style="padding: 8px 15px; background: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Book</button>
+                  </div>
+                </div>
+              `;
+            }, 800);
+          });
+        }
+      }, 50);
     });
   }
 
