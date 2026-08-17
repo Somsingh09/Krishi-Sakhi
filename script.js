@@ -685,8 +685,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (navDisease && openDiseaseFeature) navDisease.addEventListener('click', () => openDiseaseFeature.click());
 
   const navFertilizers = document.getElementById('navFertilizers');
-  const openFertilizers = document.getElementById('openFertilizers');
-  if (navFertilizers && openFertilizers) navFertilizers.addEventListener('click', () => openFertilizers.click());
+  if (navFertilizers && typeof openFertilizers !== 'undefined' && openFertilizers) navFertilizers.addEventListener('click', () => openFertilizers.click());
 
   forecastBtn && forecastBtn.addEventListener('click', () => {
     if (!lastForecastData) {
