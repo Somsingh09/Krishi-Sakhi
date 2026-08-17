@@ -149,9 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
           to_name: "Krishi Sakhi Admin"
       };
 
-      emailjs.send('service_zo3h00j', 'template_9cg63yi', templateParams)
+      emailjs.send('service_zo3h00j', 'template_34rs97p', templateParams)
         .then(() => {
-          showToast('Message sent successfully! We will get back to you soon.', 'success');
+          showToast('Message sent successfully!', 'success');
           contactForm.reset();
         })
         .catch((error) => {
