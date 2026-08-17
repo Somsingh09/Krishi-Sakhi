@@ -562,18 +562,74 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalContent = document.getElementById('modalContent');
   const modalClose = document.getElementById('modalClose');
 
-  function openModal(title, contentHtml) {
+  const originalParents = new Map();
+
+  function openModal(title, content) {
     modalTitle.textContent = title;
-    modalContent.innerHTML = contentHtml;
+    
+    // Restore any previously moved DOM element before changing content
+    Array.from(modalContent.children).forEach(child => {
+        if (originalParents.has(child)) {
+            originalParents.get(child).appendChild(child);
+            child.style.display = 'none';
+        }
+    });
+
+    if (typeof content === 'string') {
+      modalContent.innerHTML = content;
+    } else {
+      modalContent.innerHTML = '';
+      if (!originalParents.has(content)) {
+          originalParents.set(content, content.parentElement);
+      }
+      modalContent.appendChild(content);
+      content.style.display = 'block';
+    }
     modalOverlay.classList.add('open');
   }
+
   function closeModal() {
     modalOverlay.classList.remove('open');
+    setTimeout(() => {
+        Array.from(modalContent.children).forEach(child => {
+            if (originalParents.has(child)) {
+                originalParents.get(child).appendChild(child);
+                child.style.display = 'none';
+            }
+        });
+        if (modalContent.children.length === 0) modalContent.innerHTML = '';
+    }, 300);
   }
+  
   modalClose && modalClose.addEventListener('click', closeModal);
   modalOverlay && modalOverlay.addEventListener('click', (e) => {
     if (e.target === modalOverlay) closeModal();
   });
+
+  // ---- Open Feature Sections as Modals ----
+  const openWeatherFeature = document.getElementById('openWeatherFeature');
+  const weatherCard = document.querySelector('.weather-card');
+  if (openWeatherFeature && weatherCard) {
+      openWeatherFeature.addEventListener('click', () => openModal('Weather Updates', weatherCard));
+  }
+
+  const openDiseaseFeature = document.getElementById('openDiseaseFeature');
+  const diseaseCard = document.getElementById('disease');
+  if (openDiseaseFeature && diseaseCard) {
+      openDiseaseFeature.addEventListener('click', () => openModal('Crop Disease Detection', diseaseCard));
+  }
+
+  const openMandiFeature = document.getElementById('openMandiFeature');
+  const mandiCard = document.getElementById('mandi');
+  if (openMandiFeature && mandiCard) {
+      openMandiFeature.addEventListener('click', () => openModal('Mandi Rates', mandiCard));
+  }
+
+  const openSchemesFeature = document.getElementById('openSchemesFeature');
+  const schemesSectionCard = document.getElementById('schemesSection');
+  if (openSchemesFeature && schemesSectionCard) {
+      openSchemesFeature.addEventListener('click', () => openModal('Government Schemes', schemesSectionCard));
+  }
 
   forecastBtn && forecastBtn.addEventListener('click', () => {
     if (!lastForecastData) {
