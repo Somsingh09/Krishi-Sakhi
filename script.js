@@ -270,8 +270,51 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   openChatTips && openChatTips.addEventListener('click', () => {
-    openChat();
-    setTimeout(() => addMessage("Tip 🌱: Rotate crops each season to keep soil healthy and reduce pest build-up. Want more tips like this?", 'bot'), 400);
+    const tipsHtml = `
+      <div style="padding: 10px;">
+        <!-- Free Tips Section -->
+        <h4 style="margin: 0 0 15px 0; color: var(--text); border-bottom: 2px solid var(--primary); padding-bottom: 5px; display: inline-block;">Daily Free Tips 🌱</h4>
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 25px;">
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                <li style="display: flex; gap: 10px; align-items: flex-start; color: var(--text);">
+                    <i class="fa-solid fa-check" style="color: #28a745; margin-top: 4px;"></i> 
+                    <span><strong>Crop Rotation:</strong> Rotate crops each season to maintain soil nutrients and reduce pest build-up.</span>
+                </li>
+                <li style="display: flex; gap: 10px; align-items: flex-start; color: var(--text);">
+                    <i class="fa-solid fa-check" style="color: #28a745; margin-top: 4px;"></i> 
+                    <span><strong>Water Management:</strong> Irrigate your fields early morning or late evening to minimize evaporation and save water.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Premium Expert Advice Section -->
+        <h4 style="margin: 0 0 15px 0; color: #d32f2f; border-bottom: 2px solid #d32f2f; padding-bottom: 5px; display: inline-block;">Premium Expert Advice 🌟</h4>
+        
+        <div style="position: relative; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; overflow: hidden; min-height: 250px;">
+            
+            <!-- Blurred Content -->
+            <div style="filter: blur(6px); opacity: 0.5; pointer-events: none; user-select: none;">
+                <h5 style="margin: 0 0 10px 0; font-size: 1.1rem; color: var(--primary);">Advanced Soil Diagnostics</h5>
+                <p style="margin: 0 0 15px 0; font-size: 0.95rem; color: var(--text);">Learn the exact Ph balance techniques used by top commercial farmers to double their wheat yield within a single season.</p>
+                <h5 style="margin: 0 0 10px 0; font-size: 1.1rem; color: var(--primary);">Predictive Pest Control</h5>
+                <p style="margin: 0; font-size: 0.95rem; color: var(--text);">Access our proprietary AI model's 30-day pest forecast for your specific district to prevent infestations before they happen.</p>
+            </div>
+
+            <!-- Lock Overlay -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(2px); background: rgba(0,0,0,0.03); padding: 20px; text-align: center; z-index: 5;">
+                <div style="background: var(--card); border: 1px solid var(--border); padding: 25px 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 320px; display: flex; flex-direction: column; align-items: center;">
+                    <div style="background: #ffebee; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                        <i class="fa-solid fa-lock" style="font-size: 1.4rem; color: #d32f2f;"></i>
+                    </div>
+                    <h3 style="margin: 0 0 8px 0; color: var(--text); font-size: 1.2rem;">Krishi Sakhi Premium</h3>
+                    <p style="margin: 0 0 18px 0; color: var(--text-light); font-size: 0.9rem; line-height: 1.4;">Unlock direct 1-on-1 calls with agricultural scientists and personalized farming roadmaps.</p>
+                    <button style="background: linear-gradient(135deg, #d32f2f, #f44336); color: white; border: none; padding: 10px 22px; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'" onclick="showToast('Redirecting to Premium subscription page...')">Upgrade to Premium</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    `;
+    openModal('Farming Tips & Expert Advice', tipsHtml);
   });
 
   const openTools = document.getElementById('openTools');
