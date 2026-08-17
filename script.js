@@ -674,6 +674,20 @@ document.addEventListener('DOMContentLoaded', () => {
       openSchemesFeature.addEventListener('click', () => openModal('Government Schemes', schemesSectionCard));
   }
 
+  // ---- Navbar Links to Open Modals ----
+  const navMandi = document.getElementById('navMandi');
+  if (navMandi && openMandiFeature) navMandi.addEventListener('click', () => openMandiFeature.click());
+
+  const navSchemes = document.getElementById('navSchemes');
+  if (navSchemes && openSchemesFeature) navSchemes.addEventListener('click', () => openSchemesFeature.click());
+
+  const navDisease = document.getElementById('navDisease');
+  if (navDisease && openDiseaseFeature) navDisease.addEventListener('click', () => openDiseaseFeature.click());
+
+  const navFertilizers = document.getElementById('navFertilizers');
+  const openFertilizers = document.getElementById('openFertilizers');
+  if (navFertilizers && openFertilizers) navFertilizers.addEventListener('click', () => openFertilizers.click());
+
   forecastBtn && forecastBtn.addEventListener('click', () => {
     if (!lastForecastData) {
       showToast('Weather is still loading, try again in a moment.');
