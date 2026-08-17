@@ -62,13 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('topAvatar').textContent = initial;
     document.getElementById('topName').textContent = firstName;
-    document.getElementById('topVillage').textContent = user.village || '—';
+    document.getElementById('topArea').textContent = user.area || '—';
     document.getElementById('welcomeText').textContent = `Namaste, ${firstName} 🙏`;
 
     document.getElementById('profileAvatar').textContent = initial;
     document.getElementById('profileName').textContent = user.name;
     document.getElementById('profileMobile').textContent = `+91 ${user.mobile}`;
-    document.getElementById('profileVillage').textContent = user.village || '—';
+    document.getElementById('profileArea').textContent = user.area || '—';
+    document.getElementById('profileFarmerType').textContent = user.farmerType || '—';
     document.getElementById('profileDistrict').textContent = user.district || '—';
     document.getElementById('profileState').textContent = user.state || '—';
     document.getElementById('profilePincode').textContent = user.pincode || '—';

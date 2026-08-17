@@ -101,12 +101,12 @@
                 </div>
 
                 <div class="field">
-                    <label for="village">Village / Area</label>
+                    <label for="area">Area of Agriculture</label>
                     <div class="input-group">
                         <i class="fa-solid fa-location-dot"></i>
-                        <input type="text" id="village" placeholder="e.g. Machhlishahr" autocomplete="address-line1">
+                        <input type="text" id="area" placeholder="e.g. 5 acres in Machhlishahr" autocomplete="address-line1">
                     </div>
-                    <span class="error-msg" id="err-village"></span>
+                    <span class="error-msg" id="err-area"></span>
                 </div>
 
                 <div class="field-row">
@@ -151,6 +151,22 @@
                         <input type="text" id="pincode" inputmode="numeric" maxlength="6" placeholder="e.g. 222001" autocomplete="postal-code">
                     </div>
                     <span class="error-msg" id="err-pincode"></span>
+                </div>
+
+                <div class="field">
+                    <label for="farmerType">Type of Farmer</label>
+                    <div class="input-group">
+                        <i class="fa-solid fa-tractor"></i>
+                        <select id="farmerType">
+                            <option value="" disabled selected>Select farmer type</option>
+                            <option>Small (Up to 1 hectare)</option>
+                            <option>Marginal (1 to 2 hectares)</option>
+                            <option>Medium (2 to 10 hectares)</option>
+                            <option>Large (More than 10 hectares)</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <span class="error-msg" id="err-farmerType"></span>
                 </div>
 
                 <div class="field">

@@ -78,10 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const stages = document.querySelectorAll('.grow-stage');
 
     const fullName = document.getElementById('fullName');
-    const village = document.getElementById('village');
+    const area = document.getElementById('area');
     const district = document.getElementById('district');
     const stateSel = document.getElementById('state');
     const pincode = document.getElementById('pincode');
+    const farmerType = document.getElementById('farmerType');
     const mobile = document.getElementById('mobile');
 
     const mobileDisplay = document.getElementById('mobileDisplay');
@@ -116,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setError('fullName', 'Please enter your full name');
             valid = false;
         }
-        if (village.value.trim().length < 2) {
-            setError('village', 'Please enter your village / area');
+        if (area.value.trim().length < 2) {
+            setError('area', 'Please enter your area of agriculture');
             valid = false;
         }
         if (district.value.trim().length < 2) {
@@ -130,6 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (!/^\d{6}$/.test(pincode.value.trim())) {
             setError('pincode', 'Enter a valid 6-digit pincode');
+            valid = false;
+        }
+        if (!farmerType.value) {
+            setError('farmerType', 'Please select type of farmer');
             valid = false;
         }
         if (!/^[6-9]\d{9}$/.test(mobile.value.trim())) {
@@ -274,10 +279,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const session = {
             name: fullName.value.trim(),
             mobile: mobile.value.trim(),
-            village: village.value.trim(),
+            area: area.value.trim(),
             district: district.value.trim(),
             state: stateSel.value,
             pincode: pincode.value.trim(),
+            farmerType: farmerType.value,
             loggedInAt: Date.now()
         };
         localStorage.setItem('krishiSakhiUser', JSON.stringify(session));

@@ -6,10 +6,10 @@
 
 :root{
     /* ---- color ---- */
-    --primary:#16A34A;
-    --primary-dark:#0E7C38;
+    --primary:#325f43;
+    --primary-dark:#136832;
     --primary-light:#EAFBF1;
-    --primary-glow:rgba(22,163,74,.28);
+    --primary-glow:rgba(50,95,67,.28);
 
     --accent:#F5B300;
     --accent-soft:#FFF6DE;
