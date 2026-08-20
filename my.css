@@ -3494,3 +3494,26 @@ height:220px;
 .social-icon.telegram {
     background: #0088cc;
 }
+
+/* Mic button in chat input */
+.chat-input .mic-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 0 10px;
+}
+.chat-input .mic-btn:hover {
+    color: #1B8A43;
+}
+.chat-input .mic-btn.recording {
+    color: #dc3545;
+    animation: pulse 1s infinite alternate;
+}
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+

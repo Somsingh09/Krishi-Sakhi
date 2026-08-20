@@ -239,6 +239,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return "I'm a demo assistant right now — connect me to a real AI backend (e.g. the Claude API) to answer anything a farmer asks. Meanwhile, try asking about weather, mandi rates, disease detection, or schemes.";
   }
 
+  function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const langMap = { en: 'en-IN', hi: 'hi-IN', gu: 'gu-IN', pa: 'pa-IN', mr: 'mr-IN', ta: 'ta-IN', bn: 'bn-IN' };
+      const currentLang = localStorage.getItem('ks_lang') || 'en';
+      utterance.lang = langMap[currentLang] || 'hi-IN';
+      window.speechSynthesis.speak(utterance);
+  }
+
   function handleUserMessage(text) {
     if (!text.trim()) return;
     addMessage(text, 'user');
@@ -247,7 +257,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const delay = 600 + Math.random() * 700;
     setTimeout(() => {
       typing.remove();
-      addMessage(getBotReply(text), 'bot');
+      const reply = getBotReply(text);
+      addMessage(reply, 'bot');
+      speakText(reply);
     }, delay);
   }
 
@@ -255,6 +267,49 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     handleUserMessage(chatInput.value);
   });
+
+  const chatMicBtn = document.getElementById('chatMicBtn');
+  if (chatMicBtn) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+          const recognition = new SpeechRecognition();
+          recognition.continuous = false;
+          recognition.interimResults = false;
+
+          chatMicBtn.addEventListener('click', () => {
+              const langMap = { en: 'en-IN', hi: 'hi-IN', gu: 'gu-IN', pa: 'pa-IN', mr: 'mr-IN', ta: 'ta-IN', bn: 'bn-IN' };
+              const currentLang = localStorage.getItem('ks_lang') || 'en';
+              recognition.lang = langMap[currentLang] || 'hi-IN';
+              
+              chatMicBtn.classList.add('recording');
+              chatInput.placeholder = "Listening...";
+              recognition.start();
+          });
+
+          recognition.onresult = (event) => {
+              chatMicBtn.classList.remove('recording');
+              chatInput.placeholder = "Type your question...";
+              const transcript = event.results[0][0].transcript;
+              chatInput.value = transcript;
+              handleUserMessage(transcript);
+          };
+
+          recognition.onerror = (event) => {
+              chatMicBtn.classList.remove('recording');
+              chatInput.placeholder = "Type your question...";
+              showToast("Voice recognition failed. Please try again.");
+          };
+          
+          recognition.onend = () => {
+              chatMicBtn.classList.remove('recording');
+              chatInput.placeholder = "Type your question...";
+          };
+      } else {
+          chatMicBtn.addEventListener('click', () => {
+              showToast("Voice recognition not supported in this browser.");
+          });
+      }
+  }
 
   chatQuick && chatQuick.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-q]');

@@ -346,10 +346,42 @@
     </div>
 </div>
 
-<!-- AI Chat FAB (visual only) -->
+<!-- ================= AI Chat Assistant Widget ================= -->
 <button class="chat-fab" id="chatFab" aria-label="Open AI Chat Assistant">
     <i class="fa-solid fa-comments"></i>
 </button>
+
+<div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+        <div class="chat-header-info">
+            <img src="https://www.svgrepo.com/show/474732/assistant.svg" alt="" style="width:40px;">
+            <div>
+                <h4 style="margin:0;color:white;">Krishi Sakhi Assistant</h4>
+                <span style="font-size:0.8rem;color:#e2e8f0;"><i class="fa-solid fa-circle" style="color:#10b981;font-size:0.6rem;"></i> Online</span>
+            </div>
+        </div>
+        <button id="chatClose" aria-label="Close chat" style="background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+        <div class="msg bot">
+            नमस्ते 🙏 I'm Krishi Sakhi. Ask me about weather, mandi rates, crop diseases or government schemes.
+        </div>
+    </div>
+
+    <div class="chat-quick" id="chatQuick">
+        <button data-q="weather">Weather</button>
+        <button data-q="mandi">Mandi Rates</button>
+        <button data-q="disease">Disease Help</button>
+        <button data-q="scheme">Schemes</button>
+    </div>
+
+    <form class="chat-input" id="chatForm">
+        <button type="button" id="chatMicBtn" aria-label="Voice Input" class="mic-btn"><i class="fa-solid fa-microphone"></i></button>
+        <input type="text" id="chatInput" placeholder="Type your question..." autocomplete="off">
+        <button type="submit" aria-label="Send"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+</div>
 
 <div class="toast" id="toast"></div>
 

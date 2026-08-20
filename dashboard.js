@@ -410,3 +410,147 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
+    /*=========================
+        11. AI CHAT ASSISTANT
+    =========================*/
+    const chatFab = document.getElementById('chatFab');
+    const chatWidget = document.getElementById('chatWidget');
+    const chatClose = document.getElementById('chatClose');
+    const chatBody = document.getElementById('chatBody');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatQuick = document.getElementById('chatQuick');
+    const quickChatBtn = document.getElementById('quickChatBtn');
+
+    function openChat() { chatWidget.classList.add('open'); chatInput && chatInput.focus(); }
+    function closeChat() { chatWidget.classList.remove('open'); }
+    function toggleChat() { chatWidget.classList.contains('open') ? closeChat() : openChat(); }
+
+    if (chatFab) {
+        // Remove existing listener if any
+        const newFab = chatFab.cloneNode(true);
+        chatFab.parentNode.replaceChild(newFab, chatFab);
+        newFab.addEventListener('click', toggleChat);
+    }
+    chatClose && chatClose.addEventListener('click', closeChat);
+    if (quickChatBtn) {
+        const newQuick = quickChatBtn.cloneNode(true);
+        quickChatBtn.parentNode.replaceChild(newQuick, quickChatBtn);
+        newQuick.addEventListener('click', openChat);
+    }
+
+    function addMessage(text, sender = 'bot') {
+        const div = document.createElement('div');
+        div.className = 'msg ' + sender;
+        div.textContent = text;
+        chatBody.appendChild(div);
+        chatBody.scrollTop = chatBody.scrollHeight;
+        return div;
+    }
+
+    function showTyping() {
+        const typing = document.createElement('div');
+        typing.className = 'msg bot typing';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        chatBody.appendChild(typing);
+        chatBody.scrollTop = chatBody.scrollHeight;
+        return typing;
+    }
+
+    function getBotReply(rawText) {
+        const text = rawText.toLowerCase();
+        if (/weather|mausam|temperature|rain/.test(text)) return 'You can check live weather in the Weather Forecast card on the homepage — it auto-detects your location. Want me to scroll you there?';
+        if (/mandi|price|rate|???/.test(text)) return 'Today\\'s mandi rates are listed in the Mandi Rates section — Wheat ?2420, Rice ?2300, Maize ?2100, Pulses ?5650, Mustard ?6000 per quintal. Tap \\'View All\\' for more crops.';
+        if (/disease|pest|leaf|bimari|??????/.test(text)) return 'Upload a clear photo of the affected leaf in the Crop Disease Detection section and tap \\'Analyze Leaf\\' — I\\'ll give you a quick assessment and next steps.';
+        if (/scheme|yojana|loan|subsidy|?????/.test(text)) return 'Popular schemes: PM Kisan Samman Nidhi (?6000/year), Kisan Credit Card (easy loans), and PM Fasal Bima Yojana (crop insurance). Check the Government Schemes section for details and links.';
+        if (/hi|hello|hey|namaste|??????/.test(text)) return 'Namaste! ?? I can help with weather, mandi rates, crop diseases, or government schemes. What do you need?';
+        if (/thank/.test(text)) return 'Happy to help! ?? Anything else you\\'d like to know?';
+        return 'I\\'m a demo assistant right now — connect me to a real AI backend (e.g. the Claude API) to answer anything a farmer asks. Meanwhile, try asking about weather, mandi rates, disease detection, or schemes.';
+    }
+
+    function speakText(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        const langMap = { en: 'en-IN', hi: 'hi-IN', gu: 'gu-IN', pa: 'pa-IN', mr: 'mr-IN', ta: 'ta-IN', bn: 'bn-IN' };
+        const currentLang = localStorage.getItem('ks_lang') || 'en';
+        utterance.lang = langMap[currentLang] || 'hi-IN';
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function handleUserMessage(text) {
+        if (!text.trim()) return;
+        addMessage(text, 'user');
+        chatInput.value = '';
+        const typing = showTyping();
+        const delay = 600 + Math.random() * 700;
+        setTimeout(() => {
+            typing.remove();
+            const reply = getBotReply(text);
+            addMessage(reply, 'bot');
+            speakText(reply);
+        }, delay);
+    }
+
+    chatForm && chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleUserMessage(chatInput.value);
+    });
+
+    const chatMicBtn = document.getElementById('chatMicBtn');
+    if (chatMicBtn) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            chatMicBtn.addEventListener('click', () => {
+                const langMap = { en: 'en-IN', hi: 'hi-IN', gu: 'gu-IN', pa: 'pa-IN', mr: 'mr-IN', ta: 'ta-IN', bn: 'bn-IN' };
+                const currentLang = localStorage.getItem('ks_lang') || 'en';
+                recognition.lang = langMap[currentLang] || 'hi-IN';
+                
+                chatMicBtn.classList.add('recording');
+                chatInput.placeholder = 'Listening...';
+                recognition.start();
+            });
+
+            recognition.onresult = (event) => {
+                chatMicBtn.classList.remove('recording');
+                chatInput.placeholder = 'Type your question...';
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                handleUserMessage(transcript);
+            };
+
+            recognition.onerror = (event) => {
+                chatMicBtn.classList.remove('recording');
+                chatInput.placeholder = 'Type your question...';
+                showToast('Voice recognition failed. Please try again.');
+            };
+            
+            recognition.onend = () => {
+                chatMicBtn.classList.remove('recording');
+                chatInput.placeholder = 'Type your question...';
+            };
+        } else {
+            chatMicBtn.addEventListener('click', () => {
+                showToast('Voice recognition not supported in this browser.');
+            });
+        }
+    }
+
+    chatQuick && chatQuick.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-q]');
+        if (!btn) return;
+        const map = {
+            weather: 'What is the weather today?',
+            mandi: 'What are today\\'s mandi rates?',
+            disease: 'My crop leaf looks sick, help me.',
+            scheme: 'Which government schemes can I apply for?'
+        };
+        openChat();
+        handleUserMessage(map[btn.dataset.q] || btn.textContent);
+    });
+
