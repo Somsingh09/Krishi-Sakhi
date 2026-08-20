@@ -948,7 +948,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       const basePrice = parseInt(el.textContent.replace(/\D/g, '')) || 2000;
                       const randomVariation = Math.floor(Math.random() * 400) - 200;
                       const newPrice = Math.max(500, basePrice + randomVariation);
-                      el.textContent = 'â‚¹' + newPrice + '/à¤•à¥à¤µà¤¿à¤‚à¤Ÿà¤²';
+                      el.textContent = '₹' + newPrice + '/क्विंटल';
                       el.style.color = '#10b981';
                       el.style.transition = 'color 0.5s';
                       setTimeout(() => { el.style.color = ''; }, 1000);
