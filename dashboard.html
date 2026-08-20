@@ -27,6 +27,8 @@
             <a href="#disease" data-target="disease"><i class="fa-solid fa-magnifying-glass-chart"></i> Disease Detection</a>
             <a href="#mandi" data-target="mandi"><i class="fa-solid fa-indian-rupee-sign"></i> Mandi Rates</a>
             <a href="#schemes" data-target="schemes"><i class="fa-solid fa-file-shield"></i> Schemes</a>
+            <a href="#expert" data-target="expert"><i class="fa-solid fa-lightbulb"></i> Expert Advice</a>
+            <a href="#marketplace" data-target="marketplace"><i class="fa-solid fa-store"></i> Marketplace</a>
             <a href="#profile" data-target="profile"><i class="fa-solid fa-user"></i> Profile</a>
         </nav>
 
@@ -226,6 +228,91 @@
                         <h3>PM Fasal Bima Yojana</h3>
                         <p>Crop insurance against losses</p>
                         <a href="https://pmfby.gov.in/" target="_blank">View Details →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== EXPERT ADVICE ===================== -->
+        <section id="expert" class="dash-section">
+            <h2 class="section-title">Expert Advice & Tips</h2>
+            <p class="section-sub">Get daily farming tips and consult with agricultural scientists.</p>
+            
+            <div class="expert-grid">
+                <div class="tip-card">
+                    <h4><i class="fa-solid fa-leaf" style="color:var(--primary);"></i> Daily Tip: Crop Rotation</h4>
+                    <p>Rotate crops each season to maintain soil nutrients and reduce pest build-up.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><i class="fa-solid fa-droplet" style="color:#0ea5e9;"></i> Daily Tip: Irrigation</h4>
+                    <p>Irrigate your fields early morning or late evening to minimize evaporation and save water.</p>
+                </div>
+            </div>
+
+            <div class="premium-box">
+                <div class="premium-content">
+                    <h3><i class="fa-solid fa-crown" style="color:#fbbf24;"></i> Krishi Sakhi Premium</h3>
+                    <p>Unlock direct 1-on-1 calls with agricultural scientists, predictive pest control, and personalized farming roadmaps.</p>
+                    <button class="premium-btn" onclick="showToast('Redirecting to Premium subscription page...')">Upgrade Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== MARKETPLACE (ADS) ===================== -->
+        <section id="marketplace" class="dash-section">
+            <h2 class="section-title">Marketplace & Ads</h2>
+            <p class="section-sub">Buy seeds, fertilizers, or rent farming tools near you.</p>
+
+            <div class="marketplace-tabs">
+                <button class="tab-btn active" data-tab="tools">Tools for Rent</button>
+                <button class="tab-btn" data-tab="seeds">Seeds & Fertilizers</button>
+            </div>
+
+            <div class="tab-content" id="tools-content">
+                <div class="tool-search">
+                    <input type="text" id="dashToolSearch" placeholder="Enter Pincode or Area...">
+                    <button id="dashToolSearchBtn"><i class="fa-solid fa-search"></i> Search Tools</button>
+                </div>
+                <div class="marketplace-grid" id="dashToolResults">
+                    <div class="ad-card">
+                        <div class="ad-badge">RENT</div>
+                        <h4>Tractor (Mahindra 275)</h4>
+                        <p class="price">₹500/hour</p>
+                        <p class="loc"><i class="fa-solid fa-location-dot"></i> 2.5 km away</p>
+                        <button class="book-btn" onclick="showToast('Booking request sent!')">Book Now</button>
+                    </div>
+                    <div class="ad-card">
+                        <div class="ad-badge">RENT</div>
+                        <h4>Wheat Thresher</h4>
+                        <p class="price">₹800/hour</p>
+                        <p class="loc"><i class="fa-solid fa-location-dot"></i> 4.0 km away</p>
+                        <button class="book-btn" onclick="showToast('Booking request sent!')">Book Now</button>
+                    </div>
+                    <div class="ad-card">
+                        <div class="ad-badge">RENT</div>
+                        <h4>Rotavator (7 feet)</h4>
+                        <p class="price">₹400/hour</p>
+                        <p class="loc"><i class="fa-solid fa-location-dot"></i> 5.2 km away</p>
+                        <button class="book-btn" onclick="showToast('Booking request sent!')">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="seeds-content" style="display:none;">
+                <div class="marketplace-grid">
+                    <div class="ad-card premium-ad">
+                        <div class="ad-badge">SPONSORED</div>
+                        <h4>Krishi Sakhi Premium Seeds</h4>
+                        <p class="desc">30% higher yield with our certified organic seeds.</p>
+                        <p class="price">20% Off Today!</p>
+                        <button class="book-btn" onclick="showToast('Added to cart!')">Shop Now</button>
+                    </div>
+                    <div class="ad-card premium-ad">
+                        <div class="ad-badge">SPONSORED</div>
+                        <h4>Kisan Agro Fertilizers</h4>
+                        <p class="desc">Top-quality Urea and DAP in bulk. Free delivery.</p>
+                        <p class="loc"><i class="fa-solid fa-location-dot"></i> Near Main Market</p>
+                        <button class="book-btn" onclick="showToast('Contacting seller...')">Contact Seller</button>
                     </div>
                 </div>
             </div>

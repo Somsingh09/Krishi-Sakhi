@@ -382,3 +382,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+    /*=========================
+        10. MARKETPLACE TABS
+    =========================*/
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.style.display = 'none');
+            
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab + '-content').style.display = 'block';
+        });
+    });
+
+    const dashToolSearchBtn = document.getElementById('dashToolSearchBtn');
+    const dashToolSearch = document.getElementById('dashToolSearch');
+    if (dashToolSearchBtn && dashToolSearch) {
+        dashToolSearchBtn.addEventListener('click', () => {
+            if (!dashToolSearch.value.trim()) {
+                showToast('Please enter a location to search.');
+                return;
+            }
+            showToast('Searching tools in ' + dashToolSearch.value + '...');
+        });
+    }
+
