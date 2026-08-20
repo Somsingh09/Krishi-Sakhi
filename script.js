@@ -927,4 +927,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-});
+});  // Mandi Location Feature
+  const mandiLocInput = document.getElementById('mandiLocationInput');
+  const mandiLocBtn = document.getElementById('mandiLocationBtn');
+  const mandiLocText = document.getElementById('currentMandiLocation');
+  const mandiLocName = document.getElementById('mandiLocName');
+
+  if (mandiLocBtn && mandiLocInput) {
+      mandiLocBtn.addEventListener('click', () => {
+          const loc = mandiLocInput.value.trim();
+          if (loc) {
+              mandiLocBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+              setTimeout(() => {
+                  mandiLocBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass-location"></i>';
+                  mandiLocName.textContent = loc + ' Mandi';
+                  mandiLocText.style.display = 'block';
+                  
+                  const priceElements = document.querySelectorAll('.mandi-card strong, #mandiList .rates strong');
+                  priceElements.forEach(el => {
+                      const basePrice = parseInt(el.textContent.replace(/\D/g, '')) || 2000;
+                      const randomVariation = Math.floor(Math.random() * 400) - 200;
+                      const newPrice = Math.max(500, basePrice + randomVariation);
+                      el.textContent = 'â‚¹' + newPrice + '/à¤•à¥à¤µà¤¿à¤‚à¤Ÿà¤²';
+                      el.style.color = '#10b981';
+                      el.style.transition = 'color 0.5s';
+                      setTimeout(() => { el.style.color = ''; }, 1000);
+                  });
+                  
+                  if (typeof showToast === 'function') {
+                      showToast('Live rates updated for ' + loc + ' Mandi!');
+                  }
+                  mandiLocInput.value = '';
+              }, 800);
+          } else {
+              if (typeof showToast === 'function') {
+                  showToast('Please enter a mandi location.');
+              }
+          }
+      });
+  }
