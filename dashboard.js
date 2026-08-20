@@ -594,3 +594,39 @@ document.addEventListener('DOMContentLoaded', () => {
           }
       });
   }
+
+
+    // Profile Image Upload Feature
+    const imageUpload = document.getElementById('imageUpload');
+    const profileImage = document.getElementById('profileImage');
+    
+    // Load saved image from localStorage
+    const savedImage = localStorage.getItem('farmerProfileImage');
+    if (savedImage && profileImage) {
+        profileImage.src = savedImage;
+    }
+    
+    if (imageUpload && profileImage) {
+        imageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const dataUrl = event.target.result;
+                    profileImage.src = dataUrl;
+                    try {
+                        localStorage.setItem('farmerProfileImage', dataUrl);
+                        if (typeof showToast === 'function') {
+                            showToast('Profile photo updated successfully!');
+                        }
+                    } catch (err) {
+                        console.error('Image too large for localStorage', err);
+                        if (typeof showToast === 'function') {
+                            showToast('Image is too large to save permanently.');
+                        }
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }

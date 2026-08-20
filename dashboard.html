@@ -73,11 +73,17 @@
         <section id="overview" class="dash-section">
 
             <div class="welcome-banner">
-                <div>
+                <div class="welcome-content">
                     <h2 id="welcomeText">Namaste 🙏</h2>
                     <p>Here's what's happening on your farm today.</p>
                 </div>
-                <img src="farmer-login.jpg" alt="">
+                <div class="profile-photo-wrapper">
+                    <img src="farmer-login.jpg" alt="Profile" id="profileImage">
+                    <label for="imageUpload" class="edit-photo-btn" aria-label="Upload Profile Photo">
+                        <i class="fa-solid fa-camera"></i>
+                    </label>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                </div>
             </div>
 
             <div class="stat-grid">
