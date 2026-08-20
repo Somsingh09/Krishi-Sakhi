@@ -272,7 +272,14 @@
         <p id="today" data-i18n="mandi_today">(Today)</p>
 <button class="view" id="mandiViewAll" data-i18n="mandi_view_all">View All</button></div>
 
-<input type="text" id="mandiSearch" class="mini-search" placeholder="Search crop..." data-i18n="mandi_search_placeholder">
+<div class="mandi-controls" style="display: flex; flex-direction: column; gap: 10px; margin: 16px 0;">
+    <div style="display:flex; gap:8px;">
+        <input type="text" id="mandiLocationInput" class="mini-search" style="margin:0; flex:1;" placeholder="Enter nearby mandi (e.g. Nashik)...">
+        <button id="mandiLocationBtn" aria-label="Update Mandi Location" style="background:var(--primary); color:white; border:none; border-radius:14px; padding:0 20px; font-weight:bold; cursor:pointer; transition:0.3s;"><i class="fa-solid fa-magnifying-glass-location"></i></button>
+    </div>
+    <input type="text" id="mandiSearch" class="mini-search" style="margin:0;" placeholder="Search crop..." data-i18n="mandi_search_placeholder">
+    <p id="currentMandiLocation" style="font-size:0.85rem; color:var(--primary); margin:0; font-weight:bold; display:none;"><i class="fa-solid fa-location-dot"></i> Showing rates for: <span id="mandiLocName"></span></p>
+</div>
 
 <div class="line"></div>
 

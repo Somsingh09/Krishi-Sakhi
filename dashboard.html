@@ -188,7 +188,14 @@
         <!-- ===================== MANDI RATES ===================== -->
         <section id="mandi" class="dash-section">
             <h2 class="section-title">Today's Mandi Rates</h2>
-            <input type="text" id="mandiSearch" class="mini-search" placeholder="Search a crop...">
+            <div class="mandi-controls" style="display: flex; flex-direction: column; gap: 10px; margin: 16px 0;">
+                <div style="display:flex; gap:8px;">
+                    <input type="text" id="mandiLocationInput" class="mini-search" style="margin:0; flex:1;" placeholder="Enter nearby mandi (e.g. Nashik)...">
+                    <button id="mandiLocationBtn" aria-label="Update Mandi Location" style="background:var(--primary); color:white; border:none; border-radius:14px; padding:0 20px; font-weight:bold; cursor:pointer; transition:0.3s;"><i class="fa-solid fa-magnifying-glass-location"></i></button>
+                </div>
+                <input type="text" id="mandiSearch" class="mini-search" style="margin:0;" placeholder="Search a crop...">
+                <p id="currentMandiLocation" style="font-size:0.85rem; color:var(--primary); margin:0; font-weight:bold; display:none;"><i class="fa-solid fa-location-dot"></i> Showing rates for: <span id="mandiLocName"></span></p>
+            </div>
 
             <div class="mandi-grid" id="mandiGrid">
                 <div class="mandi-card" data-name="Wheat"><span>🌾 Wheat (गेहूं)</span><strong>₹2125/क्विंटल</strong></div>
