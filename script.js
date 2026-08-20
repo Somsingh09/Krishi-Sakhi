@@ -214,38 +214,35 @@ document.addEventListener('DOMContentLoaded', () => {
     return typing;
   }
 
-  // Simple rule-based demo assistant. Swap this out for a real backend / LLM API call.
   function getBotReply(rawText) {
     const text = rawText.toLowerCase();
 
-    if (/weather|mausam|temperature|rain/.test(text)) {
-      return "You can check live weather in the Weather Forecast card on the homepage — it auto-detects your location. Want me to scroll you there?";
+    if (/weather|mausam|temperature|rain|मौसम/.test(text)) {
+      return "आप होमपेज पर मौसम अनुभाग में लाइव मौसम देख सकते हैं। क्या मैं आपको वहां ले चलूं?";
     }
-    if (/mandi|price|rate|भाव/.test(text)) {
-      return "Today's mandi rates are listed in the Mandi Rates section — Wheat ₹2420, Rice ₹2300, Maize ₹2100, Pulses ₹5650, Mustard ₹6000 per quintal. Tap 'View All' for more crops.";
+    if (/mandi|price|rate|भाव|मंडी/.test(text)) {
+      return "आज के मंडी भाव इस प्रकार हैं — गेहूं ₹2420, चावल ₹2300, मक्का ₹2100, दालें ₹5650, सरसों ₹6000 प्रति क्विंटल।";
     }
-    if (/disease|pest|leaf|bimari|बीमारी/.test(text)) {
-      return "Upload a clear photo of the affected leaf in the Crop Disease Detection section and tap 'Analyze Leaf' — I'll give you a quick assessment and next steps.";
+    if (/disease|pest|leaf|bimari|बीमारी|रोग/.test(text)) {
+      return "फसल रोग पहचान अनुभाग में प्रभावित पत्ते की एक फोटो अपलोड करें, और मैं आपको बीमारी और बचाव के उपाय बताऊंगी।";
     }
     if (/scheme|yojana|loan|subsidy|योजना/.test(text)) {
-      return "Popular schemes: PM Kisan Samman Nidhi (₹6000/year), Kisan Credit Card (easy loans), and PM Fasal Bima Yojana (crop insurance). Check the Government Schemes section for details and links.";
+      return "मुख्य सरकारी योजनाएं हैं: पीएम किसान सम्मान निधि, किसान क्रेडिट कार्ड (आसान ऋण), और पीएम फसल बीमा योजना (फसल बीमा)।";
     }
-    if (/hi|hello|hey|namaste|नमस्ते/.test(text)) {
-      return "Namaste! 🙏 I can help with weather, mandi rates, crop diseases, or government schemes. What do you need?";
+    if (/hi|hello|hey|namaste|नमस्ते|हेलो/.test(text)) {
+      return "नमस्ते! 🙏 मैं कृषि सखी हूँ। मैं मौसम, मंडी भाव, फसल की बीमारियों या सरकारी योजनाओं में आपकी मदद कर सकती हूँ। बताइए, आपको क्या जानकारी चाहिए?";
     }
-    if (/thank/.test(text)) {
-      return "Happy to help! 🌾 Anything else you'd like to know?";
+    if (/thank|धन्यवाद|शुक्रिया/.test(text)) {
+      return "आपकी मदद करके मुझे बहुत खुशी हुई! 🌾 क्या मैं आपकी कुछ और मदद कर सकती हूँ?";
     }
-    return "I'm a demo assistant right now — connect me to a real AI backend (e.g. the Claude API) to answer anything a farmer asks. Meanwhile, try asking about weather, mandi rates, disease detection, or schemes.";
+    return "मैं अभी एक डेमो असिस्टेंट हूँ। कृपया मौसम, मंडी भाव, फसल की बीमारी, या सरकारी योजनाओं के बारे में सवाल पूछें।";
   }
 
   function speakText(text) {
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      const langMap = { en: 'en-IN', hi: 'hi-IN', gu: 'gu-IN', pa: 'pa-IN', mr: 'mr-IN', ta: 'ta-IN', bn: 'bn-IN' };
-      const currentLang = localStorage.getItem('ks_lang') || 'en';
-      utterance.lang = langMap[currentLang] || 'hi-IN';
+      utterance.lang = 'hi-IN'; // Set explicitly to Hindi
       window.speechSynthesis.speak(utterance);
   }
 
@@ -277,9 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
           recognition.interimResults = false;
 
           chatMicBtn.addEventListener('click', () => {
-              const langMap = { en: 'en-IN', hi: 'hi-IN', gu: 'gu-IN', pa: 'pa-IN', mr: 'mr-IN', ta: 'ta-IN', bn: 'bn-IN' };
-              const currentLang = localStorage.getItem('ks_lang') || 'en';
-              recognition.lang = langMap[currentLang] || 'hi-IN';
+              recognition.lang = 'hi-IN'; // Explicitly set to Hindi
               
               chatMicBtn.classList.add('recording');
               chatInput.placeholder = "Listening...";

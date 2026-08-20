@@ -1,5 +1,5 @@
-/*==================================================
-    KRISHI SAKHI — DASHBOARD LOGIC
+﻿/*==================================================
+    KRISHI SAKHI â DASHBOARD LOGIC
 ==================================================*/
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -62,17 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('topAvatar').textContent = initial;
     document.getElementById('topName').textContent = firstName;
-    document.getElementById('topArea').textContent = user.area || '—';
-    document.getElementById('welcomeText').textContent = `Namaste, ${firstName} 🙏`;
+    document.getElementById('topArea').textContent = user.area || 'â';
+    document.getElementById('welcomeText').textContent = `Namaste, ${firstName} ð`;
 
     document.getElementById('profileAvatar').textContent = initial;
     document.getElementById('profileName').textContent = user.name;
     document.getElementById('profileMobile').textContent = `+91 ${user.mobile}`;
-    document.getElementById('profileArea').textContent = user.area || '—';
-    document.getElementById('profileFarmerType').textContent = user.farmerType || '—';
-    document.getElementById('profileDistrict').textContent = user.district || '—';
-    document.getElementById('profileState').textContent = user.state || '—';
-    document.getElementById('profilePincode').textContent = user.pincode || '—';
+    document.getElementById('profileArea').textContent = user.area || 'â';
+    document.getElementById('profileFarmerType').textContent = user.farmerType || 'â';
+    document.getElementById('profileDistrict').textContent = user.district || 'â';
+    document.getElementById('profileState').textContent = user.state || 'â';
+    document.getElementById('profilePincode').textContent = user.pincode || 'â';
 
     document.getElementById('pageDate').textContent = new Date().toLocaleDateString('en-IN', {
         weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
@@ -138,19 +138,19 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(sec => observer.observe(sec));
 
     document.getElementById('quickChatBtn').addEventListener('click', () => {
-        showToast('AI chat assistant coming soon on the dashboard 🌱');
+        showToast('AI chat assistant coming soon on the dashboard ð±');
     });
     document.getElementById('chatFab').addEventListener('click', () => {
-        showToast('AI chat assistant coming soon on the dashboard 🌱');
+        showToast('AI chat assistant coming soon on the dashboard ð±');
     });
 
     document.getElementById('notifBtn').addEventListener('click', () => {
-        showToast('🔔 You have 2 new notifications: "Weather alert: light rain expected tomorrow" and "New PM Kisan updates".');
+        showToast('ð You have 2 new notifications: "Weather alert: light rain expected tomorrow" and "New PM Kisan updates".');
         document.querySelector('.notif-dot').style.display = 'none'; // clear notification dot
     });
 
     /*=========================
-        5. LIVE WEATHER (Open-Meteo — free, no key)
+        5. LIVE WEATHER (Open-Meteo â free, no key)
     =========================*/
     const weatherLocation = document.getElementById('weatherLocation');
     const weatherIcon = document.getElementById('weatherIcon');
@@ -163,15 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const statTemp = document.getElementById('statTemp');
 
     const WMO_MAP = {
-        0: ['☀️', 'Clear Sky'], 1: ['🌤️', 'Mainly Clear'], 2: ['⛅', 'Partly Cloudy'], 3: ['☁️', 'Overcast'],
-        45: ['🌫️', 'Fog'], 48: ['🌫️', 'Rime Fog'],
-        51: ['🌦️', 'Light Drizzle'], 53: ['🌦️', 'Drizzle'], 55: ['🌦️', 'Dense Drizzle'],
-        61: ['🌧️', 'Light Rain'], 63: ['🌧️', 'Rain'], 65: ['🌧️', 'Heavy Rain'],
-        71: ['❄️', 'Light Snow'], 73: ['❄️', 'Snow'], 75: ['❄️', 'Heavy Snow'],
-        80: ['🌧️', 'Rain Showers'], 81: ['🌧️', 'Heavy Showers'], 82: ['⛈️', 'Violent Showers'],
-        95: ['⛈️', 'Thunderstorm'], 96: ['⛈️', 'Thunderstorm w/ Hail'], 99: ['⛈️', 'Severe Thunderstorm']
+        0: ['âï¸', 'Clear Sky'], 1: ['ð¤ï¸', 'Mainly Clear'], 2: ['â', 'Partly Cloudy'], 3: ['âï¸', 'Overcast'],
+        45: ['ð«ï¸', 'Fog'], 48: ['ð«ï¸', 'Rime Fog'],
+        51: ['ð¦ï¸', 'Light Drizzle'], 53: ['ð¦ï¸', 'Drizzle'], 55: ['ð¦ï¸', 'Dense Drizzle'],
+        61: ['ð§ï¸', 'Light Rain'], 63: ['ð§ï¸', 'Rain'], 65: ['ð§ï¸', 'Heavy Rain'],
+        71: ['âï¸', 'Light Snow'], 73: ['âï¸', 'Snow'], 75: ['âï¸', 'Heavy Snow'],
+        80: ['ð§ï¸', 'Rain Showers'], 81: ['ð§ï¸', 'Heavy Showers'], 82: ['âï¸', 'Violent Showers'],
+        95: ['âï¸', 'Thunderstorm'], 96: ['âï¸', 'Thunderstorm w/ Hail'], 99: ['âï¸', 'Severe Thunderstorm']
     };
-    function weatherFromCode(code) { return WMO_MAP[code] || ['🌡️', 'Weather']; }
+    function weatherFromCode(code) { return WMO_MAP[code] || ['ð¡ï¸', 'Weather']; }
 
     function applyWeatherTheme(code) {
         const card = document.querySelector('.weather-card');
@@ -208,8 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const [icon, desc] = weatherFromCode(data.current.weather_code);
 
             weatherIcon.textContent = icon;
-            weatherTemp.textContent = `${Math.round(data.current.temperature_2m)}°C`;
-            statTemp.textContent = `${Math.round(data.current.temperature_2m)}°C`;
+            weatherTemp.textContent = `${Math.round(data.current.temperature_2m)}Â°C`;
+            statTemp.textContent = `${Math.round(data.current.temperature_2m)}Â°C`;
             weatherDesc.textContent = desc;
             weatherHumidity.textContent = `${data.current.relative_humidity_2m}%`;
             weatherRain.textContent = `${data.daily.precipitation_probability_max[0] ?? 0}%`;
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
         crops.forEach((crop, i) => {
             const chip = document.createElement('div');
             chip.className = 'crop-chip';
-            chip.innerHTML = `🌾 ${crop} <button data-i="${i}" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>`;
+            chip.innerHTML = `ð¾ ${crop} <button data-i="${i}" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>`;
             cropList.appendChild(chip);
         });
         cropList.querySelectorAll('button').forEach(btn => {
@@ -330,11 +330,11 @@ document.addEventListener('DOMContentLoaded', () => {
         diseaseResult.innerHTML = `
             <div class="result-placeholder">
                 <div class="spinner-inline"></div>
-                <p>Analyzing your crop image…</p>
+                <p>Analyzing your crop imageâ¦</p>
             </div>
         `;
 
-        // Simulated analysis delay — replace with a real fetch() to your AI model endpoint.
+        // Simulated analysis delay â replace with a real fetch() to your AI model endpoint.
         setTimeout(() => {
             const result = SAMPLE_RESULTS[Math.floor(Math.random() * SAMPLE_RESULTS.length)];
             diseaseResult.innerHTML = `
@@ -460,22 +460,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getBotReply(rawText) {
         const text = rawText.toLowerCase();
-        if (/weather|mausam|temperature|rain/.test(text)) return 'You can check live weather in the Weather Forecast card on the homepage � it auto-detects your location. Want me to scroll you there?';
-        if (/mandi|price|rate|???/.test(text)) return 'Today\\'s mandi rates are listed in the Mandi Rates section � Wheat ?2420, Rice ?2300, Maize ?2100, Pulses ?5650, Mustard ?6000 per quintal. Tap \\'View All\\' for more crops.';
-        if (/disease|pest|leaf|bimari|??????/.test(text)) return 'Upload a clear photo of the affected leaf in the Crop Disease Detection section and tap \\'Analyze Leaf\\' � I\\'ll give you a quick assessment and next steps.';
-        if (/scheme|yojana|loan|subsidy|?????/.test(text)) return 'Popular schemes: PM Kisan Samman Nidhi (?6000/year), Kisan Credit Card (easy loans), and PM Fasal Bima Yojana (crop insurance). Check the Government Schemes section for details and links.';
-        if (/hi|hello|hey|namaste|??????/.test(text)) return 'Namaste! ?? I can help with weather, mandi rates, crop diseases, or government schemes. What do you need?';
-        if (/thank/.test(text)) return 'Happy to help! ?? Anything else you\\'d like to know?';
-        return 'I\\'m a demo assistant right now � connect me to a real AI backend (e.g. the Claude API) to answer anything a farmer asks. Meanwhile, try asking about weather, mandi rates, disease detection, or schemes.';
+        if (/weather|mausam|temperature|rain|मौसम/.test(text)) return 'आप होमपेज पर मौसम अनुभाग में लाइव मौसम देख सकते हैं। क्या मैं आपको वहां ले चलूं?';
+        if (/mandi|price|rate|भाव|मंडी/.test(text)) return 'आज के मंडी भाव इस प्रकार हैं — गेहूं ₹2420, चावल ₹2300, मक्का ₹2100, दालें ₹5650, सरसों ₹6000 प्रति क्विंटल।';
+        if (/disease|pest|leaf|bimari|बीमारी|रोग/.test(text)) return 'फसल रोग पहचान अनुभाग में प्रभावित पत्ते की एक फोटो अपलोड करें, और मैं आपको बीमारी और बचाव के उपाय बताऊंगी।';
+        if (/scheme|yojana|loan|subsidy|योजना/.test(text)) return 'मुख्य सरकारी योजनाएं हैं: पीएम किसान सम्मान निधि, किसान क्रेडिट कार्ड (आसान ऋण), और पीएम फसल बीमा योजना (फसल बीमा)।';
+        if (/hi|hello|hey|namaste|नमस्ते|हेलो/.test(text)) return 'नमस्ते! 🙏 मैं कृषि सखी हूँ। मैं मौसम, मंडी भाव, फसल की बीमारियों या सरकारी योजनाओं में आपकी मदद कर सकती हूँ। बताइए, आपको क्या जानकारी चाहिए?';
+        if (/thank|धन्यवाद|शुक्रिया/.test(text)) return 'आपकी मदद करके मुझे बहुत खुशी हुई! 🌾 क्या मैं आपकी कुछ और मदद कर सकती हूँ?';
+        return 'मैं अभी एक डेमो असिस्टेंट हूँ। कृपया मौसम, मंडी भाव, फसल की बीमारी, या सरकारी योजनाओं के बारे में सवाल पूछें।';
     }
 
     function speakText(text) {
         if (!('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
-        const langMap = { en: 'en-IN', hi: 'hi-IN', gu: 'gu-IN', pa: 'pa-IN', mr: 'mr-IN', ta: 'ta-IN', bn: 'bn-IN' };
-        const currentLang = localStorage.getItem('ks_lang') || 'en';
-        utterance.lang = langMap[currentLang] || 'hi-IN';
+        utterance.lang = 'hi-IN'; // Explicitly set to Hindi
         window.speechSynthesis.speak(utterance);
     }
 
@@ -507,10 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
             recognition.interimResults = false;
 
             chatMicBtn.addEventListener('click', () => {
-                const langMap = { en: 'en-IN', hi: 'hi-IN', gu: 'gu-IN', pa: 'pa-IN', mr: 'mr-IN', ta: 'ta-IN', bn: 'bn-IN' };
-                const currentLang = localStorage.getItem('ks_lang') || 'en';
-                recognition.lang = langMap[currentLang] || 'hi-IN';
-                
+                recognition.lang = 'hi-IN'; // Explicitly set to Hindi
                 chatMicBtn.classList.add('recording');
                 chatInput.placeholder = 'Listening...';
                 recognition.start();
@@ -536,7 +531,10 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         } else {
             chatMicBtn.addEventListener('click', () => {
-                showToast('Voice recognition not supported in this browser.');
+                recognition.lang = 'hi-IN'; // Explicitly set to Hindi
+                chatMicBtn.classList.add('recording');
+                chatInput.placeholder = 'Listening...';
+                recognition.start();
             });
         }
     }
