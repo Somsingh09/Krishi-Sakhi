@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function closeChat() {
     chatWidget.classList.remove('open');
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   }
   function toggleChat() {
     chatWidget.classList.contains('open') ? closeChat() : openChat();

@@ -1,4 +1,4 @@
-﻿/*==================================================
+/*==================================================
     KRISHI SAKHI â DASHBOARD LOGIC
 ==================================================*/
 
@@ -424,7 +424,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const quickChatBtn = document.getElementById('quickChatBtn');
 
     function openChat() { chatWidget.classList.add('open'); chatInput && chatInput.focus(); }
-    function closeChat() { chatWidget.classList.remove('open'); }
+    function closeChat() { 
+        chatWidget.classList.remove('open'); 
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    }
     function toggleChat() { chatWidget.classList.contains('open') ? closeChat() : openChat(); }
 
     if (chatFab) {
