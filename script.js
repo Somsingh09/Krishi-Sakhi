@@ -488,6 +488,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const openDirectSales = document.getElementById('openDirectSales');
+  if (openDirectSales) {
+    openDirectSales.addEventListener('click', () => {
+      const directSalesHtml = `
+        <div style="text-align: center; padding: 10px;">
+          <h4 style="margin-bottom:10px; color:var(--primary);">Connect directly with consumers and book trucks instantly.</h4>
+          <p style="margin-bottom: 15px; color: #444;">Enter your pincode or area to see active buyer requests and truck availability:</p>
+          <input type="text" id="dsAreaInput" placeholder="Enter Pincode or Area (e.g. 222001)" style="width: 80%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem;">
+          <br>
+          <button id="findDsBtn" class="btn" style="padding: 10px 25px; background-color: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background 0.3s;">Find Buyers & Transport</button>
+          <div id="dsResults" style="margin-top: 25px; text-align: left;"></div>
+          <div style="margin-top:20px; padding-top:15px; border-top:1px solid #eee;">
+              <a href="login.html" style="color:var(--primary); font-weight:bold; text-decoration:underline;">Login to Dashboard for Full Direct Sales features</a>
+          </div>
+        </div>
+      `;
+      openModal('Direct Sales & Logistics', directSalesHtml);
+
+      setTimeout(() => {
+        const findDsBtn = document.getElementById('findDsBtn');
+        const dsAreaInput = document.getElementById('dsAreaInput');
+        const dsResults = document.getElementById('dsResults');
+
+        if (findDsBtn) {
+          findDsBtn.addEventListener('click', () => {
+            const area = dsAreaInput.value.trim();
+            if (!area) {
+              dsResults.innerHTML = '<p style="color: #d9534f; text-align: center;">Please enter an area to search.</p>';
+              return;
+            }
+
+            dsResults.innerHTML = '<p style="text-align: center; color: #666;"><i class="fa-solid fa-spinner fa-spin"></i> Finding buyers and optimizing routes for <strong>' + area + '</strong>...</p>';
+            
+            setTimeout(() => {
+              dsResults.innerHTML = `
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                  <h4 style="margin: 0 0 10px 0; color: #0f172a;"><i class="fa-solid fa-users" style="color:var(--primary);"></i> Active Buyer Requests in ${area}</h4>
+                  <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem; color: #334155;">
+                    <li style="margin-bottom: 12px; display:flex; justify-content:space-between; align-items:center;">
+                        <span><strong>BigBasket:</strong> 500kg Onions</span>
+                        <a href="login.html" style="background:var(--primary); color:white; text-decoration:none; padding:5px 10px; border-radius:4px; font-size:0.85rem;">Connect</a>
+                    </li>
+                    <li style="display:flex; justify-content:space-between; align-items:center;">
+                        <span><strong>Local Supermarket:</strong> 50kg Tomatoes</span>
+                        <a href="login.html" style="background:var(--primary); color:white; text-decoration:none; padding:5px 10px; border-radius:4px; font-size:0.85rem;">Connect</a>
+                    </li>
+                  </ul>
+                </div>
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                  <h4 style="margin: 0 0 10px 0; color: #0f172a;"><i class="fa-solid fa-truck" style="color:var(--primary);"></i> Transport Available</h4>
+                  <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.95rem; color: #334155;">
+                    <li style="margin-bottom: 12px; display:flex; justify-content:space-between; align-items:center;">
+                        <span><strong>Shared Route:</strong> Farm to City Market<br><small style="color:#10b981;">(20kg capacity left)</small></span>
+                        <a href="login.html" style="background:var(--primary); color:white; text-decoration:none; padding:5px 10px; border-radius:4px; font-size:0.85rem;">Book</a>
+                    </li>
+                  </ul>
+                </div>
+              `;
+            }, 1200);
+          });
+        }
+      }, 50);
+    });
+  }
   // Intercept empty links to show a coming soon toast
   document.querySelectorAll('a[href="#"]:not(.scroll-top)').forEach(link => {
     link.addEventListener('click', (e) => {
