@@ -64,26 +64,39 @@ exports.verifyOtp = async (req, res) => {
         // OTP is valid. Clear it from store.
         otpStore.delete(mobile);
 
-        // Check if user exists in DB
-        let user = await User.findOne({ mobile });
+        const mongoose = require('mongoose');
+        let user;
+        
+        if (mongoose.connection.readyState === 1) {
+            // Check if user exists in DB
+            user = await User.findOne({ mobile });
 
-        if (!user) {
-            // Create a new user with the details provided during step 1
+            if (!user) {
+                const { fullName, area, district, state, pincode, farmerType } = storedData.userData;
+                user = new User({
+                    mobile,
+                    fullName: fullName || 'Farmer',
+                    area: area || 'Unknown',
+                    district: district || 'Unknown',
+                    state: state || 'Unknown',
+                    pincode: pincode || '000000',
+                    farmerType: farmerType || 'Other'
+                });
+                await user.save();
+            }
+        } else {
+            // Mock DB for demo purposes if not connected
             const { fullName, area, district, state, pincode, farmerType } = storedData.userData;
-            
-            // If they are logging in rather than signing up, they might not have provided all details.
-            // But based on the current flow, step 1 requires all details.
-            user = new User({
+            user = {
+                _id: 'demo123',
                 mobile,
-                fullName: fullName || 'Farmer',
-                area: area || 'Unknown',
-                district: district || 'Unknown',
-                state: state || 'Unknown',
+                fullName: fullName || 'Demo Farmer',
+                area: area || 'Demo Area',
+                district: district || 'Demo District',
+                state: state || 'Demo State',
                 pincode: pincode || '000000',
                 farmerType: farmerType || 'Other'
-            });
-
-            await user.save();
+            };
         }
 
         res.status(200).json({

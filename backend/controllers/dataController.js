@@ -7,8 +7,20 @@ const Transport = require('../models/Transport');
 // GET Mandi Rates
 exports.getMandiRates = async (req, res) => {
     try {
-        const rates = await MandiRate.find({});
-        res.status(200).json({ success: true, rates });
+        const mongoose = require('mongoose');
+        if (mongoose.connection.readyState === 1) {
+            const rates = await MandiRate.find({});
+            res.status(200).json({ success: true, rates });
+        } else {
+            res.status(200).json({ success: true, rates: [
+                { crop: 'Wheat', hindiName: 'गेहूं', price: 2125 },
+                { crop: 'Rice', hindiName: 'चावल', price: 1940 },
+                { crop: 'Sugarcane', hindiName: 'गन्ना', price: 350 },
+                { crop: 'Potato', hindiName: 'आलू', price: 1200 },
+                { crop: 'Onion', hindiName: 'प्याज', price: 1800 },
+                { crop: 'Mustard', hindiName: 'सरसों', price: 6000 }
+            ] });
+        }
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server error' });
     }
