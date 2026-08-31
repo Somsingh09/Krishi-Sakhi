@@ -308,7 +308,7 @@
                         <input type="text" id="produceName" placeholder="Crop Name (e.g., Organic Tomatoes)" style="width:100%; margin:10px 0; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
                         <input type="number" id="produceQty" placeholder="Quantity in Kg" style="width:100%; margin-bottom:10px; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
                         <input type="number" id="producePrice" placeholder="Price per Kg (₹)" style="width:100%; margin-bottom:15px; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
-                        <button class="primary-btn" onclick="showToast('Produce listed successfully to consumer network!')" style="width:100%; background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">List to Buyers</button>
+                        <button id="listProduceBtn" class="primary-btn" style="width:100%; background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">List to Buyers</button>
                     </div>
                     <div class="tip-card">
                         <h4><i class="fa-solid fa-users"></i> Active Buyer Requests</h4>
@@ -344,9 +344,9 @@
                 <div class="expert-grid">
                     <div class="tip-card">
                         <h4><i class="fa-solid fa-truck"></i> Book Transport</h4>
-                        <input type="text" placeholder="Pickup Location (e.g. Farm)" style="width:100%; margin:10px 0; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
-                        <input type="text" placeholder="Drop Location (e.g. City Market)" style="width:100%; margin-bottom:15px; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
-                        <button class="primary-btn" onclick="showToast('AI Optimizing Route & Booking Truck...')" style="width:100%; background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">Find Best Truck</button>
+                        <input type="text" id="transportPickup" placeholder="Pickup Location (e.g. Farm)" style="width:100%; margin:10px 0; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
+                        <input type="text" id="transportDropoff" placeholder="Drop Location (e.g. City Market)" style="width:100%; margin-bottom:15px; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
+                        <button id="bookTransportBtn" class="primary-btn" style="width:100%; background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">Find Best Truck</button>
                     </div>
                     <div class="tip-card">
                         <h4><i class="fa-solid fa-route"></i> AI Route Optimization</h4>

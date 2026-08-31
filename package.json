@@ -2,7 +2,7 @@
   "name": "krishi-sakhi-backend",
   "version": "1.0.0",
   "description": "Backend for Krishi Sakhi",
-  "main": "server.js",
+  "main": "api/index.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"

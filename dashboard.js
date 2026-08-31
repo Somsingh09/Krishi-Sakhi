@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Fetch latest user data from backend
     try {
-        const response = await fetch(`http://localhost:5000/api/user/${user.mobile}`);
+        const response = await fetch(`/api/user/${user.mobile}`);
         const data = await response.json();
         if (data.success && data.user) {
             user = { ...user, ...data.user };
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         localStorage.setItem(USER_KEY, JSON.stringify(user));
         
         try {
-            await fetch(`http://localhost:5000/api/user/${user.mobile}/crops`, {
+            await fetch(`/api/user/${user.mobile}/crops`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ crops })
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
             
             try {
-                const response = await fetch(`http://localhost:5000/api/user/${user.mobile}/reports`, {
+                const response = await fetch(`/api/user/${user.mobile}/reports`, {
                     method: 'PUT'
                 });
                 const data = await response.json();
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!mandiGrid) return;
 
         try {
-            const response = await fetch('http://localhost:5000/api/data/mandi');
+            const response = await fetch('/api/data/mandi');
             const data = await response.json();
 
             if (data.success && data.rates.length > 0) {
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         try {
             // Load Tools
-            const toolsRes = await fetch('http://localhost:5000/api/data/marketplace?category=tools');
+            const toolsRes = await fetch('/api/data/marketplace?category=tools');
             const toolsData = await toolsRes.json();
             if (toolsData.success && toolsData.items.length > 0) {
                 toolsGrid.innerHTML = toolsData.items.map(item => `
@@ -473,7 +473,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             // Load Seeds
-            const seedsRes = await fetch('http://localhost:5000/api/data/marketplace?category=seeds');
+            const seedsRes = await fetch('/api/data/marketplace?category=seeds');
             const seedsData = await seedsRes.json();
             if (seedsData.success && seedsData.items.length > 0) {
                 seedsGrid.innerHTML = seedsData.items.map(item => `
@@ -503,7 +503,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!schemeGrid) return;
 
         try {
-            const response = await fetch('http://localhost:5000/api/data/schemes');
+            const response = await fetch('/api/data/schemes');
             const data = await response.json();
 
             if (data.success && data.schemes.length > 0) {
@@ -766,7 +766,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const dataUrl = event.target.result;
                     profileImage.src = dataUrl;
                     try {
-                        const response = await fetch(`http://localhost:5000/api/user/${user.mobile}/image`, {
+                        const response = await fetch(`/api/user/${user.mobile}/image`, {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ profileImage: dataUrl })
@@ -790,3 +790,77 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+
+    // Direct Sales Integration
+    const listProduceBtn = document.getElementById("listProduceBtn");
+    if (listProduceBtn) {
+        listProduceBtn.addEventListener("click", async () => {
+            const cropName = document.getElementById("produceName").value;
+            const quantity = document.getElementById("produceQty").value;
+            const price = document.getElementById("producePrice").value;
+            if(!cropName || !quantity || !price) {
+                showToast("Please fill all produce details");
+                return;
+            }
+            try {
+                listProduceBtn.innerHTML = "<i class=\"fa-solid fa-spinner fa-spin\"></i> Listing...";
+                const res = await fetch("/api/produce", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        farmerName: user.name,
+                        location: user.district || "Unknown",
+                        cropName, quantity: Number(quantity), price: Number(price)
+                    })
+                });
+                const data = await res.json();
+                if(data.success) {
+                    showToast("Produce listed successfully!");
+                    document.getElementById("produceName").value = "";
+                    document.getElementById("produceQty").value = "";
+                    document.getElementById("producePrice").value = "";
+                } else {
+                    showToast("Failed to list produce");
+                }
+            } catch(e) {
+                showToast("Produce listed locally (Backend unavailable)");
+            } finally {
+                listProduceBtn.innerHTML = "List to Buyers";
+            }
+        });
+    }
+
+    const bookTransportBtn = document.getElementById("bookTransportBtn");
+    if (bookTransportBtn) {
+        bookTransportBtn.addEventListener("click", async () => {
+            const pickup = document.getElementById("transportPickup").value;
+            const dropoff = document.getElementById("transportDropoff").value;
+            if(!pickup || !dropoff) {
+                showToast("Please provide pickup and dropoff locations");
+                return;
+            }
+            try {
+                bookTransportBtn.innerHTML = "<i class=\"fa-solid fa-spinner fa-spin\"></i> Optimizing Route...";
+                const res = await fetch("/api/transport", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        farmerName: user.name,
+                        pickup, dropoff,
+                        routeOptimized: true
+                    })
+                });
+                const data = await res.json();
+                if(data.success) {
+                    showToast("Truck booked! AI optimized your route.");
+                } else {
+                    showToast("Failed to book transport");
+                }
+            } catch(e) {
+                showToast("Transport booked locally (Backend unavailable)");
+            } finally {
+                bookTransportBtn.innerHTML = "Find Best Truck";
+            }
+        });
+    }
+

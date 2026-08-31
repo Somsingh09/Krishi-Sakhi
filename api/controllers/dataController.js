@@ -1,6 +1,8 @@
 const MandiRate = require('../models/MandiRate');
 const MarketplaceItem = require('../models/MarketplaceItem');
 const Scheme = require('../models/Scheme');
+const Produce = require('../models/Produce');
+const Transport = require('../models/Transport');
 
 // GET Mandi Rates
 exports.getMandiRates = async (req, res) => {
@@ -29,6 +31,38 @@ exports.getSchemes = async (req, res) => {
     try {
         const schemes = await Scheme.find({});
         res.status(200).json({ success: true, schemes });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+
+// GET Produce
+exports.getProduce = async (req, res) => {
+    try {
+        const produce = await Produce.find({});
+        res.status(200).json({ success: true, produce });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+
+// POST Produce
+exports.addProduce = async (req, res) => {
+    try {
+        const newProduce = new Produce(req.body);
+        await newProduce.save();
+        res.status(201).json({ success: true, produce: newProduce });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+
+// POST Transport
+exports.addTransport = async (req, res) => {
+    try {
+        const newTransport = new Transport(req.body);
+        await newTransport.save();
+        res.status(201).json({ success: true, transport: newTransport });
     } catch (err) {
         res.status(500).json({ success: false, message: 'Server error' });
     }
