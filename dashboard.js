@@ -156,8 +156,36 @@ document.addEventListener('DOMContentLoaded', async () => {
         showToast('AI chat assistant coming soon on the dashboard 🌱');
     });
 
-    document.getElementById('notifBtn').addEventListener('click', () => {
-        showToast('🔔 You have 2 new notifications: "Weather alert: light rain expected tomorrow" and "New PM Kisan updates".');
+    document.getElementById('notifBtn').addEventListener('click', function() {
+        if(document.getElementById('notifDropdown')) {
+            document.getElementById('notifDropdown').remove();
+            return;
+        }
+        const notifDropdown = document.createElement('div');
+        notifDropdown.id = 'notifDropdown';
+        notifDropdown.style.cssText = 'position:absolute; top:60px; right:20px; background:white; width:300px; box-shadow:0 4px 12px rgba(0,0,0,0.15); border-radius:8px; z-index:1000; padding:15px; border:1px solid #eee;';
+        notifDropdown.innerHTML = `
+            <h4 style="margin:0 0 15px 0; border-bottom:1px solid #eee; padding-bottom:10px;">Notifications (2)</h4>
+            <div style="margin-bottom:12px;">
+                <strong><i class="fa-solid fa-cloud-sun-rain" style="color:var(--primary);"></i> Weather Alert</strong><br>
+                <span style="font-size:0.9em; color:#555;">Light rain expected tomorrow. Plan your irrigation.</span>
+            </div>
+            <div>
+                <strong><i class="fa-solid fa-file-invoice-dollar" style="color:#eab308;"></i> PM Kisan Update</strong><br>
+                <span style="font-size:0.9em; color:#555;">Next installment will be credited by 15th of this month.</span>
+            </div>
+        `;
+        document.body.appendChild(notifDropdown);
+        
+        // click outside to close
+        setTimeout(() => {
+            document.addEventListener('click', function closeNotif(e) {
+                if(!notifDropdown.contains(e.target) && e.target !== document.getElementById('notifBtn')) {
+                    notifDropdown.remove();
+                    document.removeEventListener('click', closeNotif);
+                }
+            });
+        }, 100);
         document.querySelector('.notif-dot').style.display = 'none'; // clear notification dot
     });
 
@@ -465,7 +493,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <h4>${item.title}</h4>
                         <p class="price">${item.priceDesc}</p>
                         <p class="loc"><i class="fa-solid fa-location-dot"></i> ${item.distance || item.location}</p>
-                        <button class="book-btn" onclick="showToast('Booking request sent!')">Book Now</button>
+                        <button class="book-btn" onclick="this.innerHTML='&lt;i class=\'fa-solid fa-check\'&gt;&lt;/i&gt; Booked'; this.style.background='#2e7d32'; this.onclick=null;">Book Now</button>
                     </div>
                 `).join('');
             } else {
@@ -483,7 +511,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         ${item.description ? `<p class="desc">${item.description}</p>` : ''}
                         ${item.priceDesc ? `<p class="price">${item.priceDesc}</p>` : ''}
                         ${item.location ? `<p class="loc"><i class="fa-solid fa-location-dot"></i> ${item.location}</p>` : ''}
-                        <button class="book-btn" onclick="showToast('Added to cart!')">Shop Now</button>
+                        <button class="book-btn" onclick="this.innerHTML='&lt;i class=\'fa-solid fa-check\'&gt;&lt;/i&gt; Added'; this.style.background='#2e7d32'; this.onclick=null;">Shop Now</button>
                     </div>
                 `).join('');
             } else {
@@ -558,7 +586,28 @@ document.addEventListener('DOMContentLoaded', async () => {
                 showToast('Please enter a location to search.');
                 return;
             }
-            showToast('Searching tools in ' + dashToolSearch.value + '...');
+            const oldHtml = dashToolSearchBtn.innerHTML;
+            dashToolSearchBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Searching...';
+            setTimeout(() => {
+                dashToolSearchBtn.innerHTML = oldHtml;
+                const toolResultsDiv = document.createElement('div');
+                toolResultsDiv.innerHTML = `
+                    <div style="margin-top:15px; background:#f8fafc; padding:15px; border-radius:8px; border:1px solid #e2e8f0;">
+                        <h4 style="margin:0 0 10px 0; color:#0f172a;"><i class="fa-solid fa-tractor"></i> Tools found near ${dashToolSearch.value}</h4>
+                        <ul style="list-style:none; padding:0; margin:0; font-size:0.9rem;">
+                            <li style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px solid #eee; padding-bottom:8px;">
+                                <span><strong>Tractor (Mahindra)</strong><br><small>₹500/hr - 2.5km away</small></span>
+                                <button style="background:#28a745; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="this.innerHTML='<i class=\\\'fa-solid fa-check\\\'></i> Booked'; this.onclick=null;">Book</button>
+                            </li>
+                            <li style="display:flex; justify-content:space-between;">
+                                <span><strong>Wheat Thresher</strong><br><small>₹800/hr - 4km away</small></span>
+                                <button style="background:#28a745; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;" onclick="this.innerHTML='<i class=\\\'fa-solid fa-check\\\'></i> Booked'; this.onclick=null;">Book</button>
+                            </li>
+                        </ul>
+                    </div>
+                `;
+                dashToolSearchBtn.parentNode.appendChild(toolResultsDiv);
+            }, 1000);
         });
     }
 
