@@ -49,6 +49,7 @@
             <a href="#schemes" data-target="schemes"><i class="fa-solid fa-file-shield"></i> Schemes</a>
             <a href="#expert" data-target="expert"><i class="fa-solid fa-lightbulb"></i> Expert Advice</a>
             <a href="#marketplace" data-target="marketplace"><i class="fa-solid fa-store"></i> Marketplace</a>
+            <a href="#direct-marketplace" data-target="direct-marketplace"><i class="fa-solid fa-truck-fast"></i> Direct Sales</a>
             <a href="#profile" data-target="profile"><i class="fa-solid fa-user"></i> Profile</a>
         </nav>
 
@@ -224,12 +225,7 @@
             </div>
 
             <div class="mandi-grid" id="mandiGrid">
-                <div class="mandi-card" data-name="Wheat"><span>🌾 Wheat (गेहूं)</span><strong>₹2125/क्विंटल</strong></div>
-                <div class="mandi-card" data-name="Rice"><span>🌾 Rice (चावल)</span><strong>₹1940/क्विंटल</strong></div>
-                <div class="mandi-card" data-name="Sugarcane"><span>🎋 Sugarcane (गन्ना)</span><strong>₹350/क्विंटल</strong></div>
-                <div class="mandi-card" data-name="Potato"><span>🥔 Potato (आलू)</span><strong>₹1200/क्विंटल</strong></div>
-                <div class="mandi-card" data-name="Onion"><span>🧅 Onion (प्याज)</span><strong>₹1800/क्विंटल</strong></div>
-                <div class="mandi-card" data-name="Mustard"><span>🌻 Mustard (सरसों)</span><strong>₹6000/क्विंटल</strong></div>
+                <!-- Loaded dynamically from backend -->
             </div>
             <p class="empty-hint" id="mandiNoResults" style="display:none;">No crops match your search.</p>
         </section>
@@ -237,32 +233,8 @@
         <!-- ===================== SCHEMES ===================== -->
         <section id="schemes" class="dash-section">
             <h2 class="section-title">Government Schemes For You</h2>
-
-            <div class="scheme-grid">
-                <div class="scheme-card">
-                    <div class="scheme-icon">🌱</div>
-                    <div>
-                        <h3>PM Kisan Samman Nidhi</h3>
-                        <p>₹6000 per year income support</p>
-                        <a href="https://pmkisan.gov.in/" target="_blank">View Details →</a>
-                    </div>
-                </div>
-                <div class="scheme-card">
-                    <div class="scheme-icon">💳</div>
-                    <div>
-                        <h3>Kisan Credit Card</h3>
-                        <p>Easy, low-interest loans for farmers</p>
-                        <a href="https://fasalrin.gov.in/" target="_blank">View Details →</a>
-                    </div>
-                </div>
-                <div class="scheme-card">
-                    <div class="scheme-icon">🌾</div>
-                    <div>
-                        <h3>PM Fasal Bima Yojana</h3>
-                        <p>Crop insurance against losses</p>
-                        <a href="https://pmfby.gov.in/" target="_blank">View Details →</a>
-                    </div>
-                </div>
+            <div class="scheme-grid" id="schemeGrid">
+                <!-- Loaded dynamically from backend -->
             </div>
         </section>
 
@@ -307,45 +279,83 @@
                     <button id="dashToolSearchBtn"><i class="fa-solid fa-search"></i> Search Tools</button>
                 </div>
                 <div class="marketplace-grid" id="dashToolResults">
-                    <div class="ad-card">
-                        <div class="ad-badge">RENT</div>
-                        <h4>Tractor (Mahindra 275)</h4>
-                        <p class="price">₹500/hour</p>
-                        <p class="loc"><i class="fa-solid fa-location-dot"></i> 2.5 km away</p>
-                        <button class="book-btn" onclick="showToast('Booking request sent!')">Book Now</button>
-                    </div>
-                    <div class="ad-card">
-                        <div class="ad-badge">RENT</div>
-                        <h4>Wheat Thresher</h4>
-                        <p class="price">₹800/hour</p>
-                        <p class="loc"><i class="fa-solid fa-location-dot"></i> 4.0 km away</p>
-                        <button class="book-btn" onclick="showToast('Booking request sent!')">Book Now</button>
-                    </div>
-                    <div class="ad-card">
-                        <div class="ad-badge">RENT</div>
-                        <h4>Rotavator (7 feet)</h4>
-                        <p class="price">₹400/hour</p>
-                        <p class="loc"><i class="fa-solid fa-location-dot"></i> 5.2 km away</p>
-                        <button class="book-btn" onclick="showToast('Booking request sent!')">Book Now</button>
-                    </div>
+                    <!-- Loaded dynamically from backend -->
                 </div>
             </div>
 
             <div class="tab-content" id="seeds-content" style="display:none;">
-                <div class="marketplace-grid">
-                    <div class="ad-card premium-ad">
-                        <div class="ad-badge">SPONSORED</div>
-                        <h4>Krishi Sakhi Premium Seeds</h4>
-                        <p class="desc">30% higher yield with our certified organic seeds.</p>
-                        <p class="price">20% Off Today!</p>
-                        <button class="book-btn" onclick="showToast('Added to cart!')">Shop Now</button>
+                <div class="marketplace-grid" id="dashSeedResults">
+                    <!-- Loaded dynamically from backend -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== DIRECT SALES MARKETPLACE (B2B/B2C) ===================== -->
+        <section id="direct-marketplace" class="dash-section">
+            <h2 class="section-title">Direct Sales (B2B/B2C)</h2>
+            <p class="section-sub">Connect directly with consumers & bulk buyers. Get AI demand forecasting & logistics support.</p>
+
+            <div class="marketplace-tabs" style="margin-bottom: 20px;">
+                <button class="tab-btn active" data-tab="sell-produce">Sell Produce</button>
+                <button class="tab-btn" data-tab="ai-forecast">AI Demand Forecast</button>
+                <button class="tab-btn" data-tab="logistics">Logistics & Route</button>
+            </div>
+
+            <div class="tab-content" id="sell-produce-content">
+                <div class="expert-grid">
+                    <div class="tip-card">
+                        <h4><i class="fa-solid fa-basket-shopping"></i> List Your Harvest</h4>
+                        <input type="text" id="produceName" placeholder="Crop Name (e.g., Organic Tomatoes)" style="width:100%; margin:10px 0; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
+                        <input type="number" id="produceQty" placeholder="Quantity in Kg" style="width:100%; margin-bottom:10px; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
+                        <input type="number" id="producePrice" placeholder="Price per Kg (₹)" style="width:100%; margin-bottom:15px; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
+                        <button class="primary-btn" onclick="showToast('Produce listed successfully to consumer network!')" style="width:100%; background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">List to Buyers</button>
                     </div>
-                    <div class="ad-card premium-ad">
-                        <div class="ad-badge">SPONSORED</div>
-                        <h4>Kisan Agro Fertilizers</h4>
-                        <p class="desc">Top-quality Urea and DAP in bulk. Free delivery.</p>
-                        <p class="loc"><i class="fa-solid fa-location-dot"></i> Near Main Market</p>
-                        <button class="book-btn" onclick="showToast('Contacting seller...')">Contact Seller</button>
+                    <div class="tip-card">
+                        <h4><i class="fa-solid fa-users"></i> Active Buyer Requests</h4>
+                        <ul style="list-style:none; padding:0; margin-top:15px;">
+                            <li style="margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+                                <div><strong>BigBasket (Bulk)</strong><br><small style="color:#64748b;">Needs 500kg Onions</small></div>
+                                <button style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" onclick="showToast('Connecting with buyer...')">Connect</button>
+                            </li>
+                            <li style="display:flex; justify-content:space-between; align-items:center;">
+                                <div><strong>Local Consumer</strong><br><small style="color:#64748b;">Needs 5kg Fresh Apples</small></div>
+                                <button style="background:var(--primary); color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" onclick="showToast('Connecting with buyer...')">Connect</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="ai-forecast-content" style="display:none;">
+                <div class="stat-card" style="margin-bottom: 20px;">
+                    <div class="stat-icon" style="background:#E9F1FF;color:#2563EB"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <h3>High Demand Predicted</h3>
+                        <p>Wheat & Mustard in your region for next 30 days based on AI analysis.</p>
+                    </div>
+                </div>
+                <div class="tip-card" style="padding: 20px; border-left: 4px solid var(--primary);">
+                    <h4><i class="fa-solid fa-robot"></i> AI Crop Price Predictor</h4>
+                    <p style="margin-top: 10px;">Prices for Potatoes are expected to rise by 15% next week due to regional shortages. Hold stock if possible to maximize your profits.</p>
+                </div>
+            </div>
+
+            <div class="tab-content" id="logistics-content" style="display:none;">
+                <div class="expert-grid">
+                    <div class="tip-card">
+                        <h4><i class="fa-solid fa-truck"></i> Book Transport</h4>
+                        <input type="text" placeholder="Pickup Location (e.g. Farm)" style="width:100%; margin:10px 0; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
+                        <input type="text" placeholder="Drop Location (e.g. City Market)" style="width:100%; margin-bottom:15px; padding:10px; border:1px solid #e2e8f0; border-radius:8px;">
+                        <button class="primary-btn" onclick="showToast('AI Optimizing Route & Booking Truck...')" style="width:100%; background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:600; cursor:pointer;">Find Best Truck</button>
+                    </div>
+                    <div class="tip-card">
+                        <h4><i class="fa-solid fa-route"></i> AI Route Optimization</h4>
+                        <p style="margin-top:10px; color:#475569;">Our AI groups your delivery with nearby farmers to reduce transport costs by up to 40%.</p>
+                        <div style="background:#f1f5f9; padding:15px; border-radius:8px; margin-top:15px; border-left:3px solid #10b981;">
+                            <strong style="color:#0f172a;">Current Shared Route:</strong><br>
+                            <span style="color:#64748b; display:inline-block; margin-top:5px;">Jaunpur Farm &rarr; Varanasi Hub</span><br>
+                            <span style="font-size:0.85rem; color:#10b981; font-weight:bold;">(20kg capacity left in shared truck)</span>
+                        </div>
                     </div>
                 </div>
             </div>

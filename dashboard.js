@@ -2,7 +2,7 @@
     KRISHI SAKHI — DASHBOARD LOGIC
 ==================================================*/
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
     /*=========================
         0. AUTH GUARD
@@ -18,6 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!user) {
         window.location.href = 'login.html';
         return;
+    }
+
+    // Fetch latest user data from backend
+    try {
+        const response = await fetch(`http://localhost:5000/api/user/${user.mobile}`);
+        const data = await response.json();
+        if (data.success && data.user) {
+            user = { ...user, ...data.user };
+            localStorage.setItem(USER_KEY, JSON.stringify(user));
+        }
+    } catch (e) {
+        console.error('Failed to sync user data with backend', e);
     }
 
     /*=========================
@@ -254,15 +266,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const cropAddBtn = document.getElementById('cropAddBtn');
     const cropList = document.getElementById('cropList');
     const cropEmptyHint = document.getElementById('cropEmptyHint');
-    const CROPS_KEY = `krishiSakhiCrops_${user.mobile}`;
 
     function loadCrops() {
-        try { return JSON.parse(localStorage.getItem(CROPS_KEY)) || []; }
-        catch { return []; }
+        return user.crops || [];
     }
-    function saveCrops(crops) {
-        localStorage.setItem(CROPS_KEY, JSON.stringify(crops));
+
+    async function saveCrops(crops) {
+        user.crops = crops;
+        localStorage.setItem(USER_KEY, JSON.stringify(user));
+        
+        try {
+            await fetch(`http://localhost:5000/api/user/${user.mobile}/crops`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ crops })
+            });
+        } catch (e) {
+            console.error('Failed to sync crops to backend', e);
+        }
     }
+
     function renderCrops() {
         const crops = loadCrops();
         cropList.innerHTML = '';
@@ -274,20 +297,21 @@ document.addEventListener('DOMContentLoaded', () => {
             cropList.appendChild(chip);
         });
         cropList.querySelectorAll('button').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const crops = loadCrops();
                 crops.splice(Number(btn.dataset.i), 1);
-                saveCrops(crops);
+                await saveCrops(crops);
                 renderCrops();
             });
         });
     }
-    function addCrop() {
+
+    async function addCrop() {
         const val = cropInput.value.trim();
         if (!val) { showToast('Please enter a crop name'); return; }
         const crops = loadCrops();
         crops.push(val);
-        saveCrops(crops);
+        await saveCrops(crops);
         cropInput.value = '';
         renderCrops();
         showToast(`${val} added to your crops`);
@@ -304,9 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const uploadContent = document.getElementById('uploadContent');
     const diseaseResult = document.getElementById('diseaseResult');
     const statReports = document.getElementById('statReports');
-    const REPORTS_KEY = `krishiSakhiReports_${user.mobile}`;
-
-    let reportCount = Number(localStorage.getItem(REPORTS_KEY) || 0);
+    let reportCount = user.reportsCount || 0;
     statReports.textContent = reportCount;
 
     const SAMPLE_RESULTS = [
@@ -335,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         // Simulated analysis delay — replace with a real fetch() to your AI model endpoint.
-        setTimeout(() => {
+        setTimeout(async () => {
             const result = SAMPLE_RESULTS[Math.floor(Math.random() * SAMPLE_RESULTS.length)];
             diseaseResult.innerHTML = `
                 <div class="result-content">
@@ -346,9 +368,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${result.note}</p>
                 </div>
             `;
-            reportCount += 1;
-            localStorage.setItem(REPORTS_KEY, reportCount);
-            statReports.textContent = reportCount;
+            
+            try {
+                const response = await fetch(`http://localhost:5000/api/user/${user.mobile}/reports`, {
+                    method: 'PUT'
+                });
+                const data = await response.json();
+                if (data.success) {
+                    reportCount = data.reportsCount;
+                    user.reportsCount = reportCount;
+                    localStorage.setItem(USER_KEY, JSON.stringify(user));
+                    statReports.textContent = reportCount;
+                }
+            } catch (e) {
+                console.error('Failed to increment report count on backend', e);
+                // Fallback to local increment
+                reportCount += 1;
+                user.reportsCount = reportCount;
+                localStorage.setItem(USER_KEY, JSON.stringify(user));
+                statReports.textContent = reportCount;
+            }
+
             showToast('Analysis complete');
         }, 1800);
     });
@@ -364,37 +404,149 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /*=========================
-        8. MANDI SEARCH
+        8. MANDI RATES DYNAMIC
     =========================*/
-    const mandiSearch = document.getElementById('mandiSearch');
-    const mandiCards = [...document.querySelectorAll('.mandi-card')];
-    const mandiNoResults = document.getElementById('mandiNoResults');
+    async function loadMandiRates() {
+        const mandiGrid = document.getElementById('mandiGrid');
+        if (!mandiGrid) return;
 
-    mandiSearch.addEventListener('input', () => {
-        const q = mandiSearch.value.trim().toLowerCase();
-        let visible = 0;
-        mandiCards.forEach(card => {
-            const match = card.dataset.name.toLowerCase().includes(q);
-            card.style.display = match ? '' : 'none';
-            if (match) visible++;
-        });
-        mandiNoResults.style.display = visible === 0 ? 'block' : 'none';
-    });
+        try {
+            const response = await fetch('http://localhost:5000/api/data/mandi');
+            const data = await response.json();
+
+            if (data.success && data.rates.length > 0) {
+                mandiGrid.innerHTML = data.rates.map(rate => `
+                    <div class="mandi-card" data-name="${rate.crop}">
+                        <span>🌾 ${rate.crop} (${rate.hindiName})</span>
+                        <strong>₹${rate.price}/क्विंटल</strong>
+                    </div>
+                `).join('');
+            } else {
+                mandiGrid.innerHTML = '<p class="empty-hint">No mandi rates available.</p>';
+            }
+
+            // Reattach search logic
+            const mandiSearch = document.getElementById('mandiSearch');
+            const mandiNoResults = document.getElementById('mandiNoResults');
+            if (mandiSearch) {
+                mandiSearch.addEventListener('input', () => {
+                    const q = mandiSearch.value.trim().toLowerCase();
+                    let visible = 0;
+                    document.querySelectorAll('.mandi-card').forEach(card => {
+                        const match = card.dataset.name.toLowerCase().includes(q);
+                        card.style.display = match ? '' : 'none';
+                        if (match) visible++;
+                    });
+                    if (mandiNoResults) mandiNoResults.style.display = visible === 0 ? 'block' : 'none';
+                });
+            }
+        } catch (e) {
+            console.error('Failed to fetch mandi rates', e);
+        }
+    }
+    loadMandiRates();
+
+    /*=========================
+        9. MARKETPLACE DYNAMIC
+    =========================*/
+    async function loadMarketplace() {
+        const toolsGrid = document.getElementById('dashToolResults');
+        const seedsGrid = document.getElementById('dashSeedResults');
+        if (!toolsGrid || !seedsGrid) return;
+
+        try {
+            // Load Tools
+            const toolsRes = await fetch('http://localhost:5000/api/data/marketplace?category=tools');
+            const toolsData = await toolsRes.json();
+            if (toolsData.success && toolsData.items.length > 0) {
+                toolsGrid.innerHTML = toolsData.items.map(item => `
+                    <div class="ad-card">
+                        <div class="ad-badge">${item.type}</div>
+                        <h4>${item.title}</h4>
+                        <p class="price">${item.priceDesc}</p>
+                        <p class="loc"><i class="fa-solid fa-location-dot"></i> ${item.distance || item.location}</p>
+                        <button class="book-btn" onclick="showToast('Booking request sent!')">Book Now</button>
+                    </div>
+                `).join('');
+            } else {
+                toolsGrid.innerHTML = '<p class="empty-hint">No tools available.</p>';
+            }
+
+            // Load Seeds
+            const seedsRes = await fetch('http://localhost:5000/api/data/marketplace?category=seeds');
+            const seedsData = await seedsRes.json();
+            if (seedsData.success && seedsData.items.length > 0) {
+                seedsGrid.innerHTML = seedsData.items.map(item => `
+                    <div class="ad-card ${item.isSponsored ? 'premium-ad' : ''}">
+                        <div class="ad-badge">${item.type}</div>
+                        <h4>${item.title}</h4>
+                        ${item.description ? `<p class="desc">${item.description}</p>` : ''}
+                        ${item.priceDesc ? `<p class="price">${item.priceDesc}</p>` : ''}
+                        ${item.location ? `<p class="loc"><i class="fa-solid fa-location-dot"></i> ${item.location}</p>` : ''}
+                        <button class="book-btn" onclick="showToast('Added to cart!')">Shop Now</button>
+                    </div>
+                `).join('');
+            } else {
+                seedsGrid.innerHTML = '<p class="empty-hint">No seeds available.</p>';
+            }
+        } catch (e) {
+            console.error('Failed to fetch marketplace data', e);
+        }
+    }
+    loadMarketplace();
+
+    /*=========================
+        9.5 SCHEMES DYNAMIC
+    =========================*/
+    async function loadSchemes() {
+        const schemeGrid = document.getElementById('schemeGrid');
+        if (!schemeGrid) return;
+
+        try {
+            const response = await fetch('http://localhost:5000/api/data/schemes');
+            const data = await response.json();
+
+            if (data.success && data.schemes.length > 0) {
+                schemeGrid.innerHTML = data.schemes.map(scheme => `
+                    <div class="scheme-card">
+                        <div class="scheme-icon">${scheme.icon}</div>
+                        <div>
+                            <h3>${scheme.title}</h3>
+                            <p>${scheme.description}</p>
+                            <a href="${scheme.link}" target="_blank">View Details →</a>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                schemeGrid.innerHTML = '<p class="empty-hint">No schemes available.</p>';
+            }
+        } catch (e) {
+            console.error('Failed to fetch schemes', e);
+        }
+    }
+    loadSchemes();
 
 });
     /*=========================
         10. MARKETPLACE TABS
     =========================*/
     const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
     
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.style.display = 'none');
+            // Find the parent section to scope tab switching
+            const parentSection = btn.closest('.dash-section');
+            if (!parentSection) return;
+
+            const sectionBtns = parentSection.querySelectorAll('.tab-btn');
+            const sectionContents = parentSection.querySelectorAll('.tab-content');
+
+            sectionBtns.forEach(b => b.classList.remove('active'));
+            sectionContents.forEach(c => c.style.display = 'none');
             
             btn.classList.add('active');
-            document.getElementById(btn.dataset.tab + '-content').style.display = 'block';
+            const targetContent = document.getElementById(btn.dataset.tab + '-content');
+            if (targetContent) targetContent.style.display = 'block';
         });
     });
 
@@ -600,10 +752,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageUpload = document.getElementById('imageUpload');
     const profileImage = document.getElementById('profileImage');
     
-    // Load saved image from localStorage
-    const savedImage = localStorage.getItem('farmerProfileImage');
-    if (savedImage && profileImage) {
-        profileImage.src = savedImage;
+    // Load saved image from user object
+    if (user.profileImage && profileImage) {
+        profileImage.src = user.profileImage;
     }
     
     if (imageUpload && profileImage) {
@@ -611,18 +762,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(event) {
+                reader.onload = async function(event) {
                     const dataUrl = event.target.result;
                     profileImage.src = dataUrl;
                     try {
-                        localStorage.setItem('farmerProfileImage', dataUrl);
-                        if (typeof showToast === 'function') {
-                            showToast('Profile photo updated successfully!');
+                        const response = await fetch(`http://localhost:5000/api/user/${user.mobile}/image`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ profileImage: dataUrl })
+                        });
+                        const data = await response.json();
+                        if (data.success) {
+                            user.profileImage = dataUrl;
+                            localStorage.setItem(USER_KEY, JSON.stringify(user));
+                            if (typeof showToast === 'function') {
+                                showToast('Profile photo updated successfully!');
+                            }
                         }
                     } catch (err) {
-                        console.error('Image too large for localStorage', err);
+                        console.error('Error saving image to backend', err);
                         if (typeof showToast === 'function') {
-                            showToast('Image is too large to save permanently.');
+                            showToast('Failed to save profile picture to server.');
                         }
                     }
                 };

@@ -164,23 +164,56 @@ document.addEventListener('DOMContentLoaded', () => {
     /*=========================
         5. STEP 1 -> SEND OTP
     =========================*/
-    document.getElementById('stepDetails').addEventListener('submit', (e) => {
+    document.getElementById('stepDetails').addEventListener('submit', async (e) => {
         e.preventDefault();
         if (!validateDetails()) {
             showToast('Please fix the highlighted fields');
             return;
         }
 
-        mobileDisplay.textContent = mobile.value.trim();
-        generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Sending...';
+        submitBtn.disabled = true;
 
-        // Demo only: in production the OTP is sent via SMS gateway, never shown client-side.
-        showToast(`OTP sent! (Demo code: ${generatedOtp})`);
+        const payload = {
+            fullName: fullName.value.trim(),
+            area: area.value.trim(),
+            district: district.value.trim(),
+            state: stateSel.value,
+            pincode: pincode.value.trim(),
+            farmerType: farmerType.value,
+            mobile: mobile.value.trim()
+        };
 
-        otpBoxes.forEach(b => b.value = '');
-        goToStep(2);
-        startResendTimer();
-        setTimeout(() => otpBoxes[0].focus(), 400);
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                mobileDisplay.textContent = payload.mobile;
+                // Since this is a demo, backend returns demoOtp. Real apps wouldn't do this.
+                generatedOtp = data.demoOtp || ''; 
+                showToast(`OTP sent! ${data.demoOtp ? '(Demo code: ' + data.demoOtp + ')' : ''}`);
+                
+                otpBoxes.forEach(b => b.value = '');
+                goToStep(2);
+                startResendTimer();
+                setTimeout(() => otpBoxes[0].focus(), 400);
+            } else {
+                showToast(data.message || 'Failed to send OTP');
+            }
+        } catch (error) {
+            console.error('Error sending OTP:', error);
+            showToast('Network error, please try again later');
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
     });
 
     /*=========================
@@ -228,12 +261,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    resendBtn.addEventListener('click', () => {
-        generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
-        showToast(`New OTP sent! (Demo code: ${generatedOtp})`);
-        otpBoxes.forEach(b => b.value = '');
-        otpBoxes[0].focus();
-        startResendTimer();
+    resendBtn.addEventListener('click', async () => {
+        const payload = {
+            fullName: fullName.value.trim(),
+            area: area.value.trim(),
+            district: district.value.trim(),
+            state: stateSel.value,
+            pincode: pincode.value.trim(),
+            farmerType: farmerType.value,
+            mobile: mobile.value.trim()
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                generatedOtp = data.demoOtp || ''; 
+                showToast(`New OTP sent! ${data.demoOtp ? '(Demo code: ' + data.demoOtp + ')' : ''}`);
+                otpBoxes.forEach(b => b.value = '');
+                otpBoxes[0].focus();
+                startResendTimer();
+            } else {
+                showToast(data.message || 'Failed to send OTP');
+            }
+        } catch (error) {
+            console.error('Error sending OTP:', error);
+            showToast('Network error, please try again later');
+        }
     });
 
     /*=========================
@@ -252,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /*=========================
         9. VERIFY OTP -> SUCCESS
     =========================*/
-    document.getElementById('stepOtp').addEventListener('submit', (e) => {
+    document.getElementById('stepOtp').addEventListener('submit', async (e) => {
         e.preventDefault();
         const entered = otpBoxes.map(b => b.value).join('');
 
@@ -262,34 +321,52 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (entered !== generatedOtp) {
-            document.getElementById('err-otp').textContent = 'Incorrect OTP. Please try again.';
-            otpBoxes.forEach(b => b.value = '');
-            otpBoxes[0].focus();
-            showToast('That code did not match');
-            return;
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Verifying...';
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    mobile: mobile.value.trim(),
+                    otp: entered
+                })
+            });
+            
+            const data = await response.json();
+
+            if (data.success) {
+                document.getElementById('err-otp').textContent = '';
+                clearInterval(resendInterval);
+                
+                // Store the real user data returned from the backend
+                const session = {
+                    ...data.user,
+                    loggedInAt: Date.now()
+                };
+                localStorage.setItem('krishiSakhiUser', JSON.stringify(session));
+
+                welcomeName.textContent = data.user.name.split(' ')[0] || 'Farmer';
+                goToStep(3);
+
+                // Redirect to the farmer dashboard after a short pause.
+                setTimeout(() => { window.location.href = 'dashboard.html'; }, 2600);
+            } else {
+                document.getElementById('err-otp').textContent = data.message || 'Incorrect OTP. Please try again.';
+                otpBoxes.forEach(b => b.value = '');
+                otpBoxes[0].focus();
+                showToast(data.message || 'That code did not match');
+            }
+        } catch (error) {
+            console.error('Error verifying OTP:', error);
+            showToast('Network error, please try again later');
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
         }
-
-        document.getElementById('err-otp').textContent = '';
-        clearInterval(resendInterval);
-        welcomeName.textContent = fullName.value.trim().split(' ')[0] || 'Farmer';
-        goToStep(3);
-
-        // Save the session so index.html knows who's logged in.
-        const session = {
-            name: fullName.value.trim(),
-            mobile: mobile.value.trim(),
-            area: area.value.trim(),
-            district: district.value.trim(),
-            state: stateSel.value,
-            pincode: pincode.value.trim(),
-            farmerType: farmerType.value,
-            loggedInAt: Date.now()
-        };
-        localStorage.setItem('krishiSakhiUser', JSON.stringify(session));
-
-        // Redirect to the farmer dashboard after a short pause.
-        setTimeout(() => { window.location.href = 'dashboard.html'; }, 2600);
     });
 
     /*=========================

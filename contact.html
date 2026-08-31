@@ -50,10 +50,37 @@
 
     <section class="container" style="padding: 120px 20px; min-height: 70vh;">
         <h1 style="color: var(--primary); margin-bottom: 30px;">Contact Us</h1>
-        <div style="font-size: 1.1rem; line-height: 1.8; max-width: 800px;">
-            <p>Have a question or need assistance? We are here to help!</p><br><p><strong>Email:</strong> infokrishisakhi@gmail.com</p><p><strong>Phone:</strong> +91 7755XXXXXX</p><p><strong>Address:</strong> Krishi Sakhi Headquarters, Lucknow, UP</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px;">
+            <div style="flex: 1; min-width: 300px;">
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px;">Have a question or need assistance? We are here to help!</p>
+                <p><strong><i class="fa-solid fa-envelope"></i> Email:</strong> infokrishisakhi@gmail.com</p>
+                <p><strong><i class="fa-solid fa-phone"></i> Phone:</strong> +91 7755XXXXXX</p>
+                <p><strong><i class="fa-solid fa-location-dot"></i> Address:</strong> Krishi Sakhi Headquarters, Lucknow, UP</p>
+            </div>
+            <div style="flex: 1; min-width: 300px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <h3 style="margin-top:0; margin-bottom: 20px;">Send us a message</h3>
+                <form id="contactForm" style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="name" style="font-weight: 500;">Your Name</label>
+                        <input type="text" id="name" required style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="email" style="font-weight: 500;">Your Email</label>
+                        <input type="email" id="email" required style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label for="message" style="font-weight: 500;">Message</label>
+                        <textarea id="message" rows="5" required style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; resize: vertical;"></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn" style="background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;">Send Message</button>
+                    <div id="formResponse" style="margin-top: 10px; font-weight: bold; display: none;"></div>
+                </form>
+            </div>
         </div>
     </section>
+
+    <!-- Toast for Notifications -->
+    <div class="toast" id="toast"></div>
 
     <footer class="footer">
         <div class="footer-container">
@@ -95,5 +122,6 @@
             <p>Made with <i class="fa-solid fa-heart" style="color: #ef4444;"></i> Team Work by <strong>Team Tech Spark</strong></p>
         </div>
     </footer>
+    <script src="contact.js"></script>
 </body>
 </html>
