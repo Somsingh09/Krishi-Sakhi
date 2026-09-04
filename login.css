@@ -405,3 +405,11 @@ label{ display:block; font-size:.8rem; font-weight:600; margin-bottom:7px; color
 @media(prefers-reduced-motion:reduce){
     *{ animation:none !important; transition:none !important; }
 }
+[data-theme="dark"] .floating-card {
+    background: rgba(18, 27, 21, 0.92);
+}
+[data-theme="dark"] .toast {
+    background: var(--card);
+    color: var(--ink);
+    border: 1px solid var(--border);
+}

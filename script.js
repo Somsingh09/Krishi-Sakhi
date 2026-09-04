@@ -492,7 +492,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (openDirectSales) {
     openDirectSales.addEventListener('click', () => {
       const directSalesHtml = `
-        <div style="text-align: center; padding: 10px;">
+        <div style="text-align: center; padding: 10px; position: relative; z-index: 1;">
+          <div style="font-size: 8rem; color: var(--primary); opacity: 0.08; position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); z-index: -1; pointer-events: none;">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
           <h4 style="margin-bottom:10px; color:var(--primary);">Connect directly with consumers and book trucks instantly.</h4>
           <p style="margin-bottom: 15px; color: #444;">Enter your pincode or area to see active buyer requests and truck availability:</p>
           <input type="text" id="dsAreaInput" placeholder="Enter Pincode or Area (e.g. 222001)" style="width: 80%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem;">
