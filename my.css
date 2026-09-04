@@ -3517,3 +3517,73 @@ height:220px;
     to { transform: scale(1.1); }
 }
 
+
+
+/* Mobile Fixes for Features inside Modal */
+.modal-content .weather-card,
+.modal-content .disease,
+.modal-content .mandi,
+.modal-content .schemes-container {
+    padding: 10px !important;
+    box-shadow: none !important;
+    border: none !important;
+    transform: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    margin: 0 !important;
+}
+
+.modal-content .weather-card {
+    background: linear-gradient(135deg, #55B8FF, #6DD5FA, #2980B9) !important;
+    padding: 20px !important;
+    border-radius: 20px !important;
+}
+
+.modal-content .weather-card:hover,
+.modal-content .disease:hover,
+.modal-content .mandi:hover,
+.modal-content .schemes-container:hover {
+    transform: none !important;
+}
+
+@media(max-width: 480px) {
+    .modal-overlay {
+        padding: 10px;
+    }
+    .modal-box {
+        width: 100%;
+        margin: 0;
+        max-height: 85vh;
+    }
+    .modal-content {
+        padding: 15px 10px;
+    }
+    .modal-head {
+        padding: 15px 15px;
+    }
+    .temp-info h1 {
+        font-size: 50px !important;
+    }
+    .sun-icon {
+        font-size: 55px !important;
+    }
+    .location i {
+        font-size: 24px;
+    }
+    .location h2 {
+        font-size: 22px;
+    }
+    .disease .notes h3, .mandi .rates h3, .scheme-header h2 {
+        font-size: 20px;
+    }
+    .rates strong {
+        font-size: 16px;
+    }
+    .disease .upload-box {
+        padding: 20px;
+    }
+    .disease .preview-img {
+        height: 180px;
+    }
+}
