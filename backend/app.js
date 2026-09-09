@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const dataRoutes = require('./routes/dataRoutes');
+const farmRoutes = require('./routes/farmRoutes');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/data', dataRoutes);
+app.use('/api/farms', farmRoutes);
 
 // Connect to MongoDB
 // Connect to MongoDB

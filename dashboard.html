@@ -43,13 +43,15 @@
         <nav class="sidebar-nav">
             <a href="#overview" class="active" data-target="overview"><i class="fa-solid fa-grip"></i> Overview</a>
             <a href="#weather" data-target="weather"><i class="fa-solid fa-cloud-sun"></i> Weather</a>
-            <a href="#crops" data-target="crops"><i class="fa-solid fa-seedling"></i> My Crops</a>
+            <a href="#crops" data-target="crops"><i class="fa-solid fa-seedling"></i> Farm & Crops</a>
             <a href="#disease" data-target="disease"><i class="fa-solid fa-magnifying-glass-chart"></i> Disease Detection</a>
             <a href="#mandi" data-target="mandi"><i class="fa-solid fa-indian-rupee-sign"></i> Mandi Rates</a>
             <a href="#schemes" data-target="schemes"><i class="fa-solid fa-file-shield"></i> Schemes</a>
             <a href="#expert" data-target="expert"><i class="fa-solid fa-lightbulb"></i> Expert Advice</a>
             <a href="#marketplace" data-target="marketplace"><i class="fa-solid fa-store"></i> Marketplace</a>
             <a href="#direct-marketplace" data-target="direct-marketplace"><i class="fa-solid fa-truck-fast"></i> Direct Sales</a>
+            <a href="#expenses" data-target="expenses"><i class="fa-solid fa-wallet"></i> Expenses & History</a>
+            <a href="#reminders" data-target="reminders"><i class="fa-solid fa-bell"></i> Reminders</a>
             <a href="#profile" data-target="profile"><i class="fa-solid fa-user"></i> Profile</a>
         </nav>
 
@@ -173,18 +175,63 @@
             </div>
         </section>
 
-        <!-- ===================== MY CROPS ===================== -->
+        <!-- ===================== FARM & CROPS ===================== -->
         <section id="crops" class="dash-section">
-            <h2 class="section-title">My Crops</h2>
-            <p class="section-sub">Track what you're growing this season.</p>
+            <h2 class="section-title">Farm & Crops Management</h2>
+            <p class="section-sub">Manage your farm profile and track crop lifecycles.</p>
 
-            <div class="crop-add">
-                <input type="text" id="cropInput" placeholder="e.g. Wheat, Mustard, Sugarcane…">
-                <button id="cropAddBtn"><i class="fa-solid fa-plus"></i> Add Crop</button>
+            <div class="marketplace-tabs" style="margin-bottom: 20px;">
+                <button class="tab-btn active" data-tab="my-farms">My Farms</button>
+                <button class="tab-btn" data-tab="my-crop-instances">Active Crops</button>
             </div>
 
-            <div class="crop-list" id="cropList"></div>
-            <p class="empty-hint" id="cropEmptyHint">No crops added yet — add your first crop above.</p>
+            <div class="tab-content" id="my-farms-content">
+                <div class="crop-add" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                    <input type="text" id="farmNameInput" placeholder="Farm Name (e.g. North Field)">
+                    <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                        <input type="number" id="farmSizeInput" placeholder="Size (Acres)" style="flex:1; min-width:100px;">
+                        <select id="farmSoilInput" style="flex:1; min-width:100px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <option value="Unknown">Soil Type</option>
+                            <option value="Alluvial">Alluvial</option>
+                            <option value="Black">Black</option>
+                            <option value="Red">Red</option>
+                            <option value="Laterite">Laterite</option>
+                        </select>
+                        <select id="farmIrrigationInput" style="flex:1; min-width:100px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <option value="Rainfed">Irrigation Type</option>
+                            <option value="Tube Well">Tube Well</option>
+                            <option value="Canal">Canal</option>
+                            <option value="Drip">Drip</option>
+                        </select>
+                    </div>
+                    <button id="farmAddBtn" class="primary-btn" style="background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;"><i class="fa-solid fa-plus"></i> Add Farm</button>
+                </div>
+                <div class="marketplace-grid" id="farmList" style="margin-top:20px;"></div>
+                <p class="empty-hint" id="farmEmptyHint">No farms added yet.</p>
+            </div>
+
+            <div class="tab-content" id="my-crop-instances-content" style="display:none;">
+                <div class="crop-add" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                    <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                        <select id="cropFarmSelect" style="flex:1; min-width:150px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <option value="">Select Farm...</option>
+                        </select>
+                        <input type="text" id="cropNameInput" placeholder="Crop Name (e.g. Wheat)" style="flex:2; min-width:150px;">
+                    </div>
+                    <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                        <select id="cropSeasonInput" style="flex:1; min-width:100px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <option value="Kharif">Kharif</option>
+                            <option value="Rabi">Rabi</option>
+                            <option value="Zaid">Zaid</option>
+                        </select>
+                        <input type="number" id="cropAreaInput" placeholder="Area Planted (Acres)" style="flex:1; min-width:100px;">
+                        <input type="date" id="cropDateInput" style="flex:1; min-width:100px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    </div>
+                    <button id="cropInstanceAddBtn" class="primary-btn" style="background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;"><i class="fa-solid fa-plus"></i> Add Crop to Farm</button>
+                </div>
+                <div class="crop-list" id="cropInstanceList" style="margin-top:20px;"></div>
+                <p class="empty-hint" id="cropInstanceEmptyHint">No crops planted yet.</p>
+            </div>
         </section>
 
         <!-- ===================== DISEASE DETECTION ===================== -->
@@ -360,6 +407,92 @@
                 </div>
             </div>
         </section>
+        <!-- ===================== EXPENSES & HISTORY ===================== -->
+        <section id="expenses" class="dash-section">
+            <h2 class="section-title">Expenses & Farming History</h2>
+            <p class="section-sub">Log expenses, track activities, and view your farming history.</p>
+            
+            <div class="marketplace-tabs" style="margin-bottom: 20px;">
+                <button class="tab-btn active" data-tab="log-activity">Log Activity</button>
+                <button class="tab-btn" data-tab="log-expense">Log Expense</button>
+                <button class="tab-btn" data-tab="farming-history">History & Reports</button>
+            </div>
+
+            <div class="tab-content" id="log-activity-content">
+                <div class="crop-add" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                    <select id="activityCropSelect" style="padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                        <option value="">Select Crop...</option>
+                    </select>
+                    <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                        <select id="activityTypeInput" style="flex:1; min-width:150px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <option value="Sowing">Sowing</option>
+                            <option value="Watering">Watering</option>
+                            <option value="Fertilizing">Fertilizing</option>
+                            <option value="Spraying">Spraying</option>
+                            <option value="Harvesting">Harvesting</option>
+                        </select>
+                        <input type="date" id="activityDateInput" style="flex:1; min-width:150px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    </div>
+                    <input type="text" id="activityNotesInput" placeholder="Notes (Optional)">
+                    <button id="activityAddBtn" class="primary-btn" style="background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;"><i class="fa-solid fa-plus"></i> Log Activity</button>
+                </div>
+                <div id="activityList" style="margin-top:20px;"></div>
+            </div>
+
+            <div class="tab-content" id="log-expense-content" style="display:none;">
+                <div class="crop-add" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                    <select id="expenseCropSelect" style="padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                        <option value="">Select Crop...</option>
+                    </select>
+                    <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                        <select id="expenseCategoryInput" style="flex:1; min-width:150px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <option value="Seeds">Seeds</option>
+                            <option value="Fertilizer">Fertilizer</option>
+                            <option value="Pesticide">Pesticide</option>
+                            <option value="Labor">Labor</option>
+                            <option value="Machinery">Machinery</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <input type="number" id="expenseAmountInput" placeholder="Amount (₹)" style="flex:1; min-width:150px;">
+                        <input type="date" id="expenseDateInput" style="flex:1; min-width:150px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    </div>
+                    <input type="text" id="expenseNotesInput" placeholder="Notes (Optional)">
+                    <button id="expenseAddBtn" class="primary-btn" style="background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;"><i class="fa-solid fa-plus"></i> Log Expense</button>
+                </div>
+                <div id="expenseList" style="margin-top:20px;"></div>
+            </div>
+
+            <div class="tab-content" id="farming-history-content" style="display:none;">
+                <div class="stat-grid" style="margin-bottom: 20px;">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#FDECEC;color:#DC2626"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+                        <div>
+                            <h3 id="totalExpensesHist">₹0</h3>
+                            <p>Total Expenses</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="historyList"></div>
+            </div>
+        </section>
+
+        <!-- ===================== REMINDERS ===================== -->
+        <section id="reminders" class="dash-section">
+            <h2 class="section-title">Reminders</h2>
+            <p class="section-sub">Never miss a watering, fertilizing, or harvest date.</p>
+
+            <div class="crop-add" style="flex-direction: column; align-items: stretch; gap: 10px;">
+                <input type="text" id="reminderTitleInput" placeholder="Reminder Title (e.g. Water the wheat field)">
+                <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                    <input type="text" id="reminderDescInput" placeholder="Description (Optional)" style="flex:2; min-width:150px;">
+                    <input type="date" id="reminderDateInput" style="flex:1; min-width:150px; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                </div>
+                <button id="reminderAddBtn" class="primary-btn" style="background:var(--primary); color:white; padding:12px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;"><i class="fa-solid fa-bell"></i> Add Reminder</button>
+            </div>
+            
+            <div id="reminderList" style="margin-top:20px;"></div>
+            <p class="empty-hint" id="reminderEmptyHint">No upcoming reminders.</p>
+        </section>
 
         <!-- ===================== PROFILE ===================== -->
         <section id="profile" class="dash-section">
@@ -429,5 +562,6 @@
 <div class="toast" id="toast"></div>
 
 <script src="dashboard.js"></script>
+<script src="dashboard_new_features.js"></script>
 </body>
 </html>
