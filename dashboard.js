@@ -20,6 +20,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    // Intercept fetch to add Authorization header automatically
+    const originalFetch = window.fetch;
+    window.fetch = async function() {
+        let [resource, config] = arguments;
+        if (typeof resource === 'string' && resource.startsWith('/api/')) {
+            const token = localStorage.getItem('krishiSakhiToken');
+            if (token) {
+                config = config || {};
+                if (!config.headers) {
+                    config.headers = {};
+                }
+                if (config.headers instanceof Headers) {
+                    config.headers.set('Authorization', `Bearer ${token}`);
+                } else {
+                    config.headers['Authorization'] = `Bearer ${token}`;
+                }
+            }
+        }
+        return originalFetch(resource, config);
+    };
+
     // Fetch latest user data from backend
     try {
         const response = await fetch(`/api/user/${user.mobile}`);

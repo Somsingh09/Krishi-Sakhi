@@ -348,6 +348,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     loggedInAt: Date.now()
                 };
                 localStorage.setItem('krishiSakhiUser', JSON.stringify(session));
+                if (data.token) {
+                    localStorage.setItem('krishiSakhiToken', data.token);
+                }
 
                 welcomeName.textContent = data.user.name.split(' ')[0] || 'Farmer';
                 goToStep(3);

@@ -99,11 +99,20 @@ exports.verifyOtp = async (req, res) => {
             };
         }
 
+        // Generate JWT token
+        const jwt = require('jsonwebtoken');
+        const token = jwt.sign(
+            { id: user._id || user.id, mobile: user.mobile },
+            process.env.JWT_SECRET || 'fallback_secret_key',
+            { expiresIn: '30d' }
+        );
+
         res.status(200).json({
             success: true,
             message: 'Login successful',
+            token, // <-- Send the token to the client
             user: {
-                id: user._id,
+                id: user._id || user.id,
                 name: user.fullName,
                 mobile: user.mobile,
                 area: user.area,
