@@ -4,10 +4,11 @@ require('dotenv').config();
 /**
  * Send SMS using configured provider
  * @param {string} phone - Normalized phone number
- * @param {string} message - Message to send
+ * @param {string} message - Message to send (fallback)
+ * @param {string} otp - The raw OTP code
  * @returns {Promise<boolean>} - True if sent successfully
  */
-exports.sendSMS = async (phone, message) => {
+exports.sendSMS = async (phone, message, otp) => {
     try {
         const isDemoMode = process.env.OTP_DEMO_MODE === 'true';
         
@@ -25,19 +26,20 @@ exports.sendSMS = async (phone, message) => {
         }
 
         // If using Fast2SMS
-        if (provider === 'fast2sms' || provider === 'Fast2SMS') {
+        if (provider.toLowerCase() === 'fast2sms') {
             const apiKey = process.env.SMS_API_KEY;
             if (!apiKey) {
                 console.error('Fast2SMS API Key is missing');
                 return false;
             }
 
-            // Fast2SMS expects the 10-digit number without the +91 prefix for Indian numbers
+            // Fast2SMS expects the 10-digit number without the +91 prefix
             const number = phone.replace('+91', '');
 
-            console.log(`[PROD SMS to ${number}]: ${message} via Fast2SMS`);
+            console.log(`[PROD SMS to ${number}] via Fast2SMS OTP Route`);
             
-            // Native Node 18+ fetch
+            // Native Node 18+ fetch using the dedicated OTP route 
+            // This prevents DND (Do Not Disturb) blocking in India
             const response = await fetch("https://www.fast2sms.com/dev/bulkV2", {
                 method: "POST",
                 headers: {
@@ -45,10 +47,8 @@ exports.sendSMS = async (phone, message) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    route: "q",
-                    message: message,
-                    language: "english",
-                    flash: 0,
+                    route: "otp",
+                    variables_values: otp || message.replace(/\D/g, '').slice(0, 6),
                     numbers: number
                 })
             });

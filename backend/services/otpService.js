@@ -63,7 +63,7 @@ exports.sendOtp = async (phone, purpose = 'registration') => {
 
     // Send SMS
     const message = `Your Krishi Sakhi verification code is ${otp}. It will expire in ${OTP_EXPIRY_MINUTES} minutes. Do not share this code with anyone.`;
-    const smsSent = await smsService.sendSMS(normalizedPhone, message);
+    const smsSent = await smsService.sendSMS(normalizedPhone, message, otp);
 
     if (!smsSent) {
         throw new Error('Failed to send SMS. Please try again later.');
