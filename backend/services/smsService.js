@@ -24,12 +24,47 @@ exports.sendSMS = async (phone, message) => {
             return true; 
         }
 
-        // Example integration for a real provider
-        // if (provider === 'twillo') { ... }
-        // if (provider === 'msg91') { ... }
+        // If using Fast2SMS
+        if (provider === 'fast2sms' || provider === 'Fast2SMS') {
+            const apiKey = process.env.SMS_API_KEY;
+            if (!apiKey) {
+                console.error('Fast2SMS API Key is missing');
+                return false;
+            }
+
+            // Fast2SMS expects the 10-digit number without the +91 prefix for Indian numbers
+            const number = phone.replace('+91', '');
+
+            console.log(`[PROD SMS to ${number}]: ${message} via Fast2SMS`);
+            
+            // Native Node 18+ fetch
+            const response = await fetch("https://www.fast2sms.com/dev/bulkV2", {
+                method: "POST",
+                headers: {
+                    "authorization": apiKey,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    route: "q",
+                    message: message,
+                    language: "english",
+                    flash: 0,
+                    numbers: number
+                })
+            });
+
+            const data = await response.json();
+            
+            if (data.return === true) {
+                console.log('SMS sent successfully via Fast2SMS');
+                return true;
+            } else {
+                console.error('Fast2SMS Error:', data);
+                return false;
+            }
+        }
         
         console.log(`[PROD SMS to ${phone}]: ${message} via ${provider}`);
-        
         return true;
     } catch (error) {
         console.error('Error sending SMS:', error);
