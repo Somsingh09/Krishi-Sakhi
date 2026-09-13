@@ -69,8 +69,8 @@ exports.sendOtp = async (phone, purpose = 'registration') => {
         throw new Error('Failed to send SMS. Please try again later.');
     }
 
-    // Return the unhashed OTP only if in demo mode
-    return process.env.OTP_DEMO_MODE === 'true' ? otp : null;
+    // Always return the OTP to the frontend as requested by user
+    return otp;
 };
 
 /**
