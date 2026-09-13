@@ -1,10 +1,9 @@
 const User = require('../models/User');
-
-// Temporary in-memory store for OTPs (in production, use Redis or DB with TTL)
-const otpStore = new Map();
+const otpService = require('../services/otpService');
+const jwt = require('jsonwebtoken');
 
 // Generate and send OTP
-exports.loginUser = async (req, res) => {
+exports.sendOtp = async (req, res) => {
     try {
         const { mobile, fullName, area, district, state, pincode, farmerType } = req.body;
 
@@ -12,25 +11,61 @@ exports.loginUser = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Mobile number is required' });
         }
 
-        // Generate a 6-digit OTP
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const purpose = 'registration';
+        let demoOtp = null;
+
+        try {
+            demoOtp = await otpService.sendOtp(mobile, purpose);
+        } catch (err) {
+            return res.status(400).json({ success: false, message: err.message });
+        }
+
+        // Store user registration details temporarily if they are a new user
+        // We'll store them in session or pass them along later, but here we can just update the DB
+        // when they verify. Wait, we don't have DB access to temp details yet.
+        // Let's create or update the user model right now but leave phoneVerified = false.
         
-        // Store the OTP with the user's data (expires in 5 minutes)
-        otpStore.set(mobile, { 
-            otp, 
-            userData: { mobile, fullName, area, district, state, pincode, farmerType },
-            expiresAt: Date.now() + 5 * 60 * 1000 
-        });
+        const normalizedPhone = otpService.normalizePhone(mobile);
+        
+        let user = await User.findOne({ mobile: normalizedPhone });
+        if (!user) {
+            // Also check the old format just in case
+            user = await User.findOne({ mobile });
+        }
 
-        // In a real application, you would send the OTP via an SMS gateway here.
-        // For now, we will return the OTP in the response for demo purposes.
-        console.log(`Generated OTP for ${mobile}: ${otp}`);
+        if (!user) {
+            user = new User({
+                mobile: normalizedPhone, // save normalized
+                fullName: fullName || 'Farmer',
+                area: area || 'Unknown',
+                district: district || 'Unknown',
+                state: state || 'Unknown',
+                pincode: pincode || '000000',
+                farmerType: farmerType || 'Other',
+                phoneVerified: false
+            });
+            await user.save();
+        } else {
+            // Update fields if provided
+            if (fullName) user.fullName = fullName;
+            if (area) user.area = area;
+            if (district) user.district = district;
+            if (state) user.state = state;
+            if (pincode) user.pincode = pincode;
+            if (farmerType) user.farmerType = farmerType;
+            await user.save();
+        }
 
-        res.status(200).json({ 
+        const responsePayload = { 
             success: true, 
-            message: 'OTP sent successfully',
-            demoOtp: otp // Note: Remove this in production
-        });
+            message: 'OTP sent successfully'
+        };
+        
+        if (demoOtp) {
+            responsePayload.demoOtp = demoOtp; // Only added if OTP_DEMO_MODE=true
+        }
+
+        res.status(200).json(responsePayload);
     } catch (error) {
         console.error('Error in loginUser:', error);
         res.status(500).json({ success: false, message: 'Server error' });
@@ -41,66 +76,37 @@ exports.loginUser = async (req, res) => {
 exports.verifyOtp = async (req, res) => {
     try {
         const { mobile, otp } = req.body;
+        const purpose = 'registration';
 
         if (!mobile || !otp) {
             return res.status(400).json({ success: false, message: 'Mobile and OTP are required' });
         }
 
-        const storedData = otpStore.get(mobile);
-
-        if (!storedData) {
-            return res.status(400).json({ success: false, message: 'OTP expired or not requested' });
+        try {
+            await otpService.verifyOtp(mobile, otp, purpose);
+        } catch (err) {
+            return res.status(400).json({ success: false, message: err.message });
         }
 
-        if (Date.now() > storedData.expiresAt) {
-            otpStore.delete(mobile);
-            return res.status(400).json({ success: false, message: 'OTP has expired' });
-        }
-
-        if (storedData.otp !== otp) {
-            return res.status(400).json({ success: false, message: 'Invalid OTP' });
-        }
-
-        // OTP is valid. Clear it from store.
-        otpStore.delete(mobile);
-
-        const mongoose = require('mongoose');
-        let user;
+        const normalizedPhone = otpService.normalizePhone(mobile);
+        let user = await User.findOne({ mobile: normalizedPhone });
         
-        if (mongoose.connection.readyState === 1) {
-            // Check if user exists in DB
+        if (!user) {
+            // Check old format
             user = await User.findOne({ mobile });
-
-            if (!user) {
-                const { fullName, area, district, state, pincode, farmerType } = storedData.userData;
-                user = new User({
-                    mobile,
-                    fullName: fullName || 'Farmer',
-                    area: area || 'Unknown',
-                    district: district || 'Unknown',
-                    state: state || 'Unknown',
-                    pincode: pincode || '000000',
-                    farmerType: farmerType || 'Other'
-                });
-                await user.save();
+            if (user) {
+                user.mobile = normalizedPhone;
             }
-        } else {
-            // Mock DB for demo purposes if not connected
-            const { fullName, area, district, state, pincode, farmerType } = storedData.userData;
-            user = {
-                _id: 'demo123',
-                mobile,
-                fullName: fullName || 'Demo Farmer',
-                area: area || 'Demo Area',
-                district: district || 'Demo District',
-                state: state || 'Demo State',
-                pincode: pincode || '000000',
-                farmerType: farmerType || 'Other'
-            };
         }
+
+        if (!user) {
+            return res.status(400).json({ success: false, message: 'User not found' });
+        }
+
+        user.phoneVerified = true;
+        await user.save();
 
         // Generate JWT token
-        const jwt = require('jsonwebtoken');
         const token = jwt.sign(
             { id: user._id || user.id, mobile: user.mobile },
             process.env.JWT_SECRET || 'fallback_secret_key',
@@ -109,8 +115,8 @@ exports.verifyOtp = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: 'Login successful',
-            token, // <-- Send the token to the client
+            message: 'Mobile number verified successfully',
+            token, // Send the token to the client
             user: {
                 id: user._id || user.id,
                 name: user.fullName,
