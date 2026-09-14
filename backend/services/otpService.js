@@ -29,43 +29,36 @@ exports.normalizePhone = (phone) => {
 exports.sendOtp = async (phone, purpose = 'registration') => {
     const normalizedPhone = exports.normalizePhone(phone);
     
-    // Check if cooldown period has passed (only if DB is online)
-    if (mongoose.connection.readyState === 1) {
-        const existingOtp = await OTPVerification.findOne({
-            phone: normalizedPhone,
-            purpose
-        }).sort({ createdAt: -1 });
+    // Check if cooldown period has passed
+    const existingOtp = await OTPVerification.findOne({
+        phone: normalizedPhone,
+        purpose
+    }).sort({ createdAt: -1 });
 
-        if (existingOtp) {
-            const timeSinceLastOtp = (Date.now() - existingOtp.createdAt.getTime()) / 1000;
-            if (timeSinceLastOtp < OTP_RESEND_COOLDOWN_SECONDS) {
-                const waitTime = Math.ceil(OTP_RESEND_COOLDOWN_SECONDS - timeSinceLastOtp);
-                throw new Error(`Please wait ${waitTime} seconds before requesting a new OTP.`);
-            }
+    if (existingOtp) {
+        const timeSinceLastOtp = (Date.now() - existingOtp.createdAt.getTime()) / 1000;
+        if (timeSinceLastOtp < OTP_RESEND_COOLDOWN_SECONDS) {
+            const waitTime = Math.ceil(OTP_RESEND_COOLDOWN_SECONDS - timeSinceLastOtp);
+            throw new Error(`Please wait ${waitTime} seconds before requesting a new OTP.`);
         }
     }
 
-    // Generate 6-digit OTP (Force 123456 for offline/demo reliability)
-    const isDemoMode = process.env.OTP_DEMO_MODE === 'true';
-    const otp = (isDemoMode || mongoose.connection.readyState !== 1) ? '123456' : crypto.randomInt(100000, 999999).toString();
+    // Generate 6-digit random OTP (Always unique demo code)
+    const otp = crypto.randomInt(100000, 999999).toString();
 
-    // Hash and store OTP in database if connected
-    if (mongoose.connection.readyState === 1) {
-        await OTPVerification.deleteMany({ phone: normalizedPhone, purpose });
-        const otpHash = await bcrypt.hash(otp, 10);
-        const expiresAt = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60000);
+    // Hash and store OTP in database
+    await OTPVerification.deleteMany({ phone: normalizedPhone, purpose });
+    const otpHash = await bcrypt.hash(otp, 10);
+    const expiresAt = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60000);
 
-        const otpRecord = new OTPVerification({
-            phone: normalizedPhone,
-            otpHash,
-            purpose,
-            expiresAt,
-            attempts: 0
-        });
-        await otpRecord.save();
-    } else {
-        console.warn('Database offline: Bypassing OTP storage');
-    }
+    const otpRecord = new OTPVerification({
+        phone: normalizedPhone,
+        otpHash,
+        purpose,
+        expiresAt,
+        attempts: 0
+    });
+    await otpRecord.save();
 
     // Send SMS
     const message = `Your Krishi Sakhi verification code is ${otp}. It will expire in ${OTP_EXPIRY_MINUTES} minutes. Do not share this code with anyone.`;
@@ -84,12 +77,6 @@ exports.sendOtp = async (phone, purpose = 'registration') => {
  */
 exports.verifyOtp = async (phone, enteredOtp, purpose = 'registration') => {
     const normalizedPhone = exports.normalizePhone(phone);
-
-    // Offline bypass
-    if (mongoose.connection.readyState !== 1) {
-        if (enteredOtp === '123456') return true;
-        throw new Error('Database is offline. You must use the demo OTP 123456.');
-    }
 
     const otpRecord = await OTPVerification.findOne({
         phone: normalizedPhone,

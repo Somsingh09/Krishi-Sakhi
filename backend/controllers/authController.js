@@ -26,6 +26,7 @@ exports.sendOtp = async (req, res) => {
         // Let's create or update the user model right now but leave phoneVerified = false.
         
         const normalizedPhone = otpService.normalizePhone(mobile);
+        const mongoose = require('mongoose');
         
         let user = await User.findOne({ mobile: normalizedPhone });
         if (!user) {
@@ -91,29 +92,14 @@ exports.verifyOtp = async (req, res) => {
         const normalizedPhone = otpService.normalizePhone(mobile);
         const mongoose = require('mongoose');
         
-        let user;
-        if (mongoose.connection.readyState === 1) {
-            user = await User.findOne({ mobile: normalizedPhone });
-            
-            if (!user) {
-                // Check old format
-                user = await User.findOne({ mobile });
-                if (user) {
-                    user.mobile = normalizedPhone;
-                }
+        let user = await User.findOne({ mobile: normalizedPhone });
+        
+        if (!user) {
+            // Check old format
+            user = await User.findOne({ mobile });
+            if (user) {
+                user.mobile = normalizedPhone;
             }
-        } else {
-            console.warn('Database offline: Returning mocked demo user');
-            user = {
-                _id: 'demo_user_123',
-                fullName: 'Demo Krishi Sakhi User',
-                mobile: normalizedPhone,
-                area: 'Demo Village',
-                district: 'Demo District',
-                state: 'Demo State',
-                pincode: '123456',
-                farmerType: 'Small'
-            };
         }
 
         if (!user) {
@@ -126,10 +112,8 @@ exports.verifyOtp = async (req, res) => {
             });
         }
 
-        if (mongoose.connection.readyState === 1) {
-            user.phoneVerified = true;
-            await user.save();
-        }
+        user.phoneVerified = true;
+        await user.save();
 
         // Generate JWT token
         const token = jwt.sign(
