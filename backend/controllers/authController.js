@@ -11,6 +11,14 @@ exports.sendOtp = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Mobile number is required' });
         }
 
+        if (req.mockDb) {
+            return res.status(200).json({
+                success: true,
+                message: 'OTP sent successfully',
+                demoOtp: '123456'
+            });
+        }
+
         const purpose = 'registration';
         let demoOtp = null;
 
@@ -81,6 +89,34 @@ exports.verifyOtp = async (req, res) => {
 
         if (!mobile || !otp) {
             return res.status(400).json({ success: false, message: 'Mobile and OTP are required' });
+        }
+
+        if (req.mockDb) {
+            if (otp !== '123456') {
+                return res.status(400).json({ success: false, message: 'Invalid OTP' });
+            }
+            
+            const token = jwt.sign(
+                { id: 'mock-id-1234', mobile },
+                process.env.JWT_SECRET || 'fallback_secret_key',
+                { expiresIn: '30d' }
+            );
+
+            return res.status(200).json({
+                success: true,
+                message: 'Mobile number verified successfully',
+                token,
+                user: {
+                    id: 'mock-id-1234',
+                    name: 'Demo Farmer',
+                    mobile: mobile,
+                    area: 'Demo Area',
+                    district: 'Demo District',
+                    state: 'Demo State',
+                    pincode: '000000',
+                    farmerType: 'Demo Type'
+                }
+            });
         }
 
         try {

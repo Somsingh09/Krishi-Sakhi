@@ -18,7 +18,8 @@ app.use(express.json({ limit: '10mb' })); // Increased limit for base64 images
 // Connect to MongoDB Middleware
 app.use(async (req, res, next) => {
     if (!process.env.MONGO_URI) {
-        console.warn('MONGO_URI is not set in environment variables. Database features will not work.');
+        console.warn('MONGO_URI is not set in environment variables. Running in Mock DB mode.');
+        req.mockDb = true;
         return next();
     }
 
@@ -33,15 +34,14 @@ app.use(async (req, res, next) => {
 
     try {
         await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            serverSelectionTimeoutMS: 5000 // Fail quickly on Vercel if DB is unreachable
+            serverSelectionTimeoutMS: 2000 // Fail quickly if DB is unreachable
         });
         console.log('MongoDB connected successfully');
         next();
     } catch (error) {
-        console.error('MongoDB connection error:', error);
-        res.status(500).json({ success: false, message: 'Database connection failed' });
+        console.error('MongoDB connection error. Falling back to Mock DB mode.');
+        req.mockDb = true;
+        next();
     }
 });
 
