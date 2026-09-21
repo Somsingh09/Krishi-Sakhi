@@ -3587,3 +3587,49 @@ height:220px;
         height: 180px;
     }
 }
+/* Interactive Footer Additions */
+.links-grid a {
+    display: inline-flex;
+    align-items: center;
+}
+.links-grid a i {
+    color: var(--primary);
+    margin-right: 8px;
+    transition: var(--transition);
+}
+.links-grid a:hover i {
+    transform: scale(1.2);
+}
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    transition: var(--transition);
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.social-icon:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    color: white;
+}
+.social-icon.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+.social-icon.linkedin {
+    background: #0077b5;
+}
+.social-icon.telegram {
+    background: #0088cc;
+}
+
