@@ -16,8 +16,7 @@ exports.handleChat = async (req, res) => {
         }
 
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        // Using gemini-1.5-flash as the standard fast text model
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
         const prompt = `You are Krishi Sakhi, a helpful AI assistant for farmers in India. 
         You provide assistance regarding weather, crop diseases, market prices (mandi bhav), and government schemes.
