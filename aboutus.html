@@ -127,6 +127,22 @@
         .team-card:hover .team-icon {
             transform: scale(1.2) rotate(5deg);
         }
+        .team-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px auto;
+            border: 4px solid var(--primary-light);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: block;
+        }
+        .team-card:hover .team-img {
+            transform: scale(1.08) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(27, 138, 67, 0.2);
+            border-color: var(--primary);
+        }
         .team-name {
             font-size: 1.3rem;
             font-weight: 700;
@@ -193,12 +209,12 @@
                     <div class="team-role">Tech Lead</div>
                 </div>
                 <div class="team-card">
-                    <i class="fa-solid fa-database team-icon"></i>
+                    <img src="nandani.jpg" class="team-img" alt="Nandani Kumari Kushwaha">
                     <div class="team-name">Nandani Kumari Kushwaha</div>
                     <div class="team-role">DataBase Management</div>
                 </div>
                 <div class="team-card">
-                    <i class="fa-solid fa-chart-line team-icon"></i>
+                    <img src="sonali.jpg" class="team-img" alt="Sonali Singh">
                     <div class="team-name">Sonali Singh</div>
                     <div class="team-role">Research & Analyst</div>
                 </div>
