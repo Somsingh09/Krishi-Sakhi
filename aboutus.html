@@ -30,7 +30,7 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-           <a href="index.html"> <img src="https://media.istockphoto.com/id/1045368942/vector/abstract-green-leaf-logo-icon-vector-design-ecology-icon-set-eco-icon.jpg?s=612x612&w=0&k=20&c=XIfHMI8r1G73blCpCBFmLIxCtOLx8qX0O3mZC9csRLs=" alt="Logo"></a>
+           <a href="index.html"> <img src="logo.jpg" alt="Logo"></a>
             <div>
                 <h2>Krishi Sakhi</h2>
                 <p>When AI Meets Farmers</p>
@@ -48,38 +48,171 @@
         </div>
     </nav>
 
-    <section class="container" style="padding: 120px 20px; min-height: 70vh;">
-        <h1 style="color: var(--primary); margin-bottom: 30px;">About Us</h1>
-        <div style="font-size: 1.1rem; line-height: 1.8; max-width: 800px;">
-            <div style="text-align: left; margin: 0 auto;">
-                <p><strong>Krishi Sakhi</strong> is India's most advanced digital companion for farmers, leveraging cutting-edge Artificial Intelligence to provide real-time agricultural advice, precise weather forecasting, and accurate mandi insights.</p>
+    
+    <style>
+        .about-hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .about-logo {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        .about-logo img {
+            max-width: 80%;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .about-logo img:hover {
+            transform: scale(1.02);
+        }
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        .mv-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary);
+        }
+        .mv-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .team-section {
+            text-align: center;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(27, 138, 67, 0.15);
+            border-color: var(--primary);
+        }
+        .team-icon {
+            font-size: 45px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .team-card:hover .team-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+        .team-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+        .team-role {
+            font-size: 1rem;
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+    </style>
+
+    <section class="container" style="padding: 100px 20px; min-height: 70vh;">
+        
+        <div class="about-hero">
+            <div class="about-text">
+                <h1 style="color: var(--primary); margin-bottom: 20px; font-size: 3.5rem;">About Krishi Sakhi</h1>
+                <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text);">
+                    <strong>Krishi Sakhi</strong> is India's most advanced digital companion for farmers. 
+                    We leverage cutting-edge Artificial Intelligence to provide real-time agricultural advice, 
+                    precise weather forecasting, and accurate mandi insights right at your fingertips.
+                </p>
                 <br>
-                <h3 style="color: var(--primary-dark); margin-bottom: 10px;">Our Mission</h3>
-                <p>Our mission is to empower rural farming communities with accessible, reliable, and actionable information that directly improves crop yields and farmer livelihoods. We bridge the gap between traditional farming and modern technology.</p>
-                <br>
-                <h3 style="color: var(--primary-dark); margin-bottom: 10px;">Why Choose Us?</h3>
-                <ul style="list-style-position: inside; margin-bottom: 20px;">
-                    <li><strong>AI-Powered Insights:</strong> Instantly detect crop diseases with a single photo.</li>
-                    <li><strong>Real-Time Data:</strong> Get the latest weather forecasts and live Mandi rates.</li>
-                    <li><strong>Trusted by Thousands:</strong> Proudly built by Team Tech Spark for over 10,00+ farmers across India.</li>
-                </ul>
-                <br>
-                <h3 style="color: var(--primary-dark); margin-bottom: 10px;">Our Team</h3>
-                <ul style="list-style-type: none; padding-left: 0;">
-                    <li style="margin-bottom: 8px;"><strong>Som Singh</strong> - Project Manager</li>
-                    <li style="margin-bottom: 8px;"><strong>Savita Kumari</strong> - Tech Lead</li>
-                    <li style="margin-bottom: 8px;"><strong>Nandani Kumari Kushwaha</strong> - DataBase Management</li>
-                    <li style="margin-bottom: 8px;"><strong>Sonali Singh</strong> - Research and Analyst</li>
+                <a href="index.html" class="primary-btn">
+                    <i class="fa-solid fa-leaf"></i> Explore Features
+                </a>
+            </div>
+            <div class="about-logo">
+                <img src="logo.jpg" alt="Krishi Sakhi Official Logo">
+            </div>
+        </div>
+
+        <div class="mission-vision">
+            <div class="mv-card">
+                <i class="fa-solid fa-bullseye" style="font-size: 30px; color: var(--primary); margin-bottom: 15px;"></i>
+                <h3 style="color: var(--primary-dark); margin-bottom: 10px; font-size: 1.5rem;">Our Mission</h3>
+                <p style="font-size: 1.05rem;">To empower rural farming communities with accessible, reliable, and actionable information that directly improves crop yields and farmer livelihoods. We bridge the gap between traditional farming and modern technology.</p>
+            </div>
+            <div class="mv-card">
+                <i class="fa-solid fa-star" style="font-size: 30px; color: var(--primary); margin-bottom: 15px;"></i>
+                <h3 style="color: var(--primary-dark); margin-bottom: 10px; font-size: 1.5rem;">Why Choose Us?</h3>
+                <ul style="list-style-type: none; padding-left: 0; font-size: 1.05rem;">
+                    <li style="margin-bottom: 12px;"><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 10px;"></i> AI-Powered Crop Insights</li>
+                    <li style="margin-bottom: 12px;"><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 10px;"></i> Real-Time Weather & Data</li>
+                    <li><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 10px;"></i> Trusted by Thousands</li>
                 </ul>
             </div>
         </div>
+
+        <div class="team-section">
+            <h2 style="color: var(--primary); margin-bottom: 15px; font-size: 2.8rem;">Meet Our Team</h2>
+            <p style="color: var(--text-light); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">Proudly built by <strong>Team Tech Spark</strong>, dedicated to innovating for India's agricultural future.</p>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <i class="fa-solid fa-user-tie team-icon"></i>
+                    <div class="team-name">Som Singh</div>
+                    <div class="team-role">Project Manager</div>
+                </div>
+                <div class="team-card">
+                    <i class="fa-solid fa-laptop-code team-icon"></i>
+                    <div class="team-name">Savita Kumari</div>
+                    <div class="team-role">Tech Lead</div>
+                </div>
+                <div class="team-card">
+                    <i class="fa-solid fa-database team-icon"></i>
+                    <div class="team-name">Nandani Kumari Kushwaha</div>
+                    <div class="team-role">DataBase Management</div>
+                </div>
+                <div class="team-card">
+                    <i class="fa-solid fa-chart-line team-icon"></i>
+                    <div class="team-name">Sonali Singh</div>
+                    <div class="team-role">Research & Analyst</div>
+                </div>
+            </div>
+        </div>
+
     </section>
+
 
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand">
                 <div class="logo-box">
-                    <img src="https://media.istockphoto.com/id/1045368942/vector/abstract-green-leaf-logo-icon-vector-design-ecology-icon-set-eco-icon.jpg?s=612x612&w=0&k=20&c=XIfHMI8r1G73blCpCBFmLIxCtOLx8qX0O3mZC9csRLs=" alt="Krishi Sakhi Logo">
+                    <img src="logo.jpg" alt="Krishi Sakhi Logo">
                     <div>
                         <h2>Krishi Sakhi</h2>
                         <span>When AI Meets Farmers</span>
