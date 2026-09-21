@@ -14,7 +14,7 @@ exports.handleChat = async (req, res) => {
             });
         }
 
-        const projectId = "638395799942"; // Project from user screenshot
+        const projectId = "776422998054"; // Updated project number from user
         const region = "us-central1"; // Defaulting to us-central1
         const model = "gemini-1.5-flash";
         const apiKey = process.env.GEMINI_API_KEY;
@@ -45,11 +45,17 @@ exports.handleChat = async (req, res) => {
 
         if (!response.ok) {
             console.error('Vertex AI Error:', data);
-            // Specifically capture the 403 error to inform the frontend
+            
             if (data.error && data.error.code === 403) {
+                 if (data.error.message.includes('billing')) {
+                     return res.status(403).json({ 
+                         success: false, 
+                         message: 'Google Cloud requires a Billing Account to use Vertex AI. Please enable billing for project 776422998054.'
+                     });
+                 }
                  return res.status(403).json({ 
                      success: false, 
-                     message: 'Google Cloud API is disabled. Please enable "Agent Platform API" or "Vertex AI API" in your Google Cloud Console for project 638395799942.'
+                     message: 'Google Cloud API is disabled. Please enable "Vertex AI API" in your Google Cloud Console for project 776422998054.'
                  });
             }
             return res.status(500).json({ success: false, message: 'Failed to communicate with Vertex AI' });
