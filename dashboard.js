@@ -702,18 +702,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.speechSynthesis.speak(utterance);
     }
 
-    function handleUserMessage(text) {
+    async function handleUserMessage(text) {
         if (!text.trim()) return;
         addMessage(text, 'user');
         chatInput.value = '';
         const typing = showTyping();
-        const delay = 600 + Math.random() * 700;
-        setTimeout(() => {
+        
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await response.json();
+            typing.remove();
+            
+            let reply = '';
+            if (data.success && data.reply) {
+                reply = data.reply;
+            } else {
+                reply = getBotReply(text);
+            }
+            addMessage(reply, 'bot');
+            speakText(reply);
+        } catch (error) {
             typing.remove();
             const reply = getBotReply(text);
             addMessage(reply, 'bot');
             speakText(reply);
-        }, delay);
+        }
     }
 
     chatForm && chatForm.addEventListener('submit', (e) => {

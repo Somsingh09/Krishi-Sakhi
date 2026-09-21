@@ -8,6 +8,7 @@ const userRoutes = require('./routes/userRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const dataRoutes = require('./routes/dataRoutes');
 const farmRoutes = require('./routes/farmRoutes');
+const chatRoutes = require('./routes/chatRoutes'); // AI Chat
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/data', dataRoutes);
 app.use('/api/farms', farmRoutes);
+app.use('/api/chat', chatRoutes); // Mount AI Chat API
 
 // For local development
 if (process.env.NODE_ENV !== 'production') {

@@ -1,5 +1,5 @@
 /*==================================================
-    KRISHI SAKHI +ó-Ç-ö DASHBOARD LOGIC
+    KRISHI SAKHI +Ã³-Ã‡-Ã¶ DASHBOARD LOGIC
 ==================================================*/
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -62,17 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('topAvatar').textContent = initial;
     document.getElementById('topName').textContent = firstName;
-    document.getElementById('topArea').textContent = user.area || '+ó-Ç-ö';
-    document.getElementById('welcomeText').textContent = `Namaste, ${firstName} +¦-ƒ-Ö-Å`;
+    document.getElementById('topArea').textContent = user.area || '+Ã³-Ã‡-Ã¶';
+    document.getElementById('welcomeText').textContent = `Namaste, ${firstName} +Â¦-Æ’-Ã–-Ã…`;
 
     document.getElementById('profileAvatar').textContent = initial;
     document.getElementById('profileName').textContent = user.name;
     document.getElementById('profileMobile').textContent = `+91 ${user.mobile}`;
-    document.getElementById('profileArea').textContent = user.area || '+ó-Ç-ö';
-    document.getElementById('profileFarmerType').textContent = user.farmerType || '+ó-Ç-ö';
-    document.getElementById('profileDistrict').textContent = user.district || '+ó-Ç-ö';
-    document.getElementById('profileState').textContent = user.state || '+ó-Ç-ö';
-    document.getElementById('profilePincode').textContent = user.pincode || '+ó-Ç-ö';
+    document.getElementById('profileArea').textContent = user.area || '+Ã³-Ã‡-Ã¶';
+    document.getElementById('profileFarmerType').textContent = user.farmerType || '+Ã³-Ã‡-Ã¶';
+    document.getElementById('profileDistrict').textContent = user.district || '+Ã³-Ã‡-Ã¶';
+    document.getElementById('profileState').textContent = user.state || '+Ã³-Ã‡-Ã¶';
+    document.getElementById('profilePincode').textContent = user.pincode || '+Ã³-Ã‡-Ã¶';
 
     document.getElementById('pageDate').textContent = new Date().toLocaleDateString('en-IN', {
         weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
@@ -138,19 +138,19 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(sec => observer.observe(sec));
 
     document.getElementById('quickChatBtn').addEventListener('click', () => {
-        showToast('AI chat assistant coming soon on the dashboard +¦-ƒ-î-¦');
+        showToast('AI chat assistant coming soon on the dashboard +Â¦-Æ’-Ã®-Â¦');
     });
     document.getElementById('chatFab').addEventListener('click', () => {
-        showToast('AI chat assistant coming soon on the dashboard +¦-ƒ-î-¦');
+        showToast('AI chat assistant coming soon on the dashboard +Â¦-Æ’-Ã®-Â¦');
     });
 
     document.getElementById('notifBtn').addEventListener('click', () => {
-        showToast('+¦-ƒ-ö-ö You have 2 new notifications: "Weather alert: light rain expected tomorrow" and "New PM Kisan updates".');
+        showToast('+Â¦-Æ’-Ã¶-Ã¶ You have 2 new notifications: "Weather alert: light rain expected tomorrow" and "New PM Kisan updates".');
         document.querySelector('.notif-dot').style.display = 'none'; // clear notification dot
     });
 
     /*=========================
-        5. LIVE WEATHER (Open-Meteo +ó-Ç-ö free, no key)
+        5. LIVE WEATHER (Open-Meteo +Ã³-Ã‡-Ã¶ free, no key)
     =========================*/
     const weatherLocation = document.getElementById('weatherLocation');
     const weatherIcon = document.getElementById('weatherIcon');
@@ -163,15 +163,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const statTemp = document.getElementById('statTemp');
 
     const WMO_MAP = {
-        0: ['+ó-ÿ-Ç+»-+-Å', 'Clear Sky'], 1: ['+¦-ƒ-î-ñ+»-+-Å', 'Mainly Clear'], 2: ['+ó-¢-à', 'Partly Cloudy'], 3: ['+ó-ÿ-ü+»-+-Å', 'Overcast'],
-        45: ['+¦-ƒ-î-½+»-+-Å', 'Fog'], 48: ['+¦-ƒ-î-½+»-+-Å', 'Rime Fog'],
-        51: ['+¦-ƒ-î-ª+»-+-Å', 'Light Drizzle'], 53: ['+¦-ƒ-î-ª+»-+-Å', 'Drizzle'], 55: ['+¦-ƒ-î-ª+»-+-Å', 'Dense Drizzle'],
-        61: ['+¦-ƒ-î-º+»-+-Å', 'Light Rain'], 63: ['+¦-ƒ-î-º+»-+-Å', 'Rain'], 65: ['+¦-ƒ-î-º+»-+-Å', 'Heavy Rain'],
-        71: ['+ó-¥-ä+»-+-Å', 'Light Snow'], 73: ['+ó-¥-ä+»-+-Å', 'Snow'], 75: ['+ó-¥-ä+»-+-Å', 'Heavy Snow'],
-        80: ['+¦-ƒ-î-º+»-+-Å', 'Rain Showers'], 81: ['+¦-ƒ-î-º+»-+-Å', 'Heavy Showers'], 82: ['+ó-¢-ê+»-+-Å', 'Violent Showers'],
-        95: ['+ó-¢-ê+»-+-Å', 'Thunderstorm'], 96: ['+ó-¢-ê+»-+-Å', 'Thunderstorm w/ Hail'], 99: ['+ó-¢-ê+»-+-Å', 'Severe Thunderstorm']
+        0: ['+Ã³-Ã¿-Ã‡+Â»-+-Ã…', 'Clear Sky'], 1: ['+Â¦-Æ’-Ã®-Ã±+Â»-+-Ã…', 'Mainly Clear'], 2: ['+Ã³-Â¢-Ã ', 'Partly Cloudy'], 3: ['+Ã³-Ã¿-Ã¼+Â»-+-Ã…', 'Overcast'],
+        45: ['+Â¦-Æ’-Ã®-Â½+Â»-+-Ã…', 'Fog'], 48: ['+Â¦-Æ’-Ã®-Â½+Â»-+-Ã…', 'Rime Fog'],
+        51: ['+Â¦-Æ’-Ã®-Âª+Â»-+-Ã…', 'Light Drizzle'], 53: ['+Â¦-Æ’-Ã®-Âª+Â»-+-Ã…', 'Drizzle'], 55: ['+Â¦-Æ’-Ã®-Âª+Â»-+-Ã…', 'Dense Drizzle'],
+        61: ['+Â¦-Æ’-Ã®-Âº+Â»-+-Ã…', 'Light Rain'], 63: ['+Â¦-Æ’-Ã®-Âº+Â»-+-Ã…', 'Rain'], 65: ['+Â¦-Æ’-Ã®-Âº+Â»-+-Ã…', 'Heavy Rain'],
+        71: ['+Ã³-Â¥-Ã¤+Â»-+-Ã…', 'Light Snow'], 73: ['+Ã³-Â¥-Ã¤+Â»-+-Ã…', 'Snow'], 75: ['+Ã³-Â¥-Ã¤+Â»-+-Ã…', 'Heavy Snow'],
+        80: ['+Â¦-Æ’-Ã®-Âº+Â»-+-Ã…', 'Rain Showers'], 81: ['+Â¦-Æ’-Ã®-Âº+Â»-+-Ã…', 'Heavy Showers'], 82: ['+Ã³-Â¢-Ãª+Â»-+-Ã…', 'Violent Showers'],
+        95: ['+Ã³-Â¢-Ãª+Â»-+-Ã…', 'Thunderstorm'], 96: ['+Ã³-Â¢-Ãª+Â»-+-Ã…', 'Thunderstorm w/ Hail'], 99: ['+Ã³-Â¢-Ãª+Â»-+-Ã…', 'Severe Thunderstorm']
     };
-    function weatherFromCode(code) { return WMO_MAP[code] || ['+¦-ƒ-î-í+»-+-Å', 'Weather']; }
+    function weatherFromCode(code) { return WMO_MAP[code] || ['+Â¦-Æ’-Ã®-Ã­+Â»-+-Ã…', 'Weather']; }
 
     function applyWeatherTheme(code) {
         const card = document.querySelector('.weather-card');
@@ -208,8 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const [icon, desc] = weatherFromCode(data.current.weather_code);
 
             weatherIcon.textContent = icon;
-            weatherTemp.textContent = `${Math.round(data.current.temperature_2m)}+é-¦C`;
-            statTemp.textContent = `${Math.round(data.current.temperature_2m)}+é-¦C`;
+            weatherTemp.textContent = `${Math.round(data.current.temperature_2m)}+Ã©-Â¦C`;
+            statTemp.textContent = `${Math.round(data.current.temperature_2m)}+Ã©-Â¦C`;
             weatherDesc.textContent = desc;
             weatherHumidity.textContent = `${data.current.relative_humidity_2m}%`;
             weatherRain.textContent = `${data.daily.precipitation_probability_max[0] ?? 0}%`;
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
         crops.forEach((crop, i) => {
             const chip = document.createElement('div');
             chip.className = 'crop-chip';
-            chip.innerHTML = `+¦-ƒ-î-+ ${crop} <button data-i="${i}" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>`;
+            chip.innerHTML = `+Â¦-Æ’-Ã®-+ ${crop} <button data-i="${i}" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>`;
             cropList.appendChild(chip);
         });
         cropList.querySelectorAll('button').forEach(btn => {
@@ -330,11 +330,11 @@ document.addEventListener('DOMContentLoaded', () => {
         diseaseResult.innerHTML = `
             <div class="result-placeholder">
                 <div class="spinner-inline"></div>
-                <p>Analyzing your crop image+ó-Ç-ª</p>
+                <p>Analyzing your crop image+Ã³-Ã‡-Âª</p>
             </div>
         `;
 
-        // Simulated analysis delay +ó-Ç-ö replace with a real fetch() to your AI model endpoint.
+        // Simulated analysis delay +Ã³-Ã‡-Ã¶ replace with a real fetch() to your AI model endpoint.
         setTimeout(() => {
             const result = SAMPLE_RESULTS[Math.floor(Math.random() * SAMPLE_RESULTS.length)];
             diseaseResult.innerHTML = `
@@ -463,13 +463,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getBotReply(rawText) {
         const text = rawText.toLowerCase();
-        if (/weather|mausam|temperature|rain|añ«aÑîañ+añ«/.test(text)) return 'añåañ¬ añ¦aÑïañ«añ¬aÑçañ£ añ¬añ¦ añ«aÑîañ+añ« añàañ¿aÑüañ¡añ+añù añ«aÑçañé añ¦añ+añçañ¦ añ«aÑîañ+añ« añªaÑçañû añ+añòaññaÑç añ¦aÑêañéaÑñ añòaÑìañ»añ+ añ«aÑêañé añåañ¬añòaÑï añ¦añ¦añ+añé añ¦aÑç añÜañ¦aÑéañé?';
-        if (/mandi|price|rate|añ¡añ+añ¦|añ«añéañíaÑÇ/.test(text)) return 'añåañ£ añòaÑç añ«añéañíaÑÇ añ¡añ+añ¦ añçañ+ añ¬aÑìañ¦añòañ+añ¦ añ¦aÑêañé GÇö añùaÑçañ¦aÑéañé Gé¦2420, añÜañ+añ¦añ¦ Gé¦2300, añ«añòaÑìañòañ+ Gé¦2100, añªañ+añ¦aÑçañé Gé¦5650, añ+añ¦añ+aÑïañé Gé¦6000 añ¬aÑìañ¦aññañ+ añòaÑìañ¦añ+añéañƒañ¦aÑñ';
-        if (/disease|pest|leaf|bimari|añ¼aÑÇañ«añ+añ¦aÑÇ|añ¦aÑïañù/.test(text)) return 'añ½añ+añ¦ añ¦aÑïañù añ¬añ¦añÜañ+añ¿ añàañ¿aÑüañ¡añ+añù añ«aÑçañé añ¬aÑìañ¦añ¡añ+añ¦añ+aññ añ¬aññaÑìaññaÑç añòaÑÇ añÅañò añ½aÑïañƒaÑï añàañ¬añ¦aÑïañí añòañ¦aÑçañé, añöañ¦ añ«aÑêañé añåañ¬añòaÑï añ¼aÑÇañ«añ+añ¦aÑÇ añöañ¦ añ¼añÜañ+añ¦ añòaÑç añëañ¬añ+añ» añ¼aññañ+añèañéañùaÑÇaÑñ';
-        if (/scheme|yojana|loan|subsidy|añ»aÑïañ£añ¿añ+/.test(text)) return 'añ«aÑüañûaÑìañ» añ+añ¦añòañ+añ¦aÑÇ añ»aÑïañ£añ¿añ+añÅañé añ¦aÑêañé: añ¬aÑÇañÅañ« añòañ+añ+añ+añ¿ añ+añ«aÑìañ«añ+añ¿ añ¿añ+añºañ+, añòañ+añ+añ+añ¿ añòaÑìañ¦aÑçañíañ+añƒ añòañ+añ¦aÑìañí (añåañ+añ+añ¿ añïañú), añöañ¦ añ¬aÑÇañÅañ« añ½añ+añ¦ añ¼aÑÇañ«añ+ añ»aÑïañ£añ¿añ+ (añ½añ+añ¦ añ¼aÑÇañ«añ+)aÑñ';
-        if (/hi|hello|hey|namaste|añ¿añ«añ+aÑìaññaÑç|añ¦aÑçañ¦aÑï/.test(text)) return 'añ¿añ«añ+aÑìaññaÑç! =ƒÖÅ añ«aÑêañé añòaÑâañ+añ+ añ+añûaÑÇ añ¦aÑéañüaÑñ añ«aÑêañé añ«aÑîañ+añ«, añ«añéañíaÑÇ añ¡añ+añ¦, añ½añ+añ¦ añòaÑÇ añ¼aÑÇañ«añ+añ¦añ+añ»aÑïañé añ»añ+ añ+añ¦añòañ+añ¦aÑÇ añ»aÑïañ£añ¿añ+añôañé añ«aÑçañé añåañ¬añòaÑÇ añ«añªañª añòañ¦ añ+añòaññaÑÇ añ¦aÑéañüaÑñ añ¼aññañ+añçañÅ, añåañ¬añòaÑï añòaÑìañ»añ+ añ£añ+añ¿añòañ+añ¦aÑÇ añÜañ+añ¦añ+añÅ?';
-        if (/thank|añºañ¿aÑìañ»añ¦añ+añª|añ¦aÑüañòaÑìañ¦añ+añ»añ+/.test(text)) return 'añåañ¬añòaÑÇ añ«añªañª añòañ¦añòaÑç añ«aÑüañ¥aÑç añ¼añ¦aÑüaññ añûaÑüañ¦aÑÇ añ¦aÑüañê! =ƒî+ añòaÑìañ»añ+ añ«aÑêañé añåañ¬añòaÑÇ añòaÑüañ¢ añöañ¦ añ«añªañª añòañ¦ añ+añòaññaÑÇ añ¦aÑéañü?';
-        return 'añ«aÑêañé añàañ¡aÑÇ añÅañò añíaÑçañ«aÑï añàañ+añ+añ+aÑìañƒaÑçañéañƒ añ¦aÑéañüaÑñ añòaÑâañ¬añ»añ+ añ«aÑîañ+añ«, añ«añéañíaÑÇ añ¡añ+añ¦, añ½añ+añ¦ añòaÑÇ añ¼aÑÇañ«añ+añ¦aÑÇ, añ»añ+ añ+añ¦añòañ+añ¦aÑÇ añ»aÑïañ£añ¿añ+añôañé añòaÑç añ¼añ+añ¦aÑç añ«aÑçañé añ+añ¦añ+añ¦ añ¬aÑéañ¢aÑçañéaÑñ';
+        if (/weather|mausam|temperature|rain|aÃ±Â«aÃ‘Ã®aÃ±+aÃ±Â«/.test(text)) return 'aÃ±Ã¥aÃ±Â¬ aÃ±Â¦aÃ‘Ã¯aÃ±Â«aÃ±Â¬aÃ‘Ã§aÃ±Â£ aÃ±Â¬aÃ±Â¦ aÃ±Â«aÃ‘Ã®aÃ±+aÃ±Â« aÃ±Ã aÃ±Â¿aÃ‘Ã¼aÃ±Â¡aÃ±+aÃ±Ã¹ aÃ±Â«aÃ‘Ã§aÃ±Ã© aÃ±Â¦aÃ±+aÃ±Ã§aÃ±Â¦ aÃ±Â«aÃ‘Ã®aÃ±+aÃ±Â« aÃ±ÂªaÃ‘Ã§aÃ±Ã» aÃ±+aÃ±Ã²aÃ±Ã±aÃ‘Ã§ aÃ±Â¦aÃ‘ÃªaÃ±Ã©aÃ‘Ã± aÃ±Ã²aÃ‘Ã¬aÃ±Â»aÃ±+ aÃ±Â«aÃ‘ÃªaÃ±Ã© aÃ±Ã¥aÃ±Â¬aÃ±Ã²aÃ‘Ã¯ aÃ±Â¦aÃ±Â¦aÃ±+aÃ±Ã© aÃ±Â¦aÃ‘Ã§ aÃ±ÃœaÃ±Â¦aÃ‘Ã©aÃ±Ã©?';
+        if (/mandi|price|rate|aÃ±Â¡aÃ±+aÃ±Â¦|aÃ±Â«aÃ±Ã©aÃ±Ã­aÃ‘Ã‡/.test(text)) return 'aÃ±Ã¥aÃ±Â£ aÃ±Ã²aÃ‘Ã§ aÃ±Â«aÃ±Ã©aÃ±Ã­aÃ‘Ã‡ aÃ±Â¡aÃ±+aÃ±Â¦ aÃ±Ã§aÃ±+ aÃ±Â¬aÃ‘Ã¬aÃ±Â¦aÃ±Ã²aÃ±+aÃ±Â¦ aÃ±Â¦aÃ‘ÃªaÃ±Ã© GÃ‡Ã¶ aÃ±Ã¹aÃ‘Ã§aÃ±Â¦aÃ‘Ã©aÃ±Ã© GÃ©Â¦2420, aÃ±ÃœaÃ±+aÃ±Â¦aÃ±Â¦ GÃ©Â¦2300, aÃ±Â«aÃ±Ã²aÃ‘Ã¬aÃ±Ã²aÃ±+ GÃ©Â¦2100, aÃ±ÂªaÃ±+aÃ±Â¦aÃ‘Ã§aÃ±Ã© GÃ©Â¦5650, aÃ±+aÃ±Â¦aÃ±+aÃ‘Ã¯aÃ±Ã© GÃ©Â¦6000 aÃ±Â¬aÃ‘Ã¬aÃ±Â¦aÃ±Ã±aÃ±+ aÃ±Ã²aÃ‘Ã¬aÃ±Â¦aÃ±+aÃ±Ã©aÃ±Æ’aÃ±Â¦aÃ‘Ã±';
+        if (/disease|pest|leaf|bimari|aÃ±Â¼aÃ‘Ã‡aÃ±Â«aÃ±+aÃ±Â¦aÃ‘Ã‡|aÃ±Â¦aÃ‘Ã¯aÃ±Ã¹/.test(text)) return 'aÃ±Â½aÃ±+aÃ±Â¦ aÃ±Â¦aÃ‘Ã¯aÃ±Ã¹ aÃ±Â¬aÃ±Â¦aÃ±ÃœaÃ±+aÃ±Â¿ aÃ±Ã aÃ±Â¿aÃ‘Ã¼aÃ±Â¡aÃ±+aÃ±Ã¹ aÃ±Â«aÃ‘Ã§aÃ±Ã© aÃ±Â¬aÃ‘Ã¬aÃ±Â¦aÃ±Â¡aÃ±+aÃ±Â¦aÃ±+aÃ±Ã± aÃ±Â¬aÃ±Ã±aÃ‘Ã¬aÃ±Ã±aÃ‘Ã§ aÃ±Ã²aÃ‘Ã‡ aÃ±Ã…aÃ±Ã² aÃ±Â½aÃ‘Ã¯aÃ±Æ’aÃ‘Ã¯ aÃ±Ã aÃ±Â¬aÃ±Â¦aÃ‘Ã¯aÃ±Ã­ aÃ±Ã²aÃ±Â¦aÃ‘Ã§aÃ±Ã©, aÃ±Ã¶aÃ±Â¦ aÃ±Â«aÃ‘ÃªaÃ±Ã© aÃ±Ã¥aÃ±Â¬aÃ±Ã²aÃ‘Ã¯ aÃ±Â¼aÃ‘Ã‡aÃ±Â«aÃ±+aÃ±Â¦aÃ‘Ã‡ aÃ±Ã¶aÃ±Â¦ aÃ±Â¼aÃ±ÃœaÃ±+aÃ±Â¦ aÃ±Ã²aÃ‘Ã§ aÃ±Ã«aÃ±Â¬aÃ±+aÃ±Â» aÃ±Â¼aÃ±Ã±aÃ±+aÃ±Ã¨aÃ±Ã©aÃ±Ã¹aÃ‘Ã‡aÃ‘Ã±';
+        if (/scheme|yojana|loan|subsidy|aÃ±Â»aÃ‘Ã¯aÃ±Â£aÃ±Â¿aÃ±+/.test(text)) return 'aÃ±Â«aÃ‘Ã¼aÃ±Ã»aÃ‘Ã¬aÃ±Â» aÃ±+aÃ±Â¦aÃ±Ã²aÃ±+aÃ±Â¦aÃ‘Ã‡ aÃ±Â»aÃ‘Ã¯aÃ±Â£aÃ±Â¿aÃ±+aÃ±Ã…aÃ±Ã© aÃ±Â¦aÃ‘ÃªaÃ±Ã©: aÃ±Â¬aÃ‘Ã‡aÃ±Ã…aÃ±Â« aÃ±Ã²aÃ±+aÃ±+aÃ±+aÃ±Â¿ aÃ±+aÃ±Â«aÃ‘Ã¬aÃ±Â«aÃ±+aÃ±Â¿ aÃ±Â¿aÃ±+aÃ±ÂºaÃ±+, aÃ±Ã²aÃ±+aÃ±+aÃ±+aÃ±Â¿ aÃ±Ã²aÃ‘Ã¬aÃ±Â¦aÃ‘Ã§aÃ±Ã­aÃ±+aÃ±Æ’ aÃ±Ã²aÃ±+aÃ±Â¦aÃ‘Ã¬aÃ±Ã­ (aÃ±Ã¥aÃ±+aÃ±+aÃ±Â¿ aÃ±Ã¯aÃ±Ãº), aÃ±Ã¶aÃ±Â¦ aÃ±Â¬aÃ‘Ã‡aÃ±Ã…aÃ±Â« aÃ±Â½aÃ±+aÃ±Â¦ aÃ±Â¼aÃ‘Ã‡aÃ±Â«aÃ±+ aÃ±Â»aÃ‘Ã¯aÃ±Â£aÃ±Â¿aÃ±+ (aÃ±Â½aÃ±+aÃ±Â¦ aÃ±Â¼aÃ‘Ã‡aÃ±Â«aÃ±+)aÃ‘Ã±';
+        if (/hi|hello|hey|namaste|aÃ±Â¿aÃ±Â«aÃ±+aÃ‘Ã¬aÃ±Ã±aÃ‘Ã§|aÃ±Â¦aÃ‘Ã§aÃ±Â¦aÃ‘Ã¯/.test(text)) return 'aÃ±Â¿aÃ±Â«aÃ±+aÃ‘Ã¬aÃ±Ã±aÃ‘Ã§! =Æ’Ã–Ã… aÃ±Â«aÃ‘ÃªaÃ±Ã© aÃ±Ã²aÃ‘Ã¢aÃ±+aÃ±+ aÃ±+aÃ±Ã»aÃ‘Ã‡ aÃ±Â¦aÃ‘Ã©aÃ±Ã¼aÃ‘Ã± aÃ±Â«aÃ‘ÃªaÃ±Ã© aÃ±Â«aÃ‘Ã®aÃ±+aÃ±Â«, aÃ±Â«aÃ±Ã©aÃ±Ã­aÃ‘Ã‡ aÃ±Â¡aÃ±+aÃ±Â¦, aÃ±Â½aÃ±+aÃ±Â¦ aÃ±Ã²aÃ‘Ã‡ aÃ±Â¼aÃ‘Ã‡aÃ±Â«aÃ±+aÃ±Â¦aÃ±+aÃ±Â»aÃ‘Ã¯aÃ±Ã© aÃ±Â»aÃ±+ aÃ±+aÃ±Â¦aÃ±Ã²aÃ±+aÃ±Â¦aÃ‘Ã‡ aÃ±Â»aÃ‘Ã¯aÃ±Â£aÃ±Â¿aÃ±+aÃ±Ã´aÃ±Ã© aÃ±Â«aÃ‘Ã§aÃ±Ã© aÃ±Ã¥aÃ±Â¬aÃ±Ã²aÃ‘Ã‡ aÃ±Â«aÃ±ÂªaÃ±Âª aÃ±Ã²aÃ±Â¦ aÃ±+aÃ±Ã²aÃ±Ã±aÃ‘Ã‡ aÃ±Â¦aÃ‘Ã©aÃ±Ã¼aÃ‘Ã± aÃ±Â¼aÃ±Ã±aÃ±+aÃ±Ã§aÃ±Ã…, aÃ±Ã¥aÃ±Â¬aÃ±Ã²aÃ‘Ã¯ aÃ±Ã²aÃ‘Ã¬aÃ±Â»aÃ±+ aÃ±Â£aÃ±+aÃ±Â¿aÃ±Ã²aÃ±+aÃ±Â¦aÃ‘Ã‡ aÃ±ÃœaÃ±+aÃ±Â¦aÃ±+aÃ±Ã…?';
+        if (/thank|aÃ±ÂºaÃ±Â¿aÃ‘Ã¬aÃ±Â»aÃ±Â¦aÃ±+aÃ±Âª|aÃ±Â¦aÃ‘Ã¼aÃ±Ã²aÃ‘Ã¬aÃ±Â¦aÃ±+aÃ±Â»aÃ±+/.test(text)) return 'aÃ±Ã¥aÃ±Â¬aÃ±Ã²aÃ‘Ã‡ aÃ±Â«aÃ±ÂªaÃ±Âª aÃ±Ã²aÃ±Â¦aÃ±Ã²aÃ‘Ã§ aÃ±Â«aÃ‘Ã¼aÃ±Â¥aÃ‘Ã§ aÃ±Â¼aÃ±Â¦aÃ‘Ã¼aÃ±Ã± aÃ±Ã»aÃ‘Ã¼aÃ±Â¦aÃ‘Ã‡ aÃ±Â¦aÃ‘Ã¼aÃ±Ãª! =Æ’Ã®+ aÃ±Ã²aÃ‘Ã¬aÃ±Â»aÃ±+ aÃ±Â«aÃ‘ÃªaÃ±Ã© aÃ±Ã¥aÃ±Â¬aÃ±Ã²aÃ‘Ã‡ aÃ±Ã²aÃ‘Ã¼aÃ±Â¢ aÃ±Ã¶aÃ±Â¦ aÃ±Â«aÃ±ÂªaÃ±Âª aÃ±Ã²aÃ±Â¦ aÃ±+aÃ±Ã²aÃ±Ã±aÃ‘Ã‡ aÃ±Â¦aÃ‘Ã©aÃ±Ã¼?';
+        return 'aÃ±Â«aÃ‘ÃªaÃ±Ã© aÃ±Ã aÃ±Â¡aÃ‘Ã‡ aÃ±Ã…aÃ±Ã² aÃ±Ã­aÃ‘Ã§aÃ±Â«aÃ‘Ã¯ aÃ±Ã aÃ±+aÃ±+aÃ±+aÃ‘Ã¬aÃ±Æ’aÃ‘Ã§aÃ±Ã©aÃ±Æ’ aÃ±Â¦aÃ‘Ã©aÃ±Ã¼aÃ‘Ã± aÃ±Ã²aÃ‘Ã¢aÃ±Â¬aÃ±Â»aÃ±+ aÃ±Â«aÃ‘Ã®aÃ±+aÃ±Â«, aÃ±Â«aÃ±Ã©aÃ±Ã­aÃ‘Ã‡ aÃ±Â¡aÃ±+aÃ±Â¦, aÃ±Â½aÃ±+aÃ±Â¦ aÃ±Ã²aÃ‘Ã‡ aÃ±Â¼aÃ‘Ã‡aÃ±Â«aÃ±+aÃ±Â¦aÃ‘Ã‡, aÃ±Â»aÃ±+ aÃ±+aÃ±Â¦aÃ±Ã²aÃ±+aÃ±Â¦aÃ‘Ã‡ aÃ±Â»aÃ‘Ã¯aÃ±Â£aÃ±Â¿aÃ±+aÃ±Ã´aÃ±Ã© aÃ±Ã²aÃ‘Ã§ aÃ±Â¼aÃ±+aÃ±Â¦aÃ‘Ã§ aÃ±Â«aÃ‘Ã§aÃ±Ã© aÃ±+aÃ±Â¦aÃ±+aÃ±Â¦ aÃ±Â¬aÃ‘Ã©aÃ±Â¢aÃ‘Ã§aÃ±Ã©aÃ‘Ã±';
     }
 
     function speakText(text) {
